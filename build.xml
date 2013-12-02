@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<project default="retrieve" basedir=".">
+
+<echo message="pulling in property files"/>
+<property file="build.properties"/>
+<property name="dependencies.lib" value="${basedir}/dependencies/lib" />
+	
+<echo message="calling the web services generation ant task: axis_bujava"/>
+ <target name="main" >
+  	 <wsgen/>
+  </target>
+ 	
+ 	
+<target name="prepare" description="Prepare directory for compilation, creation of dependancies folder">
+		<echo message="-------------------------------------------------"></echo>
+		<echo message="						PREPARE						"></echo>
+		<echo message="-------------------------------------------------"></echo>
+		
+		<mkdir dir="${dependencies.lib}">
+		</mkdir>
+		<echo message="CREATING DIR : ${dependencies.lib}... 	SUCCESS">
+		</echo>
+
+		<echo message="PREPARING FINISHED">
+		</echo>
+		
+	</target>
+
+
+<target name="retrieve" depends="prepare" description="Retrieve dependencies of the project">
+		<echo message="-------------------------------------------------"></echo>
+		<echo message="						RETRIEVE					"></echo>
+		<echo message="-------------------------------------------------"></echo>
+		<!--<setproxy proxyhost="proxy-lb.gicm.net" proxyport="3128" />-->
+
+
+
+		<get dest="${dependencies.lib}/jdom_2.0.jar" src="http://repo1.maven.org/maven2/org/jdom/jdom2/2.0.5/jdom2-2.0.5.jar"/>
+		<echo>Get jdom OK!</echo>
+		
+		<get dest="${dependencies.lib}/log4j_api_2.0.jar" src="http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.0-beta9/log4j-api-2.0-beta9.jar">
+		</get>
+		<echo>Get log4j_api_2.0 OK!</echo>
+		
+		<get dest="${dependencies.lib}/log4j_core_2.0.jar" src="http://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.0-beta9/log4j-core-2.0-beta9.jar">
+		</get>
+		<echo>Get log4j_core_2.0 OK!</echo>
+		
+
+		<get dest="${dependencies.lib}/slick.zip" src="http://slick.ninjacave.com/slick.zip">
+		</get>
+		<mkdir dir="${dependencies.lib}/slick"></mkdir>
+		<echo>Unzip slick.zip</echo>
+		<unzip src="${dependencies.lib}/slick.zip" dest="${dependencies.lib}/slick">
+		</unzip>
+		<echo>Delete slick.zip</echo>
+		<delete file="${dependencies.lib}/slick.zip"/>
+		<echo>Copy jar's</echo>
+		<copy file="${dependencies.lib}/slick/lib/slick.jar" todir="${dependencies.lib}" />
+		<copy file="${dependencies.lib}/slick/lib/lwjgl.jar" todir="${dependencies.lib}" />
+		<echo>Delete dir slick</echo>
+		<delete dir="${dependencies.lib}/slick"/>
+		<echo>Get slick OK!</echo>
+
+		<echo>RETRIEVE FINISHED</echo>
+	</target>
+  
+</project>
