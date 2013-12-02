@@ -18,6 +18,8 @@
 
 package fourmiz.engine;
 
+import fourmiz.collision.Entity;
+
 public abstract class Abillity {
 	protected int ID;
 	protected Entity owner;

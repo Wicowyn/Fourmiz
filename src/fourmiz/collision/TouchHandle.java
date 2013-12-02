@@ -16,8 +16,16 @@
     along with Bomberton.  If not, see <http://www.gnu.org/licenses/>.
 *///////////////////////////////////////////////////////////////////////
 
-package fourmiz.engine;
+package fourmiz.collision;
 
-public interface ActionKill {
-	public void kill(Entity killer, Entity killed);
+
+
+public interface TouchHandle extends Comparable<TouchHandle> {
+	public void setPriority(int priority);
+	public int getPriority();
+	
+	public int getType();
+	public Entity getOwner();
+	
+	public void perform(TouchMarker marker);
 }

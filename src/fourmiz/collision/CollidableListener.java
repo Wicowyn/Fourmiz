@@ -16,12 +16,12 @@
     along with Bomberton.  If not, see <http://www.gnu.org/licenses/>.
 *///////////////////////////////////////////////////////////////////////
 
-package fourmiz.engine;
+package fourmiz.collision;
 
-public interface CollisionHandler {
+public interface CollidableListener {
+	public void touchHandleAdded(TouchHandle handle);
+	public void touchHandleRemoved(TouchHandle handle);
 	
-	public int getCollider1Type();
-	public int getCollider2Type();
-	public void performCollision(Collidable collidable1, Collidable collidable2);
-	public void update();
+	public void touchMarkerAdded(TouchMarker marker);
+	public void touchMarkerRemoved(TouchMarker marker);
 }

@@ -22,8 +22,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
 
+import fourmiz.collision.Entity;
 import fourmiz.engine.Abillity;
-import fourmiz.engine.Entity;
 
 public abstract class Render extends Abillity {
 

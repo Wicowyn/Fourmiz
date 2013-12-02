@@ -16,17 +16,11 @@
     along with Bomberton.  If not, see <http://www.gnu.org/licenses/>.
 *///////////////////////////////////////////////////////////////////////
 
-package fourmiz.engine;
+package fourmiz.collision;
 
-import java.util.List;
 
-import org.newdawn.slick.geom.Shape;
 
-public interface Collidable {
-	
-    public Shape getNormalCollisionShape();
-	public Shape getCollisionShape();
-	public int getCollisionType();
-	public boolean isCollidingWith(Collidable collidable);
-	public List<CollisionAbillity> getCollisionAbillity(int colliderType);
+public interface TouchMarker {
+	public int getType();
+	public Entity getOwner();
 }

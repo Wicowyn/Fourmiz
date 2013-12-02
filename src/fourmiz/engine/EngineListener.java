@@ -18,6 +18,8 @@
 
 package fourmiz.engine;
 
+import fourmiz.collision.Entity;
+
 public interface EngineListener {
 	public void entityAdded(Entity entity);
 	public void entityRemoved(Entity entity);

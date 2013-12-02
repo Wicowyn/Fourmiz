@@ -1,6 +1,6 @@
 /*//////////////////////////////////////////////////////////////////////
 	This file is part of Bomberton, an Bomberman-like.
-	Copyright (C) 2012-2013  Nicolas Barranger <wicowyn@gmail.com>
+	Copyright (C) 2013  Nicolas Barranger <wicowyn@gmail.com>
 
     Bomberton is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,8 +18,6 @@
 
 package fourmiz.engine;
 
-public interface CollisionAbillity{
-	
-	public abstract int getColliderType();
-	public abstract void performCollision(Collidable collidable);
+public enum EntityName {
+	BreakableBlock, SolidBlock, Fire, BombermanPlayer, Bonus, Bomb
 }
