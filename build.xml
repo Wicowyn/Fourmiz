@@ -5,6 +5,7 @@
 <echo message="pulling in property files"/>
 <property file="build.properties"/>
 <property name="dependencies.lib" value="${basedir}/dependencies/lib" />
+<property name="dependencies.nat" value="${basedir}/dependencies/lib/native" />
 	
 <echo message="calling the web services generation ant task: axis_bujava"/>
  <target name="main" >
@@ -21,11 +22,15 @@
 		</mkdir>
 		<echo message="CREATING DIR : ${dependencies.lib}... 	SUCCESS">
 		</echo>
-
+		<mkdir dir="${dependencies.nat}">
+		</mkdir>
+		<echo message="CREATING DIR : ${dependencies.nat}... 	SUCCESS">
+		</echo>
+			
 		<echo message="PREPARING FINISHED">
 		</echo>
 		
-	</target>
+</target>
 
 
 <target name="retrieve" depends="prepare" description="Retrieve dependencies of the project">
@@ -50,24 +55,32 @@
 
 		<get dest="${dependencies.lib}/slick.zip" src="http://slick.ninjacave.com/slick.zip">
 		</get>
-		<mkdir dir="${dependencies.lib}/slick"></mkdir>
-		<mkdir dir="${dependencies.lib}/native"></mkdir>
 		<echo>Unzip slick.zip</echo>
-		<unzip src="${dependencies.lib}/slick.zip" dest="${dependencies.lib}/slick">
+		<unzip src="${dependencies.lib}/slick.zip" dest="${dependencies.lib}">
+			<patternset>
+				<include name="lib/lwjgl.jar"/>
+				<include name="lib/slick.jar"/>
+				<include name="*.so"/>
+				<include name="*.dll"/>
+			</patternset>
 		</unzip>
+		
 		<echo>Delete slick.zip</echo>
 	 	<delete file="${dependencies.lib}/slick.zip"/>
 		<echo>Copy jar's</echo>
-		<copy todir="${dependencies.lib}/native">
-		    <fileset dir="${dependencies.lib}/slick/">
+		<copy todir="${dependencies.nat}">
+		    <fileset dir="${dependencies.lib}">
 		      <include name="*.so"/>
 		      <include name="*.dll"/>
 		    </fileset>
   		</copy>
-		<copy file="${dependencies.lib}/slick/lib/slick.jar" todir="${dependencies.lib}" />
-		<copy file="${dependencies.lib}/slick/lib/lwjgl.jar" todir="${dependencies.lib}" />
-		<echo>Delete dir slick</echo>
-		<delete dir="${dependencies.lib}/slick"/>
+		<copy file="${dependencies.lib}/lib/slick.jar" todir="${dependencies.lib}" />
+		<copy file="${dependencies.lib}/lib/lwjgl.jar" todir="${dependencies.lib}" />
+		<delete dir="${dependencies.lib}/lib"></delete>
+		<delete>
+			<fileset dir="${dependencies.lib}" includes="*.so"></fileset>
+			<fileset dir="${dependencies.lib}" includes="*.dll"></fileset>
+		</delete>
 		<echo>Get slick OK!</echo>
 
 		<echo>RETRIEVE FINISHED</echo>
