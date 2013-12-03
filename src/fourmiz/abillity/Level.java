@@ -32,14 +32,15 @@ public class Level extends Abillity {
 		}
 		else if(state==LifeState.NYMPH && time>=NYMPH_TIME){
 			state=LifeState.FOURMIZ;
-			
-			
+
 		}
 
 	}
 	
-	
-	
+	public void setState(LifeState state) {
+		this.state = state;
+	}
+
 	public LifeState getState() {
 		return state;
 	}
