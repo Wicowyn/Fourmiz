@@ -32,7 +32,7 @@ public class Life extends Abillity{
 		//You are dead, life empty
 		if(life_current<=0){
 			live_or_dead = true;//à supprimer ?
-			owner.getEngine().removeEntity(owner);		
+			owner.getEngine().removeEntityToBuff(owner);		
 		}
 	}
 	
