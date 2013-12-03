@@ -9,7 +9,7 @@ import fourmiz.engine.Abillity;
 
 public class Fourmiz extends Abillity{
 	
-	private Type type;
+	//private Type type;
 
 	public Fourmiz(Entity owner) {
 		super(owner);

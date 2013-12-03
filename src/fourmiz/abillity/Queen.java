@@ -10,8 +10,6 @@ import fourmiz.collision.Entity;
 import fourmiz.collision.TouchHandle;
 import fourmiz.collision.TouchMarker;
 import fourmiz.engine.Abillity;
-import fourmiz.engine.Engine;
-import fourmiz.abillity.Egg;
 
 public class Queen extends Abillity
 {
@@ -33,15 +31,15 @@ public class Queen extends Abillity
 		if(eggReady) spawn();
 	}
 	
-	//crée un oeuf et l'ajoute à la collection et met eggReady à false une fois pondu
+	//crï¿½e un oeuf et l'ajoute ï¿½ la collection et met eggReady ï¿½ false une fois pondu
 	public void spawn()
 	{
 		//TODO changer addEntityToBuff vers createEntity
-		this.owner.getEngine().addEntityToBuff(new Egg(owner));
+		//this.owner.getEngine().addEntityToBuff(new Egg(owner));
 		this.eggReady = false;
 	}
 	
-	//met eggReady à true si l'oeuf est prêt à être pondu
+	//met eggReady ï¿½ true si l'oeuf est prï¿½t ï¿½ ï¿½tre pondu
 	private void readyToSpawn()
 	{
 		while(true)

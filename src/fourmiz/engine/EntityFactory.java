@@ -22,6 +22,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.geom.Rectangle;
 
+import fourmiz.abillity.Level;
+import fourmiz.abillity.Level.LifeState;
+import fourmiz.abillity.Life;
 import fourmiz.collision.Entity;
 
 public class EntityFactory {
@@ -37,7 +40,6 @@ public class EntityFactory {
 		EntityFactory.width=width;
 	}
 	
-	@SuppressWarnings("unused")
 	private static Rectangle get(float x, float y, float width, float height){
 		return new Rectangle(
 				x*EntityFactory.width/1000,
@@ -47,9 +49,27 @@ public class EntityFactory {
 	}
 	
 	public static Entity createEntity(EntityName name, Engine engine){
-		Entity entity=null;
+		Entity entity=new Entity(engine, get(0, 0, 1000, 1000));
 		
 		switch(name){
+		case Egg:
+			break;
+		case Larva:
+			Life life=new Life(entity);
+			//TODO to parameter setLife...
+			entity.addAbillity(life);
+			
+			Level level=new Level(entity);
+			level.setState(LifeState.LARVA);
+			break;
+		case Nymph:
+			break;
+		case FourmizWorker:
+			break;
+		case FourmizSoldier:
+			break;
+		case FourmizSex:
+			break;
 		default:
 			EntityFactory.log.fatal("Value : "+name+" don't handle");
 			System.exit(1);

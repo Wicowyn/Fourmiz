@@ -19,5 +19,5 @@
 package fourmiz.engine;
 
 public enum EntityName {
-	BreakableBlock, SolidBlock, Fire, BombermanPlayer, Bonus, Bomb
+	Egg, Larva, Nymph, FourmizWorker, FourmizSoldier, FourmizSex 
 }
