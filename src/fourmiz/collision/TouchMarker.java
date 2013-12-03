@@ -18,9 +18,11 @@
 
 package fourmiz.collision;
 
+import org.newdawn.slick.geom.Shape;
 
 
 public interface TouchMarker {
 	public int getType();
 	public Entity getOwner();
+	public Shape getShape();
 }

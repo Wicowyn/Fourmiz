@@ -18,6 +18,8 @@
 
 package fourmiz.collision;
 
+import org.newdawn.slick.geom.Shape;
+
 
 
 public interface TouchHandle extends Comparable<TouchHandle> {
@@ -26,6 +28,7 @@ public interface TouchHandle extends Comparable<TouchHandle> {
 	
 	public int getType();
 	public Entity getOwner();
+	public Shape getArea();
 	
 	public void perform(TouchMarker marker);
 }

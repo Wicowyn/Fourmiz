@@ -18,9 +18,17 @@
 
 package fourmiz.engine;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import fourmiz.collision.CollidableListener;
 import fourmiz.collision.Entity;
+import fourmiz.collision.TouchHandle;
+import fourmiz.collision.TouchMarker;
 
 public abstract class Abillity {
+	private List<CollidableListener> collidableListeners=new ArrayList<CollidableListener>();
 	protected int ID;
 	protected Entity owner;
 	
@@ -38,4 +46,30 @@ public abstract class Abillity {
 	}
 	
 	public abstract void update(int delta);
+	public abstract Collection<TouchMarker> getTouchMarker();
+	public abstract Collection<TouchHandle> getTouchHandle();
+	
+	public void addCollidableListener(CollidableListener listener){
+		collidableListeners.add(listener);
+	}
+	
+	public boolean removeCollidableListener(CollidableListener listener){
+		return collidableListeners.remove(listener);
+	}
+	
+	protected void notifyTouchHandleAdded(TouchHandle handle){
+		for(CollidableListener listener : this.collidableListeners) listener.touchHandleAdded(handle);
+	}
+	
+	protected void notifyTouchHandleRemoved(TouchHandle handle){
+		for(CollidableListener listener : this.collidableListeners) listener.touchHandleRemoved(handle);
+	}
+
+	protected void notifyTouchMarkerAdded(TouchMarker marker){
+		for(CollidableListener listener : this.collidableListeners) listener.touchMarkerAdded(marker);
+	}
+	
+	protected void notifyTouchMarkerRemoved(TouchMarker marker){
+		for(CollidableListener listener : this.collidableListeners) listener.touchMarkerRemoved(marker);
+	}
 }

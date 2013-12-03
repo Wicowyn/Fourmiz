@@ -44,12 +44,9 @@ public final class Entity{
 	private boolean inUpdate=false;
 	private boolean modifNCS=true; //NCS NormalCollisionShape, usefull for optimisation
 	private List<EntityListener> entityListeners=new ArrayList<EntityListener>();
-	private List<CollidableListener> collidableListeners=new ArrayList<CollidableListener>();
 	private List<Abillity> abillities=new ArrayList<Abillity>();
 	private Set<Abillity> abillitiesAdd=new HashSet<Abillity>();
 	private Set<Abillity> abillitiesRemove=new HashSet<Abillity>();
-	private List<TouchHandle> touchHandles=new ArrayList<TouchHandle>();
-	private List<TouchMarker> touchMarkers=new ArrayList<TouchMarker>();
 	private Entity owner=null;
 	private Shape normalCollisionShape=null;
 	private Shape collisionShape=null;
@@ -72,12 +69,6 @@ public final class Entity{
 	public void clear(){
 		for(Abillity abillity : this.abillities) notifyAbillityRemoved(abillity);
 		this.abillities.clear();
-		
-		for(TouchHandle handle : this.touchHandles) notifyTouchHandleRemoved(handle);
-		this.touchHandles.clear();
-		
-		for(TouchMarker marker : this.touchMarkers) notifyTouchMarkerRemoved(marker);
-		this.touchMarkers.clear();
 	}
 	
 	public void update(int delta){
@@ -87,7 +78,7 @@ public final class Entity{
 		checkAbillityBuff();
 	}
 	
-	public void checkAbillityBuff(){
+	private void checkAbillityBuff(){
 		for(Abillity abillity : this.abillitiesAdd) addAbillity(abillity);
 		for(Abillity abillity : this.abillitiesRemove) removeAbillity(abillity);
 		
@@ -105,6 +96,7 @@ public final class Entity{
 		this.abillities.add(abillity);
 		
 		notifyAbillityAdded(abillity);
+		
 		this.log.debug("abillity: "+abillity.getClass().getSimpleName()+" add to "+getID());
 	}
 	
@@ -123,48 +115,8 @@ public final class Entity{
 		return false;
 	}
 	
-	public void addTouchHandle(TouchHandle handle){
-		this.touchHandles.add(handle);
-		notifyTouchHandleAdded(handle);
-		this.log.debug("touchHandle: "+handle.getClass().getSimpleName()+" add to "+getID());
-	}
-	
-	public boolean removeTouchHandle(TouchHandle handle){
-		if(this.touchHandles.remove(handle)){
-			notifyTouchHandleRemoved(handle);
-			this.log.debug("touchHandle: "+handle.getClass().getSimpleName()+" remove from "+getID());
-			return true;
-		}
-		
-		return false;
-	}
-	
-	public void addTouchMarker(TouchMarker marker){
-		this.touchMarkers.add(marker);
-		notifyTouchMarkerAdded(marker);
-		this.log.debug("touchMarker: "+marker.getClass().getSimpleName()+" add to "+getID());
-	}
-	
-	public boolean removeTouchMarker(TouchMarker marker){
-		if(this.touchMarkers.remove(marker)){
-			notifyTouchMarkerRemoved(marker);
-			this.log.debug("touchMarker: "+marker.getClass().getSimpleName()+" remove from "+getID());
-			return true;
-		}
-		
-		return false;
-	}
-	
 	public List<Abillity> getAllAbillity(){
 		return new ArrayList<Abillity>(this.abillities);
-	}
-	
-	public List<TouchHandle> getAllTouchHandle() {
-		return new ArrayList<TouchHandle>(this.touchHandles);
-	}
-
-	public List<TouchMarker> getAllTouchMarker() {
-		return new ArrayList<TouchMarker>(this.touchMarkers);
 	}
 	
 	public Abillity getAbillity(int ID){
@@ -240,30 +192,6 @@ public final class Entity{
 		for(EntityListener listener : this.entityListeners) listener.abillityRemoved(abillity);
 	}
 
-	public void addCollidableListener(CollidableListener listener) {
-		this.collidableListeners.add(listener);		
-	}
-
-	public boolean removeCollidableListener(CollidableListener listener) {
-		return this.collidableListeners.remove(listener);
-	}
-
-	protected void notifyTouchHandleAdded(TouchHandle handle){
-		for(CollidableListener listener : this.collidableListeners) listener.touchHandleAdded(handle);
-	}
-	
-	protected void notifyTouchHandleRemoved(TouchHandle handle){
-		for(CollidableListener listener : this.collidableListeners) listener.touchHandleRemoved(handle);
-	}
-
-	protected void notifyTouchMarkerAdded(TouchMarker marker){
-		for(CollidableListener listener : this.collidableListeners) listener.touchMarkerAdded(marker);
-	}
-	
-	protected void notifyTouchMarkerRemoved(TouchMarker marker){
-		for(CollidableListener listener : this.collidableListeners) listener.touchMarkerRemoved(marker);
-	}
-	
 	public Shape getNormalCollisionShape(){
 		return this.normalCollisionShape;
 	}

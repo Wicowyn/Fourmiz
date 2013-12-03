@@ -28,86 +28,102 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import fourmiz.engine.Abillity;
+import fourmiz.engine.EntityListener;
 
-public class CollisionManager{
-	private List<ListenEntity> listens=new ArrayList<ListenEntity>();
-	private Map<Integer, Set<Entity>> colliHandle=new HashMap<Integer, Set<Entity>>();
-	private Map<Integer, Set<Entity>> colliMarker=new HashMap<Integer, Set<Entity>>();
+
+public class CollisionManager implements CollidableListener, EntityListener{
+	private Map<Integer, Set<TouchHandle>> colliHandle=new HashMap<Integer, Set<TouchHandle>>();
+	private Map<Integer, Set<TouchMarker>> colliMarker=new HashMap<Integer, Set<TouchMarker>>();
 	
 	
-	public void addEntity(Entity Entity){
-		ListenEntity listen=new ListenEntity(Entity);
-		this.listens.add(listen);
+	public void addEntity(Entity entity){
+		for(Abillity abillity : entity.getAllAbillity()){
+			abillityAdded(abillity);
+		}
 		
-		for(TouchHandle handle : Entity.getAllTouchHandle()) listen.touchHandleAdded(handle);
-		for(TouchMarker marker : Entity.getAllTouchMarker()) listen.touchMarkerAdded(marker);
+		entity.addEntityListener(this);
 	}
 	
 	public void addEntity(Collection<Entity> collection){
 		for(Entity entity : collection) addEntity(entity);
 	}
 	
-	public boolean removeEntity(Entity entity){		
-		for(Iterator<ListenEntity> it=this.listens.iterator(); it.hasNext();){
-			ListenEntity listen=it.next();
-			
-			if(listen.entity==entity){
-				for(TouchHandle handle : entity.getAllTouchHandle()) listen.touchHandleRemoved(handle);
-				for(TouchMarker marker : entity.getAllTouchMarker()) listen.touchMarkerRemoved(marker);
-				
-				it.remove();
-				return true;
-			}
+	public void removeEntity(Entity entity){
+		for(Abillity abillity : entity.getAllAbillity()){
+			abillityRemoved(abillity);
 		}
 		
-		return false;
+		entity.removeEntityListener(this);
 	}
 	
-	public boolean removeEntity(Collection<Entity> collection){
-		boolean removed=false;
-		
-		for(Iterator<ListenEntity> it=this.listens.iterator(); it.hasNext();){
-			ListenEntity listen=it.next();
-			
-			if(collection.contains(listen.entity)){
-				for(TouchHandle handle : listen.entity.getAllTouchHandle()) listen.touchHandleRemoved(handle);
-				for(TouchMarker marker : listen.entity.getAllTouchMarker()) listen.touchMarkerRemoved(marker);
-				
-				it.remove();
-				removed=true;
-			}
-		}
-		
-		return removed;
+	public void removeEntity(Collection<Entity> collection){
+		for(Entity entity : collection) removeEntity(entity);
 	}
 	
 	public void performCollision(){
 		List<DataCollide> toCollides=new ArrayList<DataCollide>();
 		
-		for(Iterator<Map.Entry<Integer, Set<Entity>>> itH=this.colliHandle.entrySet().iterator(); itH.hasNext();){
-			Map.Entry<Integer, Set<Entity>> entry=itH.next();
-			Set<Entity> setM=this.colliMarker.get(entry.getKey());
+		for(Iterator<Map.Entry<Integer, Set<TouchHandle>>> itH=this.colliHandle.entrySet().iterator(); itH.hasNext();){
+			Map.Entry<Integer, Set<TouchHandle>> entry=itH.next();
+			Set<TouchMarker> setM=this.colliMarker.get(entry.getKey());
 			
 			if(setM==null) continue;
 			
-			for(Entity colliH : entry.getValue()){
-				for(Entity  colliM : setM){
-					if(colliH.isCollidingWith(colliM) && colliH!=colliM){
+			for(TouchHandle tH : entry.getValue()){
+				for(TouchMarker  tM : setM){
+					if(tH.getArea().intersects(tM.getShape()) && tH!=tM){
 						//TODO à optimiser, potiellement 2 même collision peuvent être prise en compte. Mais ne pose pas de problème.
-						for(TouchHandle handle : colliH.getAllTouchHandle()){
-							for(TouchMarker marker : colliM.getAllTouchMarker()){
-								if(handle.getType()==marker.getType()) toCollides.add(new DataCollide(handle, marker));
-							}
-						}
+						toCollides.add(new DataCollide(tH, tM));
 					}
 				}
 			}
 		}
 		
 		Collections.sort(toCollides);
-		for(DataCollide data : toCollides) data.perform();
+		for(DataCollide data : toCollides) data.perform();		
+	}
+
+	@Override
+	public void touchHandleAdded(TouchHandle handle) {
+		Set<TouchHandle> set=colliHandle.get(handle.getType());
+		
+		if(set==null){
+			set=new HashSet<TouchHandle>();
+			CollisionManager.this.colliHandle.put(handle.getType(), set);
+		}
+		
+		set.add(handle);
 	}
 	
+	@Override
+	public void touchHandleRemoved(TouchHandle handle) {
+		Set<TouchHandle> set=colliHandle.get(handle.getType());
+		
+		set.remove(handle);
+		if(set.isEmpty()) colliHandle.remove(handle.getType());
+		
+	}
+	
+	@Override
+	public void touchMarkerAdded(TouchMarker marker) {
+		Set<TouchMarker> set=colliMarker.get(marker.getType());
+		
+		if(set==null){
+			set=new HashSet<TouchMarker>();
+			CollisionManager.this.colliMarker.put(marker.getType(), set);
+		}
+		
+		set.add(marker);
+	}
+	
+	@Override
+	public void touchMarkerRemoved(TouchMarker marker) {
+		Set<TouchMarker> set=colliMarker.get(marker.getType());
+		
+		set.remove(marker);
+		if(set.isEmpty()) CollisionManager.this.colliMarker.remove(marker.getType());
+	}
 	
 	public class DataCollide implements Comparable<DataCollide>{
 		public TouchHandle handle;
@@ -129,55 +145,20 @@ public class CollisionManager{
 		}
 		
 	}
-	
-	
-	private class ListenEntity implements CollidableListener{
-		public Entity entity;
-		
-		
-		public ListenEntity(Entity Entity){
-			this.entity=Entity;
-			this.entity.addCollidableListener(this);
-		}
-		
-		@Override
-		public void touchHandleAdded(TouchHandle handle) {
-			Set<Entity> set=CollisionManager.this.colliHandle.get(handle.getType());
-			
-			if(set==null){
-				set=new HashSet<Entity>();
-				CollisionManager.this.colliHandle.put(handle.getType(), set);
-			}
-			
-			set.add(this.entity);
-		}
 
-		@Override
-		public void touchHandleRemoved(TouchHandle handle) {
-			Set<Entity> set=CollisionManager.this.colliHandle.get(handle.getType());
-			
-			set.remove(this.entity);
-			if(set.isEmpty()) CollisionManager.this.colliHandle.remove(handle.getType());
-		}
+	@Override
+	public void abillityAdded(Abillity abillity) {
+		for(TouchHandle handle : abillity.getTouchHandle()) touchHandleAdded(handle);
+		for(TouchMarker marker : abillity.getTouchMarker()) touchMarkerAdded(marker);
+		
+		abillity.addCollidableListener(this);
+	}
 
-		@Override
-		public void touchMarkerAdded(TouchMarker marker) {
-			Set<Entity> set=CollisionManager.this.colliMarker.get(marker.getType());
-			
-			if(set==null){
-				set=new HashSet<Entity>();
-				CollisionManager.this.colliMarker.put(marker.getType(), set);
-			}
-			
-			set.add(this.entity);
-		}
-
-		@Override
-		public void touchMarkerRemoved(TouchMarker marker) {
-			Set<Entity> set=CollisionManager.this.colliMarker.get(marker.getType());
-			
-			set.remove(this.entity);
-			if(set.isEmpty()) CollisionManager.this.colliMarker.remove(marker.getType());
-		}		
+	@Override
+	public void abillityRemoved(Abillity abillity) {
+		for(TouchHandle handle : abillity.getTouchHandle()) touchHandleRemoved(handle);
+		for(TouchMarker marker : abillity.getTouchMarker()) touchMarkerRemoved(marker);
+		
+		abillity.removeCollidableListener(this);
 	}
 }
