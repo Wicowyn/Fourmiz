@@ -15,7 +15,7 @@ public class Main {
 
 		AppGameContainer app;
 		try {
-			app = new AppGameContainer(new TheGame("Bomberman"));
+			app = new AppGameContainer(new TheGame("Fourmizz"));
 			app.setDisplayMode(1000, 600, false);
 			app.setTargetFrameRate(30);
 			app.setShowFPS(true);
