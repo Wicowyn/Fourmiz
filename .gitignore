@@ -1,7 +1,10 @@
+# Files #
+log4j2.xml
 
 # Package Files #
-
 *.war
 *.ear
+
+# Folder #
 /bin
 /dependencies
