@@ -44,10 +44,10 @@ public class SelectGameState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		this.baseGame=game;
-		this.background=new Image("image/background-menu1.png");
+		this.background=new Image("image/wallpaper.png");
 		
 		this.menu=new LimitedMenu(container, new Image("ressources/fleche.png"));
-		this.menu.setLocation(480, 330);
+		this.menu.setLocation(115, 630);
 		this.menu.setMaxShowComponent(6);
 	}
 	

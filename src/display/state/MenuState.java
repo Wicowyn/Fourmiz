@@ -56,10 +56,10 @@ public class MenuState extends BasicGameState implements LayoutMenuActionListene
 		
 		input = container.getInput();
 			
-		menu = new Image("image/background-menu1.png");
+		menu = new Image("image/wallpaper.png");
 		
 		menu2=new LayoutMenu(container, new Image("ressources/fleche.png"));
-		menu2.setLocation(480, 330);
+		menu2.setLocation(115, 630);
 			
 		AngelCodeFont font=new AngelCodeFont("ressources/Latin.fnt", new Image("ressources/Latin.tga"));
 		
