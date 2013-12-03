@@ -51,12 +51,19 @@
 		<get dest="${dependencies.lib}/slick.zip" src="http://slick.ninjacave.com/slick.zip">
 		</get>
 		<mkdir dir="${dependencies.lib}/slick"></mkdir>
+		<mkdir dir="${dependencies.lib}/native"></mkdir>
 		<echo>Unzip slick.zip</echo>
 		<unzip src="${dependencies.lib}/slick.zip" dest="${dependencies.lib}/slick">
 		</unzip>
 		<echo>Delete slick.zip</echo>
-		<delete file="${dependencies.lib}/slick.zip"/>
+	 	<delete file="${dependencies.lib}/slick.zip"/>
 		<echo>Copy jar's</echo>
+		<copy todir="${dependencies.lib}/native">
+		    <fileset dir="${dependencies.lib}/slick/">
+		      <include name="*.so"/>
+		      <include name="*.dll"/>
+		    </fileset>
+  		</copy>
 		<copy file="${dependencies.lib}/slick/lib/slick.jar" todir="${dependencies.lib}" />
 		<copy file="${dependencies.lib}/slick/lib/lwjgl.jar" todir="${dependencies.lib}" />
 		<echo>Delete dir slick</echo>
