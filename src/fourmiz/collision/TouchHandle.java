@@ -20,15 +20,18 @@ package fourmiz.collision;
 
 import org.newdawn.slick.geom.Shape;
 
-
-
-public interface TouchHandle extends Comparable<TouchHandle> {
-	public void setPriority(int priority);
-	public int getPriority();
+public abstract class TouchHandle implements Comparable<TouchHandle> {
+	public abstract int getType();
+	public abstract Entity getOwner();
+	public abstract Shape getArea();
 	
-	public int getType();
-	public Entity getOwner();
-	public Shape getArea();
+	public abstract void setPriority(int priority);
+	public abstract int getPriority();
 	
-	public void perform(TouchMarker marker);
+	public abstract void perform(TouchMarker marker);
+	
+	@Override
+	public int compareTo(TouchHandle handle){
+		return getPriority()-handle.getPriority();
+	}
 }

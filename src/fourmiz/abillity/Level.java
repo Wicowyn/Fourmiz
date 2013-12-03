@@ -68,11 +68,11 @@ public class Level extends Abillity {
 
 	@Override
 	public Collection<TouchMarker> getTouchMarker() {
-		return new ArrayList<TouchMarker>();
+		return new ArrayList<TouchMarker>(0);
 	}
 
 	@Override
 	public Collection<TouchHandle> getTouchHandle() {
-		return new ArrayList<TouchHandle>();
+		return new ArrayList<TouchHandle>(0);
 	}
 }

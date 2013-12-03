@@ -72,7 +72,7 @@ public class CollisionManager implements CollidableListener, EntityListener{
 			
 			for(TouchHandle tH : entry.getValue()){
 				for(TouchMarker  tM : setM){
-					if(tH.getArea().intersects(tM.getShape()) && tH!=tM){
+					if(tH.getArea().intersects(tM.getArea())){
 						//TODO à optimiser, potiellement 2 même collision peuvent être prise en compte. Mais ne pose pas de problème.
 						toCollides.add(new DataCollide(tH, tM));
 					}

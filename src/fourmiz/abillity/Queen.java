@@ -22,7 +22,7 @@ public class Queen extends Abillity
 		super(owner);
 		this.readyToSpawn();
 		this.posQueen = new Vector2f(0, 0);
-		this.owner.setPosition(posQueen);
+		getOwner().setPosition(posQueen);
 	}
 	
 	@Override

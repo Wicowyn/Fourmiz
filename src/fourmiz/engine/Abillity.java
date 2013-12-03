@@ -30,7 +30,7 @@ import fourmiz.collision.TouchMarker;
 public abstract class Abillity {
 	private List<CollidableListener> collidableListeners=new ArrayList<CollidableListener>();
 	protected int ID;
-	protected Entity owner;
+	private Entity owner;
 	
 	
 	public Abillity(Entity owner){
@@ -45,9 +45,13 @@ public abstract class Abillity {
 		this.owner=entity;
 	}
 	
+	public Entity getOwner() {
+		return owner;
+	}
+
 	public abstract void update(int delta);
-	public abstract Collection<TouchMarker> getTouchMarker();
-	public abstract Collection<TouchHandle> getTouchHandle();
+	public abstract Collection<? extends TouchMarker> getTouchMarker();
+	public abstract Collection<? extends TouchHandle> getTouchHandle();
 	
 	public void addCollidableListener(CollidableListener listener){
 		collidableListeners.add(listener);

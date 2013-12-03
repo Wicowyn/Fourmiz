@@ -1,54 +1,124 @@
 package fourmiz.abillity;
 
+import java.util.ArrayList;
 import java.util.Collection;
+
+import org.newdawn.slick.geom.Shape;
 
 import fourmiz.collision.Entity;
 import fourmiz.collision.TouchHandle;
-import fourmiz.collision.TouchMarker;
 import fourmiz.engine.Abillity;
+import fourmiz.touch.marker.LifeMarker;
 
 public class Life extends Abillity{
-	public int life_current;
-	public int life_max;//life max for the entity
-	public int life_tic;//life loose every seconds
-	public boolean live_or_dead = false;//à supprimer ?
+	private static int INTERVAL_TIME=1000;
+	private MyLifeMarker lifeMarker=new MyLifeMarker();
+	private int life_current;
+	private int life_max;
+	private int life_tic;
 	private int time;
 	
 	
 	public Life(Entity owner) {
-		super(owner);
-		// TODO Auto-generated constructor stub		
+		super(owner);	
 	}
 
 	@Override
 	public void update(int delta) {
-		life_current=life_max;
 		time+=delta;
 		
-		if(time>=1000){
+		if(time>=INTERVAL_TIME){
 			life_current=life_current-life_tic;
-			time=time-1000;
+			time-=INTERVAL_TIME;
 		}
 		//You are dead, life empty
 		if(life_current<=0){
-			live_or_dead = true;//à supprimer ?
-			owner.getEngine().removeEntityToBuff(owner);		
+			getOwner().getEngine().removeEntityToBuff(getOwner());		
 		}
 	}
 	
 
+	public int getCurrentLife() {
+		return life_current;
+	}
+
+	public void setCurrentLife(int life_current) {
+		this.life_current = life_current;
+	}
+
+	public int getMaxLife() {
+		return life_max;
+	}
+
+	public void setMaxLife(int life_max) {
+		this.life_max = life_max;
+	}
+
+	public int getUptake() {
+		return life_tic;
+	}
+
+	public void setUptake(int uptake) {
+		this.life_tic = uptake;
+	}
+
 	@Override
-	public Collection<TouchMarker> getTouchMarker() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<LifeMarker> getTouchMarker() {
+		Collection<LifeMarker> list=new ArrayList<LifeMarker>(1);
+		
+		list.add(lifeMarker);
+		
+		return list;
 	}
 
 	@Override
 	public Collection<TouchHandle> getTouchHandle() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<TouchHandle>(0);
 	}
 
 
+	private class MyLifeMarker extends LifeMarker{
 
+		@Override
+		public int getLife() {
+			return life_current;
+		}
+
+		@Override
+		public int getMaxLife() {
+			return life_max;
+		}
+
+		@Override
+		public void setLife(int life) {
+			if(life>life_max) throw new IllegalArgumentException();
+			
+			life_current=life;
+		}
+
+		@Override
+		public void addLife(int life) {
+			life_current+=life;
+			
+			if(life_current>life_max) life_current=life_max;
+		}
+
+		@Override
+		public void withdrawLife(int life) {
+			life_current-=life;
+			
+			if(life_current<0) life_current=0;
+		}
+
+		@Override
+		public Entity getOwner() {
+			return Life.this.getOwner();
+		}
+
+		@Override
+		public Shape getArea() {
+			return Life.this.getOwner().getCollisionShape();
+		}
+		
+	}
 }

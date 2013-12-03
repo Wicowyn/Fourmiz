@@ -20,9 +20,8 @@ package fourmiz.collision;
 
 import org.newdawn.slick.geom.Shape;
 
-
-public interface TouchMarker {
-	public int getType();
-	public Entity getOwner();
-	public Shape getShape();
+public abstract class TouchMarker{
+	public abstract int getType();
+	public abstract Entity getOwner();
+	public abstract Shape getArea();
 }
