@@ -21,12 +21,14 @@ package fourmiz.engine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import fourmiz.abillity.Healer;
 import fourmiz.abillity.Level;
-import fourmiz.abillity.Queen;
 import fourmiz.abillity.Level.LifeState;
 import fourmiz.abillity.Life;
+import fourmiz.abillity.Queen;
+import fourmiz.abillity.ShapeMove;
 import fourmiz.collision.Entity;
 
 public class EntityFactory {
@@ -57,6 +59,12 @@ public class EntityFactory {
 			level=new Level(entity);
 			level.setState(LifeState.EGGS);
 			entity.addAbillity(level);
+			
+			life=new Life(entity);
+			life.setMaxLife(2);
+			life.setCurrentLife(1);
+			life.setUptake(5);
+			entity.addAbillity(life);
 			break;
 		case Larva:
 			life=new Life(entity);
@@ -117,6 +125,12 @@ public class EntityFactory {
 			
 			Queen queen=new Queen(entity);
 			entity.addAbillity(queen);
+			
+			ShapeMove move=new ShapeMove(entity);
+			move.setSpeed(2);
+			Shape area=new Rectangle(6*Engine.SIZE_CASE, 6*Engine.SIZE_CASE, 8*Engine.SIZE_CASE, 8*Engine.SIZE_CASE);
+			move.setArea(area);
+			entity.addAbillity(move);
 			break;
 		case Dead:
 			level=new Level(entity);

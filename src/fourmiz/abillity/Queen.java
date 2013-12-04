@@ -46,6 +46,7 @@ public class Queen extends Abillity{
 		egg.setPosition(position);
 		egg.setDirection(getOwner().getDirection());
 		
+		getOwner().getEngine().addEntityToBuff(egg);
 	}
 	
 	private void generateTimeToLay(){

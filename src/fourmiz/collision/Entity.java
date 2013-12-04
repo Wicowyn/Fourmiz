@@ -210,7 +210,6 @@ public final class Entity{
 					(float) Math.toRadians(getDirection()), Engine.SIZE_CASE/2, Engine.SIZE_CASE/2))
 					.transform(Transform.createTranslateTransform(position.x, position.y));
 			
-			log.info("x: "+collisionShape.getCenterX()+" /y: "+collisionShape.getCenterY());
 			modifNCS=false;
 		}
 		return collisionShape;
