@@ -105,8 +105,6 @@ public class MenuState extends BasicGameState implements LayoutMenuActionListene
 	@Override
 	public void update(GameContainer container, StateBasedGame arg1, int arg2)
 			throws SlickException {
-		
-		if(this.input.isKeyDown(Input.KEY_Z)) arg1.enterState(PageName.Gaming);
 	
 		if(this.input.isKeyDown(Input.KEY_ESCAPE)){
 			container.exit();

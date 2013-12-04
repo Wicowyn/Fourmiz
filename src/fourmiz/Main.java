@@ -11,12 +11,11 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("Hello world!");
-
+		
 		AppGameContainer app;
 		try {
 			app = new AppGameContainer(new TheGame("Fourmizz"));
-			app.setDisplayMode(1000, 600, false);
+			app.setDisplayMode(1024, 768, false);
 			app.setTargetFrameRate(30);
 			app.setShowFPS(true);
 			app.start();
