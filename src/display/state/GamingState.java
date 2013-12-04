@@ -145,4 +145,9 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 		if(abillity instanceof Render) renders.remove((Render) abillity);
 	}
 
+	@Override
+	public void positionUpdated() {
+		
+	}
+
 }

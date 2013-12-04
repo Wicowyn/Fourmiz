@@ -157,6 +157,8 @@ public final class Entity{
 		
 		while(this.direction<0) this.direction+=360;
 		while(this.direction>=360) this.direction-=360;
+		
+		notifyPositionUpdated();
 	}
 
 	public Vector2f getPosition(){
@@ -166,6 +168,8 @@ public final class Entity{
 	public void setPosition(Vector2f position){
 		this.position=position;
 		this.modifNCS=true;
+		
+		notifyPositionUpdated();
 	}
 	
 	public Entity getOwner(){
@@ -192,16 +196,20 @@ public final class Entity{
 		for(EntityListener listener : this.entityListeners) listener.abillityRemoved(abillity);
 	}
 
+	protected void notifyPositionUpdated(){
+		for(EntityListener listener : this.entityListeners) listener.positionUpdated();
+	}
+	
 	public Shape getNormalCollisionShape(){
 		return this.normalCollisionShape;
 	}
 	
 	public Shape getCollisionShape(){
-		if(this.modifNCS){
-			this.collisionShape=this.collisionShape.transform(Transform.createRotateTransform(
+		if(modifNCS){
+			collisionShape=normalCollisionShape.transform(Transform.createRotateTransform(
 					(float) Math.toRadians(getDirection()), 499.5f, 499.5f));
-			this.collisionShape=this.collisionShape.transform(Transform.createTranslateTransform(this.position.x, this.position.y));
-			this.modifNCS=false;
+			collisionShape=collisionShape.transform(Transform.createTranslateTransform(position.x, position.y));
+			modifNCS=false;
 		}
 		return this.collisionShape;
 	}

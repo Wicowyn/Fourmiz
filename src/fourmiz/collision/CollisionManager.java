@@ -161,4 +161,9 @@ public class CollisionManager implements CollidableListener, EntityListener{
 		
 		abillity.removeCollidableListener(this);
 	}
+
+	@Override
+	public void positionUpdated() {
+		
+	}
 }
