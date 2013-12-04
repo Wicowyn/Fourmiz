@@ -19,5 +19,5 @@
 package fourmiz.engine;
 
 public enum EntityName {
-	Egg, Larva, Nymph, FourmizWorker, FourmizSoldier, FourmizSex 
+	Egg, Larva, Nymph, FourmizWorker, FourmizSoldier, FourmizSex, Queen
 }

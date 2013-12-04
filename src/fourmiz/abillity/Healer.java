@@ -13,11 +13,12 @@ import fourmiz.collision.TouchHandle;
 import fourmiz.collision.TouchMarker;
 import fourmiz.engine.Abillity;
 import fourmiz.engine.CollisionType;
+import fourmiz.engine.Engine;
 import fourmiz.engine.EntityListener;
 import fourmiz.touch.marker.LifeMarker;
 
 public class Healer extends Abillity implements EntityListener{
-	private static final int RADIUS=100;
+	private static final int RADIUS=Engine.SIZE_CASE*4;
 	private Shape baseShape=new Circle(0, 0, RADIUS);
 	private Shape currentShape=null;
 	private boolean positionUpdated=true;
@@ -30,6 +31,14 @@ public class Healer extends Abillity implements EntityListener{
 	@Override
 	public void update(int delta) {
 
+	}
+	
+	@Override
+	public void setOwner(Entity owner){
+		if(getOwner()!=null) getOwner().removeEntityListener(this);
+		
+		owner.addEntityListener(this);
+		super.setOwner(owner);		
 	}
 
 	@Override

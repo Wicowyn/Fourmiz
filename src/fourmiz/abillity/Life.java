@@ -36,7 +36,6 @@ public class Life extends Abillity{
 			getOwner().getEngine().removeEntityToBuff(getOwner());		
 		}
 	}
-	
 
 	public int getCurrentLife() {
 		return life_current;

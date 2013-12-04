@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.geom.Rectangle;
 
 import fourmiz.abillity.Level;
+import fourmiz.abillity.Queen;
 import fourmiz.abillity.Level.LifeState;
 import fourmiz.abillity.Life;
 import fourmiz.collision.Entity;
@@ -42,33 +43,76 @@ public class EntityFactory {
 	
 	private static Rectangle get(float x, float y, float width, float height){
 		return new Rectangle(
-				x*EntityFactory.width/1000,
-				y*EntityFactory.heigt/1000,
-				width*EntityFactory.width/1000,
-				height*EntityFactory.heigt/1000);
+				x*EntityFactory.width/Engine.SIZE_CASE,
+				y*EntityFactory.heigt/Engine.SIZE_CASE,
+				width*EntityFactory.width/Engine.SIZE_CASE,
+				height*EntityFactory.heigt/Engine.SIZE_CASE);
 	}
 	
 	public static Entity createEntity(EntityName name, Engine engine){
-		Entity entity=new Entity(engine, get(0, 0, 1000, 1000));
+		Entity entity=new Entity(engine, get(0, 0, Engine.SIZE_CASE, Engine.SIZE_CASE));
+		Level level=null;
+		Life life=null;
 		
 		switch(name){
 		case Egg:
+			level=new Level(entity);
+			level.setState(LifeState.EGGS);
+			entity.addAbillity(level);
 			break;
 		case Larva:
-			Life life=new Life(entity);
-			//TODO to parameter setLife...
+			life=new Life(entity);
+			life.setMaxLife(300);
+			life.setUptake(5);
 			entity.addAbillity(life);
 			
-			Level level=new Level(entity);
+			level=new Level(entity);
 			level.setState(LifeState.LARVA);
+			entity.addAbillity(level);
 			break;
 		case Nymph:
+			level=new Level(entity);
+			level.setState(LifeState.NYMPH);
+			entity.addAbillity(level);
 			break;
 		case FourmizWorker:
+			level=new Level(entity);
+			level.setState(LifeState.FOURMIZ);
+			entity.addAbillity(level);
+			
+			life=new Life(entity);
+			life.setMaxLife(150);
+			life.setUptake(1);
+			entity.addAbillity(life);
+			
 			break;
 		case FourmizSoldier:
+			level=new Level(entity);
+			level.setState(LifeState.FOURMIZ);
+			entity.addAbillity(level);
+			
+			life=new Life(entity);
+			life.setMaxLife(150);
+			life.setUptake(1);
+			entity.addAbillity(life);
 			break;
 		case FourmizSex:
+			level=new Level(entity);
+			level.setState(LifeState.FOURMIZ);
+			entity.addAbillity(level);
+			
+			life=new Life(entity);
+			life.setMaxLife(150);
+			life.setUptake(1);
+			entity.addAbillity(life);
+			break;
+		case Queen:
+			level=new Level(entity);
+			level.setState(LifeState.FOURMIZ);
+			entity.addAbillity(level);
+			
+			Queen queen=new Queen(entity);
+			entity.addAbillity(queen);
 			break;
 		default:
 			EntityFactory.log.fatal("Value : "+name+" don't handle");

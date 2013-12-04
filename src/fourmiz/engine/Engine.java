@@ -26,12 +26,19 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdom2.Document;
+import org.jdom2.Element;
 import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+import org.newdawn.slick.geom.Vector2f;
 
 import fourmiz.collision.CollisionManager;
 import fourmiz.collision.Entity;
 
 public class Engine {
+	public static int SIZE_CASE=100;
+	public static int NUMBER_CASE_X=20;
+	public static int NUMBER_CASE_Y=20;
     private List<EngineListener> listeners=new ArrayList<EngineListener>();
     private CollisionManager collisionManager=new CollisionManager();
     private List<Entity> entities=new ArrayList<Entity>();
@@ -105,16 +112,40 @@ public class Engine {
     }
     
     public void loadLevel(String filePath) throws JDOMException, IOException{
-        /*SAXBuilder sax=new SAXBuilder();
+        SAXBuilder sax=new SAXBuilder();
         Document doc=sax.build(new File(filePath));
         Element root=doc.getRootElement();
         List<Element> listElem=root.getChildren();
         
+        EntityFactory.setGlobalHeight(SIZE_CASE);
+        EntityFactory.setGobalWidth(SIZE_CASE);
+        
         for(Element elem : listElem){
             Entity entity=null;
             switch(elem.getName()){
+            case "Egg":
+            	entity=EntityFactory.createEntity(EntityName.Egg, this);
+            	break;
+            case "Larva":
+            	entity=EntityFactory.createEntity(EntityName.Larva, this);
+            	break;
+            case "Nymph":
+            	entity=EntityFactory.createEntity(EntityName.Nymph, this);
+            	break;
+            case "FourmizWorker":
+            	entity=EntityFactory.createEntity(EntityName.FourmizWorker, this);
+            	break;
+            case "FourmizSoldier":
+            	entity=EntityFactory.createEntity(EntityName.FourmizSoldier, this);
+            	break;
+            case "FourmizSex":
+            	entity=EntityFactory.createEntity(EntityName.FourmizSex, this);
+            	break;
+            case "Queen":
+            	entity=EntityFactory.createEntity(EntityName.Queen, this);
+            	break;
             default:
-                this.log.warn("loadLevel: unknown type object -> "+elem.getName());
+                log.warn("loadLevel: unknown type object -> "+elem.getName());
                 continue;
             }
 
@@ -127,7 +158,7 @@ public class Engine {
             
             addEntity(entity);                        
         }
-        */
+        
         this.loaded=true;
     }
 
