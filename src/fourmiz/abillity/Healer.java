@@ -1,6 +1,5 @@
 package fourmiz.abillity;
 
-import java.security.acl.Owner;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -96,10 +95,10 @@ public class Healer extends Abillity implements EntityListener{
 		public void perform(TouchMarker marker) {
 			
 			LifeMarker lifeMarker=(LifeMarker) marker;
-			//si la vie de l'entité est inférieure à 66%
+			//si la vie de l'entitï¿½ est infï¿½rieure ï¿½ 66%
 			if(lifeMarker.getLife() < lifeMarker.getMaxLife()/1.5)
 			{
-				//si le stock de la fourmi ouvrière est supérieur au manque de vie de l'entité
+				//si le stock de la fourmi ouvriï¿½re est supï¿½rieur au manque de vie de l'entitï¿½
 				if((lifeMarker.getLife() + currentFoodQuantity) >= lifeMarker.getMaxLife())
 				{
 					lifeMarker.setLife(lifeMarker.getMaxLife());

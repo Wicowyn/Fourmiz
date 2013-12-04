@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
     <Config>
-	    <Chart xCase="20" yCase="20" xScale="0.5f" yScale="0.5f"/>        
+	    <Chart xCase="20" yCase="20" xScale="0.3f" yScale="0.3f"/>        
     </Config>
     <Entity>
 	    <Egg x="0" y="0" dir="0"/>

@@ -9,49 +9,47 @@ import fourmiz.collision.Entity;
 import fourmiz.collision.TouchHandle;
 import fourmiz.collision.TouchMarker;
 import fourmiz.engine.Abillity;
+import fourmiz.engine.Engine;
+import fourmiz.engine.EntityFactory;
+import fourmiz.engine.EntityName;
 
-public class Queen extends Abillity
-{
-	//private int timeBeforeSpawn = 1000;
-	private boolean eggReady = false;
-	Vector2f posQueen;
+public class Queen extends Abillity{
+	private int time;
+	private int timeToLay;
 	
-	public Queen(Entity owner)
-	{
+	public Queen(Entity owner){
 		super(owner);
-		this.readyToSpawn();
-		this.posQueen = new Vector2f(0, 0);
-		getOwner().setPosition(posQueen);
+		
+		time=0;
+		generateTimeToLay();
 	}
 	
 	@Override
-	public void update(int delta)
-	{
-		if(eggReady) spawn();
+	public void update(int delta){
+		time+=delta;
+		
+		if(time>=timeToLay){
+			time=0;
+			generateTimeToLay();
+			
+			lay();
+		}
 	}
 	
-	//cr�e un oeuf et l'ajoute � la collection et met eggReady � false une fois pondu
-	public void spawn()
-	{
-		//TODO changer addEntityToBuff vers createEntity
-		//this.owner.getEngine().addEntityToBuff(new Egg(owner));
-		this.eggReady = false;
+	private void lay(){
+		Entity egg=EntityFactory.createEntity(EntityName.Egg, getOwner().getEngine());
+		
+		Vector2f position=getOwner().getPosition();
+		position.x+=(float) (Engine.SIZE_CASE*Math.cos(Math.toRadians(getOwner().getDirection()-180)));
+		position.y+=(float) (Engine.SIZE_CASE*Math.sin(Math.toRadians(getOwner().getDirection()-180)));
+		
+		egg.setPosition(position);
+		egg.setDirection(getOwner().getDirection());
+		
 	}
 	
-	//met eggReady � true si l'oeuf est pr�t � �tre pondu
-	private void readyToSpawn()
-	{
-		/*while(true)
-		{
-			Timer timer = new Timer();
-	        timer.schedule (new TimerTask()
-	        {
-	            public void run()
-	            {
-	            	eggReady = true;
-	            }
-	        }, 0, this.timeBeforeSpawn);
-		}*/
+	private void generateTimeToLay(){
+		timeToLay=3000+((int) Math.random()%3000)-1000;
 	}
 
 	@Override
