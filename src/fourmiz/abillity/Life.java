@@ -43,10 +43,15 @@ public class Life extends Abillity{
 	}
 
 	public void setCurrentLife(int life_current) {
+		if(life_current<0 || life_current>life_max) throw new IllegalArgumentException();
+		
 		this.life_current = life_current;
+		
 	}
 
 	public int getMaxLife() {
+		if(life_max<=0) throw new IllegalArgumentException();
+		
 		return life_max;
 	}
 
@@ -91,9 +96,8 @@ public class Life extends Abillity{
 
 		@Override
 		public void setLife(int life) {
-			if(life>life_max) throw new IllegalArgumentException();
 			
-			life_current=life;
+			setCurrentLife(life);
 		}
 
 		@Override
