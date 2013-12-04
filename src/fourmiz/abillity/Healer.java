@@ -21,17 +21,50 @@ public class Healer extends Abillity implements EntityListener{
 	private static final int RADIUS=Engine.SIZE_CASE*4;
 	private Shape baseShape=new Circle(0, 0, RADIUS);
 	private Shape currentShape=null;
+	private Shape walkArea=null;
 	private boolean positionUpdated=true;
 	private MyHeal heal=new MyHeal();
 	private int currentFoodQuantity;
+	private float speed = 2f;
 	
 	public Healer(Entity owner) {
 		super(owner);
 	}
 	
+	public void setWalkArea(Shape newArea)
+	{
+		this.walkArea = newArea;
+	}
+	
+	public float getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+	
+	private boolean isInWalkArea()
+	{
+		if(this.walkArea.contains(this.currentShape)) return true;
+		return false;
+	}
+
 	@Override
 	public void update(int delta) {
 
+        //mise à jour position
+		Vector2f position=this.getOwner().getPosition();
+        float hip=this.speed*delta;
+        position.x+=hip*Math.cos(Math.toRadians(this.getOwner().getDirection()));
+        position.y+=hip*Math.sin(Math.toRadians(this.getOwner().getDirection()));        
+        this.getOwner().setPosition(position);
+        
+        //si il est sorti de la zone on redirige dans une direction aléatoire
+        if(!this.isInWalkArea())
+        {
+        	this.getOwner().setDirection((float) (Math.random()*360));
+        }
 	}
 	
 	@Override
