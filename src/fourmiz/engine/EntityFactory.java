@@ -118,6 +118,11 @@ public class EntityFactory {
 			Queen queen=new Queen(entity);
 			entity.addAbillity(queen);
 			break;
+		case Dead:
+			level=new Level(entity);
+			level.setState(LifeState.DEAD);
+			entity.addAbillity(level);
+			break;
 		default:
 			EntityFactory.log.fatal("Value : "+name+" don't handle");
 			System.exit(1);
