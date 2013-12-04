@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-    
-    <Egg x=0 y=0 dir=0/>
-	<Larva x=1 y=1 dir=90/>
-	<NymizWorker x=3 y=4 dir=210/>
-	<FourmizSoldier x=5 y=5 dir=45/>
-	<FourmizSex x=6 y=6 dir=175/>
-	<Queen x=7 y=7 dir=0/>
-    
+    <Config>
+	    <Chart xCase="20" yCase="20" xScale="0.5f" yScale="0.5f"/>        
+    </Config>
+    <Entity>
+	    <Egg x="0" y="0" dir="0"/>
+		<Larva x="1" y="1" dir="45"/>
+		<Nymph x="2" y="2" dir="0"/>
+		<FourmizWorker x="3" y="3" dir="0"/>
+		<FourmizSoldier x="4" y="4" dir="0"/>
+		<FourmizSex x="5" y="5" dir="0"/>
+		<Queen x="6" y="6" dir="0"/>
+    </Entity>
 </root>

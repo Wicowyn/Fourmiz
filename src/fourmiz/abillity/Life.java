@@ -3,6 +3,8 @@ package fourmiz.abillity;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.geom.Shape;
 
 import fourmiz.collision.Entity;
@@ -11,12 +13,13 @@ import fourmiz.engine.Abillity;
 import fourmiz.touch.marker.LifeMarker;
 
 public class Life extends Abillity{
+	private static Logger log=LogManager.getLogger(Life.class);
 	private static int INTERVAL_TIME=1000;
 	private MyLifeMarker lifeMarker=new MyLifeMarker();
 	private int life_current;
 	private int life_max;
 	private int life_tic;
-	private int time;
+	private int time=0;
 	
 	
 	public Life(Entity owner) {
@@ -33,6 +36,7 @@ public class Life extends Abillity{
 		}
 		//You are dead, life empty
 		if(life_current<=0){
+			log.info("entity ID: "+getOwner().getID()+" die cause to has no health");
 			getOwner().getEngine().removeEntityToBuff(getOwner());		
 		}
 	}
@@ -45,7 +49,6 @@ public class Life extends Abillity{
 		if(life_current<0 || life_current>life_max) throw new IllegalArgumentException();
 		
 		this.life_current = life_current;
-		
 	}
 
 	public int getMaxLife() {

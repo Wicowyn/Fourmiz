@@ -1,8 +1,7 @@
 package fourmiz.abillity;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.newdawn.slick.geom.Vector2f;
 
@@ -13,7 +12,7 @@ import fourmiz.engine.Abillity;
 
 public class Queen extends Abillity
 {
-	private int timeBeforeSpawn = 1000;
+	//private int timeBeforeSpawn = 1000;
 	private boolean eggReady = false;
 	Vector2f posQueen;
 	
@@ -42,7 +41,7 @@ public class Queen extends Abillity
 	//met eggReady � true si l'oeuf est pr�t � �tre pondu
 	private void readyToSpawn()
 	{
-		while(true)
+		/*while(true)
 		{
 			Timer timer = new Timer();
 	        timer.schedule (new TimerTask()
@@ -52,18 +51,15 @@ public class Queen extends Abillity
 	            	eggReady = true;
 	            }
 	        }, 0, this.timeBeforeSpawn);
-		}
+		}*/
 	}
 
 	@Override
-	public Collection<TouchMarker> getTouchMarker()
-	{
-		return null;
+	public Collection<TouchMarker> getTouchMarker() {
+		return new ArrayList<TouchMarker>(0);
 	}
-
 	@Override
-	public Collection<TouchHandle> getTouchHandle()
-	{
-		return null;
+	public Collection<TouchHandle> getTouchHandle() {
+		return new ArrayList<TouchHandle>(0);
 	}
 }

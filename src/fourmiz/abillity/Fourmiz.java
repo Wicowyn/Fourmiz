@@ -1,5 +1,6 @@
 package fourmiz.abillity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import fourmiz.collision.Entity;
@@ -26,16 +27,11 @@ public class Fourmiz extends Abillity{
 
 	@Override
 	public Collection<TouchMarker> getTouchMarker() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<TouchMarker>(0);
 	}
-
 	@Override
 	public Collection<TouchHandle> getTouchHandle() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<TouchHandle>(0);
 	}
-	
-
 	
 }

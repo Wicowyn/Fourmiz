@@ -207,11 +207,13 @@ public final class Entity{
 	public Shape getCollisionShape(){
 		if(modifNCS){
 			collisionShape=normalCollisionShape.transform(Transform.createRotateTransform(
-					(float) Math.toRadians(getDirection()), 499.5f, 499.5f));
-			collisionShape=collisionShape.transform(Transform.createTranslateTransform(position.x, position.y));
+					(float) Math.toRadians(getDirection()), Engine.SIZE_CASE/2, Engine.SIZE_CASE/2))
+					.transform(Transform.createTranslateTransform(position.x, position.y));
+			
+			log.info("x: "+collisionShape.getCenterX()+" /y: "+collisionShape.getCenterY());
 			modifNCS=false;
 		}
-		return this.collisionShape;
+		return collisionShape;
 	}
 
 	public boolean isCollidingWith(Entity collidable){

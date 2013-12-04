@@ -30,6 +30,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import fourmiz.collision.Entity;
 import fourmiz.collision.TouchHandle;
 import fourmiz.collision.TouchMarker;
+import fourmiz.engine.Engine;
 
 
 public class BasicRender extends Render {
@@ -46,16 +47,19 @@ public class BasicRender extends Render {
 	
 	public void render(GameContainer gc, StateBasedGame sb, Graphics gr){
 		gr.setColor(Color.blue);
-		gr.draw(getOwner().getCollisionShape().transform(Transform.createScaleTransform(0.04f, 0.04f)));
-		//if(this.owner instanceof Bomberman) System.out.println(this.owner.getCollisionShape().getCenterX()+" - "+this.owner.getCollisionShape().getCenterY());
+		
+		Engine engine=getOwner().getEngine();
+		gr.draw(getOwner().getCollisionShape().transform(
+				Transform.createScaleTransform(engine.getxScale(), engine.getyScale())));
 	}
+	
 	@Override
 	public Collection<TouchMarker> getTouchMarker() {
-		return new ArrayList<TouchMarker>();
+		return new ArrayList<TouchMarker>(0);
 	}
 	@Override
 	public Collection<TouchHandle> getTouchHandle() {
-		return new ArrayList<TouchHandle>();
+		return new ArrayList<TouchHandle>(0);
 	}
 
 }

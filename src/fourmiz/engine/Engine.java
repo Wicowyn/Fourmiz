@@ -22,10 +22,12 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jdom2.DataConversionException;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -37,8 +39,8 @@ import fourmiz.collision.Entity;
 
 public class Engine {
 	public static int SIZE_CASE=100;
-	public static int NUMBER_CASE_X=20;
-	public static int NUMBER_CASE_Y=20;
+	private int xCase, yCase;
+	private float xScale, yScale;
     private List<EngineListener> listeners=new ArrayList<EngineListener>();
     private CollisionManager collisionManager=new CollisionManager();
     private List<Entity> entities=new ArrayList<Entity>();
@@ -121,6 +123,41 @@ public class Engine {
         EntityFactory.setGobalWidth(SIZE_CASE);
         
         for(Element elem : listElem){
+            switch(elem.getName()){
+            case "Config":
+            	loadConfig(elem.getChildren());
+            	break;
+            case "Entity":
+            	loadEntity(elem.getChildren());
+            	break;
+            default:
+                log.warn("loadLevel: unknown type object -> "+elem.getName());
+                continue;
+            }                       
+        }
+        
+        this.loaded=true;
+    }
+    
+    private void loadConfig(Collection<Element> configs){
+    	for(Element elem : configs){
+            switch(elem.getName()){
+            case "Chart":
+            	setxCase(Integer.parseInt(elem.getAttributeValue("xCase")));
+            	setyCase(Integer.parseInt(elem.getAttributeValue("yCase")));
+            	setxScale(Float.parseFloat(elem.getAttributeValue("xScale")));
+            	setyScale(Float.parseFloat(elem.getAttributeValue("yScale")));
+            break;
+            default:
+                log.warn("loadLevel: unknown type config -> "+elem.getName());
+                continue;
+            }
+            
+        }
+    }
+    
+    private void loadEntity(Collection<Element> elems) throws DataConversionException{
+    	for(Element elem : elems){
             Entity entity=null;
             switch(elem.getName()){
             case "Egg":
@@ -145,21 +182,19 @@ public class Engine {
             	entity=EntityFactory.createEntity(EntityName.Queen, this);
             	break;
             default:
-                log.warn("loadLevel: unknown type object -> "+elem.getName());
+                log.warn("loadLevel: unknown type entity -> "+elem.getName());
                 continue;
             }
 
             Vector2f position=new Vector2f();
-            position.x=elem.getAttribute("x").getIntValue()*1000;
-            position.y=elem.getAttribute("y").getIntValue()*1000;
+            position.x=elem.getAttribute("x").getIntValue()*SIZE_CASE;
+            position.y=elem.getAttribute("y").getIntValue()*SIZE_CASE;
             entity.setPosition(position);
             
             entity.setDirection(elem.getAttribute("dir").getIntValue());
             
             addEntity(entity);                        
         }
-        
-        this.loaded=true;
     }
 
     public List<String> getListGame(){ //TODO à améliorer
@@ -174,7 +209,39 @@ public class Engine {
         return list;
     }
     
-    public void unLoad(){
+    public int getxCase() {
+		return xCase;
+	}
+
+	public void setxCase(int xCase) {
+		this.xCase = xCase;
+	}
+
+	public int getyCase() {
+		return yCase;
+	}
+
+	public void setyCase(int yCase) {
+		this.yCase = yCase;
+	}
+
+	public float getxScale() {
+		return xScale;
+	}
+
+	public void setxScale(float xScale) {
+		this.xScale = xScale;
+	}
+
+	public float getyScale() {
+		return yScale;
+	}
+
+	public void setyScale(float yScale) {
+		this.yScale = yScale;
+	}
+
+	public void unLoad(){
         for(Entity entity : this.entities) entity.clear();
         
         this.entities.clear();

@@ -42,11 +42,7 @@ public class EntityFactory {
 	}
 	
 	private static Rectangle get(float x, float y, float width, float height){
-		return new Rectangle(
-				x*EntityFactory.width/Engine.SIZE_CASE,
-				y*EntityFactory.heigt/Engine.SIZE_CASE,
-				width*EntityFactory.width/Engine.SIZE_CASE,
-				height*EntityFactory.heigt/Engine.SIZE_CASE);
+		return new Rectangle(0, 0, EntityFactory.width, EntityFactory.heigt);
 	}
 	
 	public static Entity createEntity(EntityName name, Engine engine){
@@ -63,6 +59,7 @@ public class EntityFactory {
 		case Larva:
 			life=new Life(entity);
 			life.setMaxLife(300);
+			life.setCurrentLife(300);
 			life.setUptake(5);
 			entity.addAbillity(life);
 			
@@ -82,6 +79,7 @@ public class EntityFactory {
 			
 			life=new Life(entity);
 			life.setMaxLife(150);
+			life.setCurrentLife(150);
 			life.setUptake(1);
 			entity.addAbillity(life);
 			
@@ -93,6 +91,7 @@ public class EntityFactory {
 			
 			life=new Life(entity);
 			life.setMaxLife(150);
+			life.setCurrentLife(150);
 			life.setUptake(1);
 			entity.addAbillity(life);
 			break;
@@ -103,6 +102,7 @@ public class EntityFactory {
 			
 			life=new Life(entity);
 			life.setMaxLife(150);
+			life.setCurrentLife(150);
 			life.setUptake(1);
 			entity.addAbillity(life);
 			break;
