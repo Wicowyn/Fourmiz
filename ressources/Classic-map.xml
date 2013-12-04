@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    
+    <Egg x=0 y=0 dir=0/>
+	<Larva x=1 y=1 dir=90/>
+	<NymizWorker x=3 y=4 dir=210/>
+	<FourmizSoldier x=5 y=5 dir=45/>
+	<FourmizSex x=6 y=6 dir=175/>
+	<Queen x=7 y=7 dir=0/>
+    
+</root>
