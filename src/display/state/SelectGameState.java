@@ -47,7 +47,7 @@ public class SelectGameState extends BasicGameState {
 		this.background=new Image("image/wallpaper.png");
 		
 		this.menu=new LimitedMenu(container, new Image("ressources/fleche.png"));
-		this.menu.setLocation(115, 630);
+		this.menu.setLocation(460, 400);
 		this.menu.setMaxShowComponent(6);
 	}
 	
