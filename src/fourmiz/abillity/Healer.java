@@ -1,5 +1,6 @@
 package fourmiz.abillity;
 
+import java.security.acl.Owner;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -23,11 +24,12 @@ public class Healer extends Abillity implements EntityListener{
 	private Shape currentShape=null;
 	private boolean positionUpdated=true;
 	private MyHeal heal=new MyHeal();
+	private int currentFoodQuantity;
 	
 	public Healer(Entity owner) {
 		super(owner);
 	}
-
+	
 	@Override
 	public void update(int delta) {
 
@@ -92,8 +94,23 @@ public class Healer extends Abillity implements EntityListener{
 
 		@Override
 		public void perform(TouchMarker marker) {
-			@SuppressWarnings("unused")
+			
 			LifeMarker lifeMarker=(LifeMarker) marker;
+			//si la vie de l'entité est inférieure à 66%
+			if(lifeMarker.getLife() < lifeMarker.getMaxLife()/1.5)
+			{
+				//si le stock de la fourmi ouvrière est supérieur au manque de vie de l'entité
+				if((lifeMarker.getLife() + currentFoodQuantity) >= lifeMarker.getMaxLife())
+				{
+					lifeMarker.setLife(lifeMarker.getMaxLife());
+					currentFoodQuantity -= (lifeMarker.getMaxLife()-lifeMarker.getLife());
+				}
+				else
+				{
+					lifeMarker.setLife(lifeMarker.getLife() + currentFoodQuantity);
+					currentFoodQuantity = 0;
+				}		
+			}
 			
 		}
 		

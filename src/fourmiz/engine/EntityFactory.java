@@ -22,6 +22,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.geom.Rectangle;
 
+import fourmiz.abillity.Healer;
 import fourmiz.abillity.Level;
 import fourmiz.abillity.Queen;
 import fourmiz.abillity.Level.LifeState;
@@ -49,6 +50,7 @@ public class EntityFactory {
 		Entity entity=new Entity(engine, get(0, 0, Engine.SIZE_CASE, Engine.SIZE_CASE));
 		Level level=null;
 		Life life=null;
+		Healer healer=null;
 		
 		switch(name){
 		case Egg:
@@ -83,6 +85,8 @@ public class EntityFactory {
 			life.setUptake(1);
 			entity.addAbillity(life);
 			
+			healer = new Healer(entity);
+			entity.addAbillity(healer);
 			break;
 		case FourmizSoldier:
 			level=new Level(entity);
