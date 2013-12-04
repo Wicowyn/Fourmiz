@@ -12,6 +12,7 @@ public class Level extends Abillity {
 	private static final int EGGS_TIME=30*1000;
 	private static final int LARVA_TIME=EGGS_TIME+100*1000;
 	private static final int NYMPH_TIME=LARVA_TIME+170*1000;
+	private static final int FOURMIZ_TIME=NYMPH_TIME+7300*1000;
 	private LifeState state;
 	private int time;
 	
@@ -33,6 +34,9 @@ public class Level extends Abillity {
 		else if(state==LifeState.NYMPH && time>=NYMPH_TIME){
 			state=LifeState.FOURMIZ;
 		}
+		else if(state==LifeState.FOURMIZ && time>=FOURMIZ_TIME){
+			state=LifeState.DEAD;
+		}
 
 	}
 	
@@ -49,6 +53,8 @@ public class Level extends Abillity {
 		case NYMPH:
 			time=LARVA_TIME;
 			break;
+		case FOURMIZ:
+			time=NYMPH_TIME;
 		default:
 			break;
 		}
@@ -63,7 +69,7 @@ public class Level extends Abillity {
 	}
 
 	public enum LifeState{
-		EGGS, LARVA, NYMPH, FOURMIZ
+		EGGS, LARVA, NYMPH, FOURMIZ, DEAD
 	}
 
 	@Override
