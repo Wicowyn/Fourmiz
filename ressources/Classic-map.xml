@@ -11,5 +11,8 @@
 		<FourmizSoldier x="4" y="4" dir="0"/>
 		<FourmizSex x="5" y="5" dir="0"/>
 		<Queen x="8" y="8" dir="45"/>
+		<Prey x="8" y="10" dir="45"/>
+		<Prey x="8" y="11" dir="45"/>
+		<Prey x="8" y="12" dir="45"/>
     </Entity>
 </root>

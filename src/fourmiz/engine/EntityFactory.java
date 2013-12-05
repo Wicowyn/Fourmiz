@@ -27,6 +27,7 @@ import fourmiz.abillity.Healer;
 import fourmiz.abillity.Level;
 import fourmiz.abillity.Level.LifeState;
 import fourmiz.abillity.Life;
+import fourmiz.abillity.Prey;
 import fourmiz.abillity.Queen;
 import fourmiz.abillity.ShapeMove;
 import fourmiz.collision.Entity;
@@ -53,6 +54,7 @@ public class EntityFactory {
 		Level level=null;
 		Life life=null;
 		Healer healer=null;
+		ShapeMove move=null;
 		
 		switch(name){
 		case Egg:
@@ -126,7 +128,7 @@ public class EntityFactory {
 			Queen queen=new Queen(entity);
 			entity.addAbillity(queen);
 			
-			ShapeMove move=new ShapeMove(entity);
+			move=new ShapeMove(entity);
 			move.setSpeed(2);
 			Shape area=new Rectangle(6*Engine.SIZE_CASE, 6*Engine.SIZE_CASE, 8*Engine.SIZE_CASE, 8*Engine.SIZE_CASE);
 			move.setArea(area);
@@ -136,6 +138,18 @@ public class EntityFactory {
 			level=new Level(entity);
 			level.setState(LifeState.DEAD);
 			entity.addAbillity(level);
+			break;
+		case Prey:
+			Prey prey=new Prey(entity);
+			prey.setLife(160);
+			prey.setFood(356);
+			entity.addAbillity(prey);
+			
+			move=new ShapeMove(entity);
+			move.setSpeed(2);
+			Shape area2=new Rectangle(6*Engine.SIZE_CASE, 6*Engine.SIZE_CASE, 10*Engine.SIZE_CASE, 10*Engine.SIZE_CASE);
+			move.setArea(area2);
+			entity.addAbillity(move);
 			break;
 		default:
 			EntityFactory.log.fatal("Value : "+name+" don't handle");

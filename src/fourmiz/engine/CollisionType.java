@@ -20,4 +20,6 @@ package fourmiz.engine;
 
 public final class CollisionType {
 	public static final int LIFE=0;
+	public static final int TO_DESTROY=1;
+	public static final int FOOD=2;
 }
