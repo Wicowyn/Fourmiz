@@ -46,7 +46,7 @@ public class Healer extends Abillity implements EntityListener{
 	
 	private boolean isInWalkArea()
 	{
-		if(this.walkArea.contains(this.currentShape)) return true;
+		if(this.walkArea.contains(this.getOwner().getCollisionShape())) return true;
 		return false;
 	}
 

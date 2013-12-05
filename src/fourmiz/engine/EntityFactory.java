@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
+import fourmiz.abillity.FourmizSoldier;
 import fourmiz.abillity.Healer;
 import fourmiz.abillity.Level;
 import fourmiz.abillity.Level.LifeState;
@@ -57,6 +58,17 @@ public class EntityFactory {
 		ShapeMove move=null;
 		
 		switch(name){
+		case Anthill:
+			life = new Life(entity);
+			life.setMaxLife(1000);
+			life.setCurrentLife(1000);
+			life.setUptake(10);
+			entity.addAbillity(life);
+			
+			level = new Level(entity);
+			level.setState(LifeState.ANTHILL);
+			entity.addAbillity(level);
+			break;
 		case Egg:
 			level=new Level(entity);
 			level.setState(LifeState.EGGS);
@@ -95,7 +107,10 @@ public class EntityFactory {
 			life.setUptake(1);
 			entity.addAbillity(life);
 			
+			Shape areaFourmizWorker = new Rectangle(15*Engine.SIZE_CASE, 15*Engine.SIZE_CASE, 20*Engine.SIZE_CASE, 20*Engine.SIZE_CASE);
+			
 			healer = new Healer(entity);
+			healer.setWalkArea(areaFourmizWorker);
 			entity.addAbillity(healer);
 			break;
 		case FourmizSoldier:
@@ -108,6 +123,15 @@ public class EntityFactory {
 			life.setCurrentLife(150);
 			life.setUptake(1);
 			entity.addAbillity(life);
+			
+			FourmizSoldier fs = new FourmizSoldier(entity);
+			entity.addAbillity(fs);
+			
+			ShapeMove moveFourmizSoldier=new ShapeMove(entity);
+			moveFourmizSoldier.setSpeed(2);
+			Shape areaFourmizSoldier=new Rectangle(10*Engine.SIZE_CASE, 10*Engine.SIZE_CASE, 12*Engine.SIZE_CASE, 12*Engine.SIZE_CASE);
+			moveFourmizSoldier.setArea(areaFourmizSoldier);
+			entity.addAbillity(moveFourmizSoldier);
 			break;
 		case FourmizSex:
 			level=new Level(entity);

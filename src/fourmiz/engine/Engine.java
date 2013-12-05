@@ -197,7 +197,7 @@ public class Engine {
         }
     }
 
-    public List<String> getListGame(){ //TODO à améliorer
+    public List<String> getListGame(){
         File directory=new File("ressources/map");
         GameFileFilter filter=new GameFileFilter();
         File[] arrayFile=directory.listFiles(filter);

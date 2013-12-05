@@ -62,7 +62,7 @@ public class SelectGameState extends BasicGameState {
 		for(String str : list){
 			Text text=new Text(container,font);
 			text.setText(str);
-			text.setColor(Color.blue);
+			text.setColor(Color.white);
 			this.menu.addElement(text);
 		}
 	}
@@ -83,7 +83,6 @@ public class SelectGameState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		
 	}
 

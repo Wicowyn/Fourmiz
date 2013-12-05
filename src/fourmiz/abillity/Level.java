@@ -69,7 +69,7 @@ public class Level extends Abillity {
 	}
 
 	public enum LifeState{
-		EGGS, LARVA, NYMPH, FOURMIZ, DEAD
+		EGGS, LARVA, NYMPH, FOURMIZ, DEAD, ANTHILL
 	}
 
 	@Override

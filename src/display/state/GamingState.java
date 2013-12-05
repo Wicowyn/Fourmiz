@@ -111,7 +111,7 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
 			throws SlickException {
-		arg2.setBackground(Color.gray);
+		arg2.setBackground(Color.darkGray);
 		for(Render render : renders) render.render(arg0, arg1, arg2);
 	}
 

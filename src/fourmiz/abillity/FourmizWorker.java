@@ -22,10 +22,10 @@ public class FourmizWorker extends Abillity
 		return buzy;
 	}
 	
-	//recherche de nourriture à l'extérieur de la fourmilière
+	//Recherche de nourriture à l'extérieur de la fourmilière
 	public void foodResearch()
 	{
-		//déplacement aléatoire jusqu'a rencontre phéromone ou nourriture
+		//TODO (jcamenen) déplacement aléatoire jusqu'a rencontre phéromone ou nourriture
 		//tuer animal
 		//rapporter nourriture
 	}
