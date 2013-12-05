@@ -94,10 +94,9 @@ public class EntityFactory {
 			life.setUptake(1);
 			entity.addAbillity(life);
 			
-			Shape areaFourmizWorker = new Rectangle(15*Engine.SIZE_CASE, 15*Engine.SIZE_CASE, 20*Engine.SIZE_CASE, 20*Engine.SIZE_CASE);
-			
 			healer = new Healer(entity);
-			healer.setWalkArea(areaFourmizWorker);
+			healer.setMaxFoodStock(100000);
+			healer.setSpeed(5);
 			entity.addAbillity(healer);
 			break;
 		case FourmizSoldier:

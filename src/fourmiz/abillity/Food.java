@@ -1,5 +1,7 @@
 package fourmiz.abillity;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.geom.Shape;
 
 import fourmiz.collision.Entity;
@@ -7,6 +9,7 @@ import fourmiz.engine.Abillity;
 import fourmiz.touch.marker.FoodMarker;
 
 public class Food extends Abillity {
+	private static Logger log=LogManager.getLogger(Food.class);
 	private int food;
 	private MyFood foodMarker=new MyFood();
 
@@ -41,7 +44,10 @@ public class Food extends Abillity {
 			
 			if(amount>food){
 				foodTaked=food;
-				food=0;				
+				food=0;
+				
+				log.info("has no longer food, go to die");
+				Food.this.getOwner().getEngine().removeEntityToBuff(Food.this.getOwner());
 			}
 			else{
 				foodTaked=amount;
@@ -53,14 +59,12 @@ public class Food extends Abillity {
 
 		@Override
 		public Entity getOwner() {
-			// TODO Auto-generated method stub
-			return null;
+			return Food.this.getOwner();
 		}
 
 		@Override
 		public Shape getArea() {
-			// TODO Auto-generated method stub
-			return null;
+			return Food.this.getOwner().getCollisionShape();
 		}
 		
 	}

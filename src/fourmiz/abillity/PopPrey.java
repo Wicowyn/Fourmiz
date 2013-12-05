@@ -60,6 +60,7 @@ public class PopPrey extends Abillity implements EngineListener{
 				getOwner().getCollisionShape().getCenterY());
 		
 		prey.setPosition(position);
+		prey.setDirection(270);
 		
 		getOwner().getEngine().addEntityToBuff(prey);
 		list.add(prey);
