@@ -30,6 +30,7 @@ import org.jdom2.JDOMException;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -55,11 +56,12 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 	private List<Render> renders=new ArrayList<Render>();
 	private Engine engine=new Engine();
 	private ResourceManager ressources=new ResourceManager();
+	private Image wallpaper;
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
-			
+			wallpaper = new Image("image/ground.png");
 			engine.addListener(this);
 	}
 	
@@ -113,6 +115,7 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
 			throws SlickException {
 		arg2.setBackground(Color.darkGray);
+		wallpaper.draw();
 		for(Render render : renders) render.render(arg0, arg1, arg2);
 	}
 
