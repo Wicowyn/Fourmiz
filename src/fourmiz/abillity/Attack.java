@@ -10,6 +10,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
 
+import fourmiz.collision.CollideType;
 import fourmiz.collision.Entity;
 import fourmiz.collision.TouchHandle;
 import fourmiz.collision.TouchMarker;
@@ -26,7 +27,7 @@ public class Attack extends Abillity implements EntityListener, EngineListener{
 	private Search searchAttack=new Search();
 	private Fight fight=new Fight();
 	private static final int RADIUS=Engine.SIZE_CASE*4;
-	private Shape baseAttackArea=new Circle(0, 0, RADIUS);
+	private Shape baseAttackArea=new Circle(Engine.SIZE_CASE/2, Engine.SIZE_CASE/2, RADIUS);
 	private Shape currentAttackArea;
 	private boolean positionUpdated=true;
 	
@@ -230,6 +231,11 @@ public class Attack extends Abillity implements EntityListener, EngineListener{
 		}
 
 		@Override
+		public CollideType getCollideType() {
+			return CollideType.CONTAIN;
+		}
+
+		@Override
 		public void setPriority(int priority) {
 			this.priority=priority;
 		}
@@ -265,6 +271,11 @@ public class Attack extends Abillity implements EntityListener, EngineListener{
 		}
 
 		@Override
+		public CollideType getCollideType() {
+			return CollideType.CONTAIN;
+		}
+
+		@Override
 		public void setPriority(int priority) {
 			this.priority=priority;
 		}
@@ -297,6 +308,11 @@ public class Attack extends Abillity implements EntityListener, EngineListener{
 		@Override
 		public Shape getArea() {
 			return Attack.this.getOwner().getCollisionShape();
+		}
+		
+		@Override
+		public CollideType getCollideType() {
+			return CollideType.INTERSECT;
 		}
 
 		@Override

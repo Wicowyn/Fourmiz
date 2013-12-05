@@ -27,6 +27,7 @@ public abstract class TouchHandle implements Comparable<TouchHandle> {
 	
 	public abstract void setPriority(int priority);
 	public abstract int getPriority();
+	public abstract CollideType getCollideType();
 	
 	public abstract void perform(TouchMarker marker);
 	

@@ -71,9 +71,9 @@ public class Engine {
 	}
 
 	public void update(int delta){
-        for(Entity entity : this.entities) entity.update(delta);
+        for(Entity entity : entities) entity.update(delta);
         checkEntityBuff();
-        this.collisionManager.performCollision();
+        collisionManager.performCollision();
         checkEntityBuff();
     }
     

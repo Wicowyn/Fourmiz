@@ -10,6 +10,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
 
+import fourmiz.collision.CollideType;
 import fourmiz.collision.Entity;
 import fourmiz.collision.TouchHandle;
 import fourmiz.collision.TouchMarker;
@@ -28,16 +29,16 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 	private Search search=new Search();
 	private Heal heal=new Heal();
 	private static final int RADIUS=Engine.SIZE_CASE*4;
-	private Shape baseSearchArea=new Circle(0, 0, RADIUS);
-	private Shape baseHealArea=new Circle(0, 0, RADIUS);
+	private Shape baseSearchArea=new Circle(Engine.SIZE_CASE/2, Engine.SIZE_CASE/2, RADIUS);
+	private Shape baseHealArea=new Circle(Engine.SIZE_CASE/2, Engine.SIZE_CASE/2, RADIUS);
 	private Shape currentSearchArea;
 	private Shape currentHealArea;
 	private boolean updateSearchArea=true;
 	private boolean updateHealArea=true;
-	private Touched touch;
 	
 	private State state=null;
 	private Entity focused;
+	private Touched touch;
 	float speed;
 	
 	private static final int INTERVAL_TIME=1000;
@@ -50,6 +51,24 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		super(owner);
 		
 		setState(State.SEARCH);
+	}
+	
+	/**
+	 * Set the area to search food
+	 * @param radius radius of circle
+	 */
+	public void setFoodRadius(int radius){
+		baseSearchArea=new Circle(Engine.SIZE_CASE/2, Engine.SIZE_CASE/2, radius);
+		updateSearchArea=true;
+	}
+	
+	/**
+	 * Set the area to search entity which want life
+	 * @param radius radius of circle
+	 */
+	public void setHealRadius(int radius){
+		baseSearchArea=new Circle(Engine.SIZE_CASE/2, Engine.SIZE_CASE/2, radius);
+		updateHealArea=true;
 	}
 
 	@Override
@@ -202,6 +221,7 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 	@Override
 	public void entityRemoved(Entity entity) {
 		if(entity==focused){
+			log.info("entity "+entity.getID()+"followed is dead");
 			setState(State.SEARCH);
 			focused=null;
 		}
@@ -237,13 +257,15 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 	}
 	
 	private void healFinded(LifeMarker marker){
-		focused=marker.getOwner();
-		setState(State.FOLLOW_TO_HEAL);
+		if(((marker.getLife()*100)/marker.getMaxLife())<50){
+			focused=marker.getOwner();
+			setState(State.FOLLOW_TO_HEAL);			
+		}
 	}
 	
 	private void setState(State state){
+		log.info("Jump to mode "+this.state+" to "+state+" for entity "+getOwner().getID());
 		this.state=state;
-		log.info("Jump to mode "+state);
 		
 		switch(state){
 		case FOLLOW_FOOD:
@@ -267,15 +289,22 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 			addTouchHandle(touch);
 			break;
 		case SEARCH:
-			for(SearchStatic search : searchAreaStatic) addTouchHandle(search);
-			addTouchHandle(search);
 			
 			if(foodStock>0){
 				for(HealStatic heal : healAreaStatic) addTouchHandle(heal);
 				addTouchHandle(heal);
 			}
+			else if(foodStock<maxFoodStock){
+				for(SearchStatic search : searchAreaStatic) addTouchHandle(search);
+				addTouchHandle(search);
+				
+			}
 			
-			if(touch!=null) removeTouchHandle(touch);
+			if(touch!=null){
+				removeTouchHandle(touch);
+				touch=null;
+			}
+			
 			focused=null;
 			break;
 		default:
@@ -325,6 +354,11 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		public Shape getArea() {
 			return area;
 		}
+		
+		@Override
+		public CollideType getCollideType() {
+			return CollideType.CONTAIN_OR_INTERSECT;
+		}
 
 		@Override
 		public void setPriority(int priority) {
@@ -340,7 +374,6 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		public void perform(TouchMarker marker) {
 			foodFinded((FoodMarker) marker);
 		}
-		
 	}
 	
 	private class Search extends TouchHandle{
@@ -360,6 +393,11 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		public Shape getArea() {
 			return Healer.this.getSearchArea();
 		}
+		
+		@Override
+		public CollideType getCollideType() {
+			return CollideType.CONTAIN_OR_INTERSECT;
+		}	
 
 		@Override
 		public void setPriority(int priority) {
@@ -374,8 +412,7 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		@Override
 		public void perform(TouchMarker marker) {
 			foodFinded((FoodMarker) marker);
-		}
-		
+		}	
 	}
 	
 	private class HealStatic extends TouchHandle{
@@ -399,6 +436,11 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		@Override
 		public Shape getArea() {
 			return area;
+		}
+		
+		@Override
+		public CollideType getCollideType() {
+			return CollideType.CONTAIN_OR_INTERSECT;
 		}
 
 		@Override
@@ -434,6 +476,11 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		@Override
 		public Shape getArea() {
 			return Healer.this.getHealerArea();
+		}
+		
+		@Override
+		public CollideType getCollideType() {
+			return CollideType.CONTAIN_OR_INTERSECT;
 		}
 
 		@Override
@@ -475,6 +522,11 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		public Shape getArea() {
 			return Healer.this.getOwner().getCollisionShape();
 		}
+		
+		@Override
+		public CollideType getCollideType() {
+			return CollideType.INTERSECT;
+		}
 
 		@Override
 		public void setPriority(int priority) {
@@ -492,15 +544,23 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 				switch (state) {
 				case FOLLOW_FOOD:
 					FoodMarker foodMarker=(FoodMarker) marker;
-					foodStock+=foodMarker.getFood(maxFoodStock);
+					
+					int foo=foodMarker.getFood(maxFoodStock);
+					foodStock+=foo;
+					log.info("take food: "+foo+" and grow food to "+foodStock);					
 					
 					setState(State.SEARCH);
 					break;
 				case FOLLOW_TO_HEAL:
 					LifeMarker lifeMarker=(LifeMarker) marker;
 					
+					int beforeLife=lifeMarker.getLife();
 					int heal=lifeMarker.getMaxLife()-lifeMarker.getLife();
-					lifeMarker.addLife(getFood(heal));
+					int foodGiven=getFood(heal);
+					
+					lifeMarker.addLife(foodGiven);
+					log.info("Give "+heal+"/"+foodGiven+" heal to entity "+lifeMarker.getOwner().getID()+", his life grow from "+beforeLife
+							+" to "+lifeMarker.getLife()+" with his max life at "+lifeMarker.getMaxLife());
 					
 					setState(State.SEARCH);
 					break;

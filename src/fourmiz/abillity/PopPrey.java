@@ -47,7 +47,7 @@ public class PopPrey extends Abillity implements EngineListener{
 		Entity prey=new Entity(getOwner().getEngine(), Engine.getDefaultShape());
 		Prey preyA=new Prey(prey);
 		preyA.setLife(160);
-		preyA.setFood(356);
+		preyA.setFood(100);
 		prey.addAbillity(preyA);
 		
 		ShapeMove move=new ShapeMove(prey);

@@ -35,7 +35,7 @@ import fourmiz.engine.EntityListener;
 
 
 public final class Entity{
-	private Logger log=LogManager.getLogger(getClass());
+	private static Logger log=LogManager.getLogger(Entity.class);
 	private static int lastID;
 	private int ID;
 	private float scale;
@@ -97,7 +97,7 @@ public final class Entity{
 		
 		notifyAbillityAdded(abillity);
 		
-		this.log.debug("abillity: "+abillity.getClass().getSimpleName()+" add to "+getID());
+		log.debug("abillity: "+abillity.getClass().getSimpleName()+" add to "+getID());
 	}
 	
 	public boolean removeAbillity(Abillity abillity){
@@ -108,7 +108,7 @@ public final class Entity{
 		
 		if(this.abillities.remove(abillity)){
 			notifyAbillityRemoved(abillity);
-			this.log.debug("abillity: "+abillity.getClass().getSimpleName()+" remove from "+getID());
+			log.debug("abillity: "+abillity.getClass().getSimpleName()+" remove from "+getID());
 			return true;
 		}
 		

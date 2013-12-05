@@ -107,6 +107,8 @@ public class EntityFactory {
 			
 			healer = new Healer(entity);
 			healer.setMaxFoodStock(100000);
+			healer.setFoodRadius(10*Engine.SIZE_CASE);
+			healer.setHealRadius(10*Engine.SIZE_CASE);
 			healer.setSpeed(5);
 			entity.addAbillity(healer);
 

@@ -28,11 +28,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.newdawn.slick.geom.Shape;
+
 import fourmiz.engine.Abillity;
 import fourmiz.engine.EntityListener;
 
 
 public class CollisionManager implements CollidableListener, EntityListener{
+	private static Logger log=LogManager.getLogger(CollisionManager.class);
 	private Map<Integer, Set<TouchHandle>> colliHandle=new HashMap<Integer, Set<TouchHandle>>();
 	private Map<Integer, Set<TouchMarker>> colliMarker=new HashMap<Integer, Set<TouchMarker>>();
 	
@@ -43,6 +48,17 @@ public class CollisionManager implements CollidableListener, EntityListener{
 		}
 		
 		entity.addEntityListener(this);
+		log.debug("After add entity "+entity.getID()+" we have: ");
+		showType();
+	}
+	
+	private void showType(){
+		for(Map.Entry<Integer, Set<TouchHandle>> entry : colliHandle.entrySet()){
+			log.debug("For type :"+entry.getKey()+" have "+entry.getValue().size()+" touchHandle");
+		}
+		for(Map.Entry<Integer, Set<TouchMarker>> entry : colliMarker.entrySet()){
+			log.debug("For type :"+entry.getKey()+" have "+entry.getValue().size()+" touchMarker");
+		}
 	}
 	
 	public void addEntity(Collection<Entity> collection){
@@ -55,6 +71,8 @@ public class CollisionManager implements CollidableListener, EntityListener{
 		}
 		
 		entity.removeEntityListener(this);
+		log.info("After remove entity "+entity.getID()+" we have: ");
+		showType();
 	}
 	
 	public void removeEntity(Collection<Entity> collection){
@@ -62,7 +80,7 @@ public class CollisionManager implements CollidableListener, EntityListener{
 	}
 	
 	public void performCollision(){
-		List<DataCollide> toCollides=new ArrayList<DataCollide>();
+		List<DataCollide> toPerform=new ArrayList<DataCollide>();
 		
 		for(Iterator<Map.Entry<Integer, Set<TouchHandle>>> itH=this.colliHandle.entrySet().iterator(); itH.hasNext();){
 			Map.Entry<Integer, Set<TouchHandle>> entry=itH.next();
@@ -72,16 +90,37 @@ public class CollisionManager implements CollidableListener, EntityListener{
 			
 			for(TouchHandle tH : entry.getValue()){
 				for(TouchMarker  tM : setM){
-					if(tH.getArea().intersects(tM.getArea())){
-						//TODO à optimiser, potiellement 2 même collision peuvent être prise en compte. Mais ne pose pas de problème.
-						toCollides.add(new DataCollide(tH, tM));
+					Shape handleArea=tH.getArea();
+					Shape markerArea=tM.getArea();
+					
+					switch(tH.getCollideType()){
+					case CONTAIN:
+						if(handleArea.contains(markerArea)) toPerform.add(new DataCollide(tH, tM));
+						break;
+					case CONTAIN_OR_INTERSECT:
+						if(handleArea.contains(markerArea) || handleArea.intersects(markerArea))
+							toPerform.add(new DataCollide(tH, tM));
+						break;
+					case INTERSECT:
+						if(handleArea.intersects(markerArea)) toPerform.add(new DataCollide(tH, tM));
+						break;
+					case OUT_OR_INTERSECT:
+						if(!handleArea.contains(markerArea)) toPerform.add(new DataCollide(tH, tM));
+						break;
+					case OUT:
+						if(!handleArea.contains(markerArea) && !handleArea.intersects(markerArea))
+							toPerform.add(new DataCollide(tH, tM));
+						break;
+					default:
+						break;
+					
 					}
 				}
 			}
 		}
 		
-		Collections.sort(toCollides);
-		for(DataCollide data : toCollides) data.perform();		
+		Collections.sort(toPerform);
+		for(DataCollide data : toPerform) data.perform();		
 	}
 
 	@Override
@@ -90,7 +129,7 @@ public class CollisionManager implements CollidableListener, EntityListener{
 		
 		if(set==null){
 			set=new HashSet<TouchHandle>();
-			CollisionManager.this.colliHandle.put(handle.getType(), set);
+			colliHandle.put(handle.getType(), set);
 		}
 		
 		set.add(handle);
@@ -100,9 +139,9 @@ public class CollisionManager implements CollidableListener, EntityListener{
 	public void touchHandleRemoved(TouchHandle handle) {
 		Set<TouchHandle> set=colliHandle.get(handle.getType());
 		
-		set.remove(handle);
-		if(set.isEmpty()) colliHandle.remove(handle.getType());
-		
+		if(set==null || !set.remove(handle)){
+			log.warn("Try to remove handle type "+handle.getType()+" but not found");
+		}
 	}
 	
 	@Override
