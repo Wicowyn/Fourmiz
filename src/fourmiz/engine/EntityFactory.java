@@ -28,6 +28,7 @@ import fourmiz.abillity.Healer;
 import fourmiz.abillity.Level;
 import fourmiz.abillity.Level.LifeState;
 import fourmiz.abillity.Life;
+import fourmiz.abillity.PopPrey;
 import fourmiz.abillity.Prey;
 import fourmiz.abillity.Queen;
 import fourmiz.abillity.ShapeMove;
@@ -35,23 +36,9 @@ import fourmiz.collision.Entity;
 
 public class EntityFactory {
 	private static Logger log=LogManager.getLogger(EntityFactory.class);
-	private static float heigt;
-	private static float width;
-	
-	public static void setGlobalHeight(float height){
-		EntityFactory.heigt=height;
-	}
-	
-	public static void setGobalWidth(float width){
-		EntityFactory.width=width;
-	}
-	
-	private static Rectangle get(float x, float y, float width, float height){
-		return new Rectangle(0, 0, EntityFactory.width, EntityFactory.heigt);
-	}
 	
 	public static Entity createEntity(EntityName name, Engine engine){
-		Entity entity=new Entity(engine, get(0, 0, Engine.SIZE_CASE, Engine.SIZE_CASE));
+		Entity entity=new Entity(engine, Engine.getDefaultShape());
 		Level level=null;
 		Life life=null;
 		Healer healer=null;
@@ -174,6 +161,13 @@ public class EntityFactory {
 			Shape area2=new Rectangle(6*Engine.SIZE_CASE, 6*Engine.SIZE_CASE, 10*Engine.SIZE_CASE, 10*Engine.SIZE_CASE);
 			move.setArea(area2);
 			entity.addAbillity(move);
+			break;
+		case PopPrey:
+			entity=new Entity(engine, new Rectangle(0, 0, 15*Engine.SIZE_CASE, 15*Engine.SIZE_CASE));
+			PopPrey popPrey=new PopPrey(entity);
+			popPrey.setMaxPrey(10);
+			popPrey.setPopDelay(5000);
+			entity.addAbillity(popPrey);
 			break;
 		default:
 			EntityFactory.log.fatal("Value : "+name+" don't handle");

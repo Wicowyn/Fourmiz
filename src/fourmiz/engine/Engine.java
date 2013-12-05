@@ -32,6 +32,8 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import fourmiz.collision.CollisionManager;
@@ -51,6 +53,10 @@ public class Engine {
     
     public Engine(){
             
+    }
+    
+    public static Shape getDefaultShape(){
+    	return new Rectangle(0, 0, SIZE_CASE, SIZE_CASE);
     }
     
     public void update(int delta){
@@ -119,9 +125,6 @@ public class Engine {
         Element root=doc.getRootElement();
         List<Element> listElem=root.getChildren();
         
-        EntityFactory.setGlobalHeight(SIZE_CASE);
-        EntityFactory.setGobalWidth(SIZE_CASE);
-        
         for(Element elem : listElem){
             switch(elem.getName()){
             case "Config":
@@ -183,6 +186,9 @@ public class Engine {
             	break;
             case "Prey":
             	entity=EntityFactory.createEntity(EntityName.Prey, this);
+            	break;
+            case "PopPrey":
+            	entity=EntityFactory.createEntity(EntityName.PopPrey, this);
             	break;
             default:
                 log.warn("loadLevel: unknown type entity -> "+elem.getName());
