@@ -19,22 +19,26 @@ public class Level extends Abillity {
 	@Override
 	public void update(int delta) {
 		time+=delta;
-		
+		//si l'entité est un oeuf et que son temps est écoulé, elle évolue en larve
 		if(state==LifeState.EGGS && time>=EGGS_TIME){
 			state=LifeState.LARVA;
 		}
+		//si l'entité est une larve et que son temps est écoulé, elle évolue en nymphe
 		else if(state==LifeState.LARVA && time>=LARVA_TIME){
 			state=LifeState.NYMPH;
 		}
+		//si l'entité est un nymphe et que son temps est écoulé, elle évolue en fourmi
 		else if(state==LifeState.NYMPH && time>=NYMPH_TIME){
 			state=LifeState.FOURMIZ;
 		}
+		//si l'entité est une fourmi et que son temps est écoulé, elle meurt
 		else if(state==LifeState.FOURMIZ && time>=FOURMIZ_TIME){
 			state=LifeState.DEAD;
 		}
 
 	}
 	
+	//définit l'age en fonction de l'état de l'entité
 	public void setState(LifeState state) {
 		this.state = state;
 		
@@ -55,14 +59,17 @@ public class Level extends Abillity {
 		}
 	}
 
+	//retourne l'état de l'entité
 	public LifeState getState() {
 		return state;
 	}
 
+	//retourne l'age de l'entité
 	public int getTime() {
 		return time;
 	}
 
+	//enumération des différents états possibles
 	public enum LifeState{
 		EGGS, LARVA, NYMPH, FOURMIZ, DEAD, ANTHILL
 	}
