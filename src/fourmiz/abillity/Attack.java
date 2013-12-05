@@ -177,14 +177,8 @@ public class Attack extends Abillity implements EntityListener, EngineListener{
 	}
 	
 	private void preyFinded(PreyMarker marker){
-		switch (state) {
-		case SEARCH:
-			focused=marker.getOwner();
-			setState(State.FOLLOW);
-			break;
-		default:
-			break;
-		}
+		focused=marker.getOwner();
+		setState(State.FOLLOW);
 	}
 	
 	private void setState(State state){
