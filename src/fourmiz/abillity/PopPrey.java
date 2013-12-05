@@ -66,8 +66,6 @@ public class PopPrey extends Abillity implements EngineListener{
 		
 		getOwner().getEngine().addEntityToBuff(prey);
 		list.add(prey);
-		
-		maxPrey++;
 	}
 
 	public int getMaxPrey() {
