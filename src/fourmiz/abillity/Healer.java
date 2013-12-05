@@ -1,8 +1,5 @@
 package fourmiz.abillity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
@@ -29,6 +26,7 @@ public class Healer extends Abillity implements EntityListener{
 	
 	public Healer(Entity owner) {
 		super(owner);
+		addTouchHandle(heal);
 	}
 	
 	public void setWalkArea(Shape newArea)
@@ -53,14 +51,14 @@ public class Healer extends Abillity implements EntityListener{
 	@Override
 	public void update(int delta) {
 
-        //mise à jour position
+        //mise ï¿½ jour position
 		Vector2f position=this.getOwner().getPosition();
         float hip=this.speed*delta;
         position.x+=hip*Math.cos(Math.toRadians(this.getOwner().getDirection()));
         position.y+=hip*Math.sin(Math.toRadians(this.getOwner().getDirection()));        
         this.getOwner().setPosition(position);
         
-        //si il est sorti de la zone on redirige dans une direction aléatoire
+        //si il est sorti de la zone on redirige dans une direction alï¿½atoire
         if(!this.isInWalkArea())
         {
         	this.getOwner().setDirection((float) (Math.random()*360));
@@ -73,20 +71,6 @@ public class Healer extends Abillity implements EntityListener{
 		
 		owner.addEntityListener(this);
 		super.setOwner(owner);		
-	}
-
-	@Override
-	public Collection<? extends TouchMarker> getTouchMarker() {
-		return new ArrayList<TouchMarker>(0);
-	}
-
-	@Override
-	public Collection<? extends TouchHandle> getTouchHandle() {
-		ArrayList<TouchHandle> list=new ArrayList<TouchHandle>(1);
-		
-		list.add(heal);
-		
-		return list;
 	}
 	
 	private class MyHeal extends TouchHandle{

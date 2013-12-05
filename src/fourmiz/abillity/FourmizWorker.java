@@ -1,11 +1,6 @@
 package fourmiz.abillity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import fourmiz.collision.Entity;
-import fourmiz.collision.TouchHandle;
-import fourmiz.collision.TouchMarker;
 import fourmiz.engine.Abillity;
 
 public class FourmizWorker extends Abillity
@@ -22,10 +17,10 @@ public class FourmizWorker extends Abillity
 		return buzy;
 	}
 	
-	//Recherche de nourriture à l'extérieur de la fourmilière
+	//Recherche de nourriture ï¿½ l'extï¿½rieur de la fourmiliï¿½re
 	public void foodResearch()
 	{
-		//TODO (jcamenen) déplacement aléatoire jusqu'a rencontre phéromone ou nourriture
+		//TODO (jcamenen) dï¿½placement alï¿½atoire jusqu'a rencontre phï¿½romone ou nourriture
 		//tuer animal
 		//rapporter nourriture
 	}
@@ -35,14 +30,4 @@ public class FourmizWorker extends Abillity
 	{
 		
 	}
-	
-	@Override
-	public Collection<TouchMarker> getTouchMarker() {
-		return new ArrayList<TouchMarker>(0);
-	}
-
-	@Override
-	public Collection<TouchHandle> getTouchHandle() {
-		return new ArrayList<TouchHandle>(0);
-	}	
 }

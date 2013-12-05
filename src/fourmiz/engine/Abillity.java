@@ -19,7 +19,6 @@
 package fourmiz.engine;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import fourmiz.collision.CollidableListener;
@@ -29,6 +28,8 @@ import fourmiz.collision.TouchMarker;
 
 public abstract class Abillity {
 	private List<CollidableListener> collidableListeners=new ArrayList<CollidableListener>();
+	private List<TouchHandle> touchHandle=new ArrayList<TouchHandle>(0);
+	private List<TouchMarker> touchMarker=new ArrayList<TouchMarker>(0);
 	protected int ID;
 	private Entity owner;
 	
@@ -50,8 +51,46 @@ public abstract class Abillity {
 	}
 
 	public abstract void update(int delta);
-	public abstract Collection<? extends TouchMarker> getTouchMarker();
-	public abstract Collection<? extends TouchHandle> getTouchHandle();
+	
+	public ArrayList<? extends TouchMarker> getTouchMarker(){
+		return new ArrayList<TouchMarker>(touchMarker);
+	}
+	
+	public ArrayList<? extends TouchHandle> getTouchHandle(){
+		return new ArrayList<TouchHandle>(touchHandle);
+	}
+	
+	protected boolean addTouchMarker(TouchMarker marker){
+		boolean added=touchMarker.add(marker);
+		
+		if(added) notifyTouchMarkerAdded(marker);
+		
+		return added;
+	}
+	
+	protected boolean removeTouchMarked(TouchMarker marker){
+		boolean removed=touchMarker.remove(marker);
+		
+		if(removed) notifyTouchMarkerRemoved(marker);
+		
+		return removed;
+	}
+	
+	protected boolean addTouchHandle(TouchHandle handle){
+		boolean added=touchHandle.add(handle);
+		
+		if(added) notifyTouchHandleAdded(handle);
+		
+		return added;
+	}
+	
+	protected boolean removeTouchHandle(TouchHandle handle){
+		boolean removed=touchHandle.remove(handle);
+		
+		if(removed) notifyTouchHandleRemoved(handle);
+		
+		return removed;
+	}
 	
 	public void addCollidableListener(CollidableListener listener){
 		collidableListeners.add(listener);
@@ -61,19 +100,19 @@ public abstract class Abillity {
 		return collidableListeners.remove(listener);
 	}
 	
-	protected void notifyTouchHandleAdded(TouchHandle handle){
+	private void notifyTouchHandleAdded(TouchHandle handle){
 		for(CollidableListener listener : this.collidableListeners) listener.touchHandleAdded(handle);
 	}
 	
-	protected void notifyTouchHandleRemoved(TouchHandle handle){
+	private void notifyTouchHandleRemoved(TouchHandle handle){
 		for(CollidableListener listener : this.collidableListeners) listener.touchHandleRemoved(handle);
 	}
 
-	protected void notifyTouchMarkerAdded(TouchMarker marker){
+	private void notifyTouchMarkerAdded(TouchMarker marker){
 		for(CollidableListener listener : this.collidableListeners) listener.touchMarkerAdded(marker);
 	}
 	
-	protected void notifyTouchMarkerRemoved(TouchMarker marker){
+	private void notifyTouchMarkerRemoved(TouchMarker marker){
 		for(CollidableListener listener : this.collidableListeners) listener.touchMarkerRemoved(marker);
 	}
 }

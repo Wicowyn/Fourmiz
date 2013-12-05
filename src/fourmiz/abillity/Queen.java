@@ -1,13 +1,8 @@
 package fourmiz.abillity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.newdawn.slick.geom.Vector2f;
 
 import fourmiz.collision.Entity;
-import fourmiz.collision.TouchHandle;
-import fourmiz.collision.TouchMarker;
 import fourmiz.engine.Abillity;
 import fourmiz.engine.Engine;
 import fourmiz.engine.EntityFactory;
@@ -51,14 +46,5 @@ public class Queen extends Abillity{
 	
 	private void generateTimeToLay(){
 		timeToLay=3000+((int) Math.random()%3000)-1000;
-	}
-
-	@Override
-	public Collection<TouchMarker> getTouchMarker() {
-		return new ArrayList<TouchMarker>(0);
-	}
-	@Override
-	public Collection<TouchHandle> getTouchHandle() {
-		return new ArrayList<TouchHandle>(0);
 	}
 }

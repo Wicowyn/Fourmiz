@@ -1,11 +1,6 @@
 package fourmiz.abillity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import fourmiz.collision.Entity;
-import fourmiz.collision.TouchHandle;
-import fourmiz.collision.TouchMarker;
 import fourmiz.engine.Abillity;
 
 public class Level extends Abillity {	
@@ -70,15 +65,5 @@ public class Level extends Abillity {
 
 	public enum LifeState{
 		EGGS, LARVA, NYMPH, FOURMIZ, DEAD, ANTHILL
-	}
-
-	@Override
-	public Collection<TouchMarker> getTouchMarker() {
-		return new ArrayList<TouchMarker>(0);
-	}
-
-	@Override
-	public Collection<TouchHandle> getTouchHandle() {
-		return new ArrayList<TouchHandle>(0);
 	}
 }

@@ -1,16 +1,10 @@
 package fourmiz.abillity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import fourmiz.collision.Entity;
-import fourmiz.collision.TouchHandle;
-import fourmiz.collision.TouchMarker;
 import fourmiz.engine.Abillity;
 import fourmiz.engine.Engine;
 import fourmiz.touch.marker.PreyMarker;
@@ -23,6 +17,8 @@ public class Prey extends Abillity {
 
 	public Prey(Entity owner) {
 		super(owner);
+		
+		addTouchMarker(prey);
 	}
 
 	@Override
@@ -94,20 +90,6 @@ public class Prey extends Abillity {
 		}
 		
 		return foodTaked;
-	}
-
-	@Override
-	public Collection<? extends TouchMarker> getTouchMarker() {
-		List<TouchMarker> list=new ArrayList<TouchMarker>(1);
-		
-		list.add(prey);
-		
-		return list;
-	}
-
-	@Override
-	public Collection<? extends TouchHandle> getTouchHandle() {
-		return new ArrayList<TouchHandle>();
 	}
 	
 	private class MyPrey extends PreyMarker{

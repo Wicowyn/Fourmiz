@@ -1,14 +1,11 @@
 package fourmiz.abillity;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.newdawn.slick.geom.Vector2f;
 
 import fourmiz.collision.Entity;
-import fourmiz.collision.TouchHandle;
-import fourmiz.collision.TouchMarker;
 import fourmiz.engine.Abillity;
 import fourmiz.engine.Engine;
 import fourmiz.engine.EngineListener;
@@ -82,16 +79,6 @@ public class PopPrey extends Abillity implements EngineListener{
 
 	public void setPopDelay(int popDelay) {
 		this.popDelay = popDelay;
-	}
-
-	@Override
-	public Collection<? extends TouchMarker> getTouchMarker() {
-		return new ArrayList<TouchMarker>(0);
-	}
-
-	@Override
-	public Collection<? extends TouchHandle> getTouchHandle() {
-		return new ArrayList<TouchHandle>(0);
 	}
 
 	@Override

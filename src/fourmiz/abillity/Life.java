@@ -1,14 +1,10 @@
 package fourmiz.abillity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.geom.Shape;
 
 import fourmiz.collision.Entity;
-import fourmiz.collision.TouchHandle;
 import fourmiz.engine.Abillity;
 import fourmiz.touch.marker.LifeMarker;
 
@@ -23,7 +19,9 @@ public class Life extends Abillity{
 	
 	
 	public Life(Entity owner) {
-		super(owner);	
+		super(owner);
+		
+		addTouchMarker(lifeMarker);
 	}
 
 	@Override
@@ -67,20 +65,6 @@ public class Life extends Abillity{
 
 	public void setUptake(int uptake) {
 		this.life_tic = uptake;
-	}
-
-	@Override
-	public Collection<LifeMarker> getTouchMarker() {
-		Collection<LifeMarker> list=new ArrayList<LifeMarker>(1);
-		
-		list.add(lifeMarker);
-		
-		return list;
-	}
-
-	@Override
-	public Collection<TouchHandle> getTouchHandle() {
-		return new ArrayList<TouchHandle>(0);
 	}
 
 

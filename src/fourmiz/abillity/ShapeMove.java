@@ -1,14 +1,9 @@
 package fourmiz.abillity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import fourmiz.collision.Entity;
-import fourmiz.collision.TouchHandle;
-import fourmiz.collision.TouchMarker;
 import fourmiz.engine.Abillity;
 import fourmiz.engine.Engine;
 
@@ -95,16 +90,6 @@ public class ShapeMove extends Abillity {
 
 	public void setBeamMove(int beamMove) {
 		this.beamMove = beamMove;
-	}
-
-	@Override
-	public Collection<? extends TouchMarker> getTouchMarker() {
-		return new ArrayList<TouchMarker>(0);
-	}
-
-	@Override
-	public Collection<? extends TouchHandle> getTouchHandle() {
-		return new ArrayList<TouchHandle>(0);
 	}
 
 	private enum State{
