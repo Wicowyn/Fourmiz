@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-	
+    <SpriteSheet id="FourmizWorker" th="20" tw="20">image/FourmizWorker.png</SpriteSheet>
+    <Animation id="FourmizWorker_MOVE_DOWN" idSpriteSheet="FourmizWorker">
+        <Frame duration="50" x="0" y="2" />
+        <Frame duration="50" x="1" y="2" />
+        <Frame duration="50" x="2" y="2" />
+        <Frame duration="50" x="3" y="2" />
+    </Animation>
+    <Image id="FourmizWorker" src="spritesheet" idSpriteSheet="FourmizWorker" x="0" y="2" />
+    
 </root>
