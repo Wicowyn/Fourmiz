@@ -8,8 +8,10 @@ import fourmiz.collision.Entity;
 import fourmiz.engine.Abillity;
 import fourmiz.touch.marker.FoodMarker;
 
+//la nourriture est une entité à part entière
 public class Food extends Abillity {
 	private static Logger log=LogManager.getLogger(Food.class);
+	//quantité de nourriture exploitable pour l'entité
 	private int food;
 	private MyFood foodMarker=new MyFood();
 
@@ -22,7 +24,6 @@ public class Food extends Abillity {
 	public void update(int delta) {
 
 	}
-	
 	public int getFood() {
 		return food;
 	}
@@ -39,21 +40,28 @@ public class Food extends Abillity {
 		}
 
 		@Override
+		//prélève une quantité de nourriture du total de l'entité (amount)
 		public int getFood(int amount) {
+			//quantité de nourriture prélevée
 			int foodTaked=0;
 			
+			//si la quantité voulue est supérieure au total de l'entité
 			if(amount>food){
+				//on prélève tout
 				foodTaked=food;
 				food=0;
 				
 				log.info("has no longer food, go to die");
+				//cette entité nourriture est supprimée du système
 				Food.this.getOwner().getEngine().removeEntityToBuff(Food.this.getOwner());
 			}
+			//sinon on prélève la quantité voulue en déduisant celle ci du total
 			else{
 				foodTaked=amount;
 				food-=amount;
 			}
 			
+			//on retourne la quantité de nourriture prélevée
 			return foodTaked;
 		}
 
@@ -63,6 +71,7 @@ public class Food extends Abillity {
 		}
 
 		@Override
+		//retourne la zone d'influence de la nourriture
 		public Shape getArea() {
 			return Food.this.getOwner().getCollisionShape();
 		}
