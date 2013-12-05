@@ -30,16 +30,19 @@ public class ShapeMove extends Abillity {
 	public void update(int delta) {		
 		if(lastUpdate>=Engine.SIZE_CASE){
 			if(state==State.NORMAL){
-				float dirHip=(360*beamMove)/100;
-				
-				getOwner().setDirection(
-						(float) (getOwner().getDirection()+(((Math.random()*360)%dirHip)-dirHip/2)));
-				
 				Shape collisionShape=getOwner().getCollisionShape();
-				if(!area.contains(collisionShape) || collisionShape.intersects(area)){
+				
+				if(!area.contains(collisionShape)){
 					state=State.CORRECT;
 					
 					getOwner().setDirection(getOwner().getDirection()-180);
+				}
+				else{
+					float dirHip=(360*beamMove)/100;
+					
+					getOwner().setDirection(
+							(float) (getOwner().getDirection()+(((Math.random()*360)%dirHip)-dirHip/2)));
+					
 				}
 				
 			}
@@ -51,7 +54,7 @@ public class ShapeMove extends Abillity {
 		
 		if(state==State.CORRECT){
 			Shape collisionShape=getOwner().getCollisionShape();
-			if(area.contains(collisionShape) && !collisionShape.intersects(area)){
+			if(area.contains(collisionShape)){
 				state=State.NORMAL;
 			}
 		}

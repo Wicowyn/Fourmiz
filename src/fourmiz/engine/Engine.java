@@ -181,6 +181,9 @@ public class Engine {
             case "Queen":
             	entity=EntityFactory.createEntity(EntityName.Queen, this);
             	break;
+            case "Prey":
+            	entity=EntityFactory.createEntity(EntityName.Prey, this);
+            	break;
             default:
                 log.warn("loadLevel: unknown type entity -> "+elem.getName());
                 continue;
