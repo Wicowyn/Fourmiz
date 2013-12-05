@@ -29,8 +29,8 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 	private Search search=new Search();
 	private Heal heal=new Heal();
 	private static final int RADIUS=Engine.SIZE_CASE*4;
-	private Shape baseSearchArea=new Circle(Engine.SIZE_CASE/2, Engine.SIZE_CASE/2, RADIUS);
-	private Shape baseHealArea=new Circle(Engine.SIZE_CASE/2, Engine.SIZE_CASE/2, RADIUS);
+	private Circle baseSearchArea=new Circle(Engine.SIZE_CASE/2, Engine.SIZE_CASE/2, RADIUS);
+	private Circle baseHealArea=new Circle(Engine.SIZE_CASE/2, Engine.SIZE_CASE/2, RADIUS);
 	private Shape currentSearchArea;
 	private Shape currentHealArea;
 	private boolean updateSearchArea=true;
@@ -113,7 +113,7 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		super.setOwner(owner);
 		
 		getOwner().getEngine().addListener(this);
-		getOwner().removeEntityListener(this);
+		getOwner().addEntityListener(this);
 	}
 	
 	public void addStaticSearchArea(Shape area){
@@ -221,7 +221,6 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 	@Override
 	public void entityRemoved(Entity entity) {
 		if(entity==focused){
-			log.info("entity "+entity.getID()+"followed is dead");
 			setState(State.SEARCH);
 			focused=null;
 		}
@@ -232,7 +231,7 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		if(updateSearchArea){
 			Vector2f pos=getOwner().getPosition();
 			
-			currentSearchArea=baseSearchArea.transform(Transform.createTranslateTransform(pos.getX(), pos.getY()));
+			currentSearchArea=baseSearchArea.transform(Transform.createTranslateTransform(pos.x, pos.y));
 			updateSearchArea=false;
 		}
 		
@@ -243,7 +242,7 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		if(updateHealArea){
 			Vector2f pos=getOwner().getPosition();
 			
-			currentHealArea=baseHealArea.transform(Transform.createTranslateTransform(pos.getX(), pos.getY()));
+			currentHealArea=baseHealArea.transform(Transform.createTranslateTransform(pos.x, pos.y));
 			updateHealArea=false;
 		}
 		
@@ -264,7 +263,7 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 	}
 	
 	private void setState(State state){
-		log.info("Jump to mode "+this.state+" to "+state+" for entity "+getOwner().getID());
+		log.debug("Jump to mode "+this.state+" to "+state+" for entity "+getOwner().getID());
 		this.state=state;
 		
 		switch(state){
@@ -294,10 +293,10 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 				for(HealStatic heal : healAreaStatic) addTouchHandle(heal);
 				addTouchHandle(heal);
 			}
-			else if(foodStock<maxFoodStock){
+			
+			if(foodStock<maxFoodStock){
 				for(SearchStatic search : searchAreaStatic) addTouchHandle(search);
 				addTouchHandle(search);
-				
 			}
 			
 			if(touch!=null){

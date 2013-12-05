@@ -87,7 +87,7 @@ public class Attack extends Abillity implements EntityListener, EngineListener{
 		super.setOwner(owner);
 		
 		getOwner().getEngine().addListener(this);
-		getOwner().removeEntityListener(this);
+		getOwner().addEntityListener(this);
 	}
 	
 	public void addStaticArea(Shape area){

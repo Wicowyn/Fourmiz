@@ -160,8 +160,9 @@ public class CollisionManager implements CollidableListener, EntityListener{
 	public void touchMarkerRemoved(TouchMarker marker) {
 		Set<TouchMarker> set=colliMarker.get(marker.getType());
 		
-		set.remove(marker);
-		if(set.isEmpty()) CollisionManager.this.colliMarker.remove(marker.getType());
+		if(set==null || !set.remove(marker)){
+			log.warn("Try to remove handle type "+marker.getType()+" but not found");
+		}
 	}
 	
 	public class DataCollide implements Comparable<DataCollide>{

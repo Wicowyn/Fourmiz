@@ -188,15 +188,15 @@ public final class Entity{
 		return this.entityListeners.remove(listener);
 	}
 	
-	protected void notifyAbillityAdded(Abillity abillity){
+	private void notifyAbillityAdded(Abillity abillity){
 		for(EntityListener listener : this.entityListeners) listener.abillityAdded(abillity);
 	}
 	
-	protected void notifyAbillityRemoved(Abillity abillity){
+	private void notifyAbillityRemoved(Abillity abillity){
 		for(EntityListener listener : this.entityListeners) listener.abillityRemoved(abillity);
 	}
 
-	protected void notifyPositionUpdated(){
+	private void notifyPositionUpdated(){
 		for(EntityListener listener : this.entityListeners) listener.positionUpdated();
 	}
 	
