@@ -4,12 +4,13 @@
 	    <Chart xCase="20" yCase="20" xScale="0.3f" yScale="0.3f"/>        
     </Config>
     <Entity>
-	    <Egg x="1" y="1" dir="45"/>
-	    <Larva x="1" y="1" dir="45"/>
-		<Nymph x="2" y="2" dir="0"/>
-		<FourmizWorker x="16" y="8" dir="0"/>
-		<FourmizSoldier x="14" y="8" dir="0"/>
-		<FourmizSex x="5" y="5" dir="0"/>
+	    <Egg x="1" y="1" dir="0"/>
+	    <Larva x="2" y="2" dir="0"/>
+		<Nymph x="3" y="3" dir="0"/>
+		<FourmizWorker x="16" y="8" dir="45"/>
+		<FourmizSoldier x="14" y="8" dir="45"/>
+		<FourmizSex x="10" y="10" dir="45"/>
+		<Queen x="11" y="11" dir="45"/>
 		<PopPrey x="15" y="5" dir="45"/>
     </Entity>
 </root>

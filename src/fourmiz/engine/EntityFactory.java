@@ -64,8 +64,8 @@ public class EntityFactory {
 			entity.addAbillity(level);
 			
 			life=new Life(entity);
-			life.setMaxLife(2);
-			life.setCurrentLife(1);
+			life.setMaxLife(150);
+			life.setCurrentLife(150);
 			life.setUptake(5);
 			entity.addAbillity(life);
 			
