@@ -1,6 +1,5 @@
 package fourmiz.abillity;
 
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -53,20 +52,20 @@ public class Prey extends Abillity {
 	}
 
 	private void popFood(){
-		Vector2f position=getOwner().getPosition();
 		
 		while(food>0){
-			Shape shape=new Rectangle(0, 0, Engine.SIZE_CASE, Engine.SIZE_CASE);
-			Entity entity=new Entity(getOwner().getEngine(), shape);
+			Vector2f position=getOwner().getPosition();
+			Entity entity=new Entity(getOwner().getEngine(), Engine.getDefaultShape());
 			
 			Food food=new Food(entity);
 			food.setFood(getFood(packetFood));
 			entity.addAbillity(food);
 			
-			int dir=(int) ((Math.random()*360)%360);
+			int dir=(int) (Math.random()*360);
+			int space=((int) (Math.random()*2*Engine.SIZE_CASE))+Engine.SIZE_CASE;
 			
-			position.x+=(float) (2*Engine.SIZE_CASE*Math.cos(Math.toRadians(dir)));
-			position.y+=(float) (2*Engine.SIZE_CASE*Math.sin(Math.toRadians(dir)));
+			position.x+=(float) (space*Math.cos(Math.toRadians(dir)));
+			position.y+=(float) (space*Math.sin(Math.toRadians(dir)));
 			
 			entity.setPosition(position);
 			entity.setDirection(dir);

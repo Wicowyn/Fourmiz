@@ -70,6 +70,7 @@ public class Healer extends Abillity implements EntityListener{
 		if(getOwner()!=null) getOwner().removeEntityListener(this);
 		
 		owner.addEntityListener(this);
+		
 		super.setOwner(owner);		
 	}
 	
