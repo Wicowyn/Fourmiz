@@ -23,7 +23,7 @@ public class Queen extends Abillity{
 	public void update(int delta){
 		time+=delta;
 		
-		//si l'age de la reine à dépassé ou est égal à la date de ponte suivante 
+		//si l'age de la reine ï¿½ dï¿½passï¿½ ou est ï¿½gal ï¿½ la date de ponte suivante 
 		if(time>=timeToLay){
 			time=0;
 			generateTimeToLay();
@@ -34,23 +34,23 @@ public class Queen extends Abillity{
 	
 	//ponte d'un oeuf
 	private void lay(){
-		//création d'une nouvelle entité de type oeuf
+		//crï¿½ation d'une nouvelle entitï¿½ de type oeuf
 		Entity egg=EntityFactory.createEntity(EntityName.Egg, getOwner().getEngine());
-		
 		//on lui donne la position de la reine au moment de la ponte
 		Vector2f position=getOwner().getPosition();
 		position.x+=(float) (Engine.SIZE_CASE*Math.cos(Math.toRadians(getOwner().getDirection()-180)));
 		position.y+=(float) (Engine.SIZE_CASE*Math.sin(Math.toRadians(getOwner().getDirection()-180)));
 		
+		egg.setOwner(getOwner());
 		egg.setPosition(position);
-		egg.setDirection(getOwner().getDirection());
+		egg.setDirection(0);
 		
-		//on ajoute l'oeuf à la liste des entités
+		//on ajoute l'oeuf ï¿½ la liste des entitï¿½s
 		getOwner().getEngine().addEntityToBuff(egg);
 	}
 	
-	//génération du prochain temps de ponte
+	//gï¿½nï¿½ration du prochain temps de ponte
 	private void generateTimeToLay(){
-		timeToLay=3000+((int) Math.random()%3000)-1000;
+		timeToLay=10000+((int) Math.random()*4000)-2000;
 	}
 }

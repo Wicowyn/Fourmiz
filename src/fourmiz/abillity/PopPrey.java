@@ -3,6 +3,7 @@ package fourmiz.abillity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import fourmiz.collision.Entity;
@@ -12,6 +13,7 @@ import fourmiz.engine.EngineListener;
 
 public class PopPrey extends Abillity implements EngineListener{
 	private List<Entity> list=new ArrayList<Entity>();
+	private Shape area;
 	private int maxPrey=5;
 	private int popDelay=5;
 	private int time=0;
@@ -41,6 +43,14 @@ public class PopPrey extends Abillity implements EngineListener{
 		}
 	}
 	
+	public Shape getArea() {
+		return area;
+	}
+
+	public void setArea(Shape area) {
+		this.area = area;
+	}
+
 	private void popPrey(){
 		if(list.size()>=maxPrey) return;
 		
@@ -52,7 +62,7 @@ public class PopPrey extends Abillity implements EngineListener{
 		
 		ShapeMove move=new ShapeMove(prey);
 		move.setSpeed(2);
-		move.setArea(getOwner().getCollisionShape());
+		move.setArea(getArea());
 		prey.addAbillity(move);
 		
 		RealRender render=new RealRender(prey);
@@ -60,8 +70,8 @@ public class PopPrey extends Abillity implements EngineListener{
 		prey.addAbillity(render);
 		
 		Vector2f position=new Vector2f(
-				getOwner().getCollisionShape().getCenterX(),
-				getOwner().getCollisionShape().getCenterY());
+				getArea().getCenterX(),
+				getArea().getCenterY());
 		
 		prey.setPosition(position);
 		prey.setDirection(270);

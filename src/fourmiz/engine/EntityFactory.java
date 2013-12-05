@@ -20,6 +20,7 @@ package fourmiz.engine;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
@@ -40,6 +41,8 @@ public class EntityFactory {
 	
 	public static Entity createEntity(EntityName name, Engine engine){
 		Entity entity=new Entity(engine, Engine.getDefaultShape());
+		Shape anthil=new Circle(5*Engine.SIZE_CASE, 5*Engine.SIZE_CASE/2, 3*Engine.SIZE_CASE);
+		Shape preyPop=new Rectangle(10*Engine.SIZE_CASE, 10*Engine.SIZE_CASE, 10*Engine.SIZE_CASE, 10*Engine.SIZE_CASE);
 		RealRender render=new RealRender(entity);
 		Level level=null;
 		Life life=null;
@@ -62,12 +65,6 @@ public class EntityFactory {
 			level=new Level(entity);
 			level.setState(LifeState.EGGS);
 			entity.addAbillity(level);
-			
-			life=new Life(entity);
-			life.setMaxLife(150);
-			life.setCurrentLife(150);
-			life.setUptake(5);
-			entity.addAbillity(life);
 			
 			render.setAnimation(engine.getRessources().getAnimation("Egg"));
 			entity.addAbillity(render);
@@ -109,6 +106,9 @@ public class EntityFactory {
 			healer.setMaxFoodStock(100000);
 			healer.setFoodRadius(10*Engine.SIZE_CASE);
 			healer.setHealRadius(10*Engine.SIZE_CASE);
+			healer.addStaticHealArea(anthil);
+			healer.addStaticHealArea(preyPop);
+			healer.addStaticSearchArea(preyPop);
 			healer.setSpeed(5);
 			entity.addAbillity(healer);
 
@@ -158,8 +158,7 @@ public class EntityFactory {
 			
 			move=new ShapeMove(entity);
 			move.setSpeed(2);
-			Shape area=new Rectangle(6*Engine.SIZE_CASE, 6*Engine.SIZE_CASE, 8*Engine.SIZE_CASE, 8*Engine.SIZE_CASE);
-			move.setArea(area);
+			move.setArea(anthil);
 			entity.addAbillity(move);
 
 			render.setAnimation(engine.getRessources().getAnimation("Queen"));
@@ -186,8 +185,8 @@ public class EntityFactory {
 			entity.addAbillity(render);
 			break;
 		case PopPrey:
-			entity=new Entity(engine, new Rectangle(0, 0, 15*Engine.SIZE_CASE, 15*Engine.SIZE_CASE));
 			PopPrey popPrey=new PopPrey(entity);
+			popPrey.setArea(preyPop);
 			popPrey.setMaxPrey(10);
 			popPrey.setPopDelay(5000);
 			entity.addAbillity(popPrey);
