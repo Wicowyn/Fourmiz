@@ -4,8 +4,8 @@
 	    <Chart xCase="20" yCase="20" xScale="0.3f" yScale="0.3f"/>        
     </Config>
     <Entity>
-	    <Egg x="0" y="0" dir="0"/>
-		<Larva x="1" y="1" dir="45"/>
+	    <Egg x="1" y="1" dir="45"/>
+	    <Larva x="1" y="1" dir="45"/>
 		<Nymph x="2" y="2" dir="0"/>
 		<FourmizWorker x="16" y="8" dir="0"/>
 		<FourmizSoldier x="14" y="8" dir="0"/>

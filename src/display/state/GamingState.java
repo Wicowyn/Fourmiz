@@ -36,6 +36,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import tools.ResourceManager;
 import fourmiz.abillity.BasicRender;
+import fourmiz.abillity.RealRender;
 import fourmiz.abillity.Render;
 import fourmiz.collision.Entity;
 import fourmiz.engine.Abillity;
@@ -135,7 +136,8 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 
 	@Override
 	public void entityAdded(Entity entity) {
-		BasicRender render=new BasicRender(entity);
+		RealRender render=new RealRender(entity);
+		render.setAnimation(ressources.getAnimation("FourmizWorker"));
 		
 		entity.addAbillity(render);
 		renders.add(render);

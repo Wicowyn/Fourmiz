@@ -18,85 +18,44 @@
 
 package fourmiz.abillity;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Yellow;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Renderable;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.Log;
 
 import fourmiz.collision.Entity;
-import fourmiz.collision.TouchHandle;
-import fourmiz.collision.TouchMarker;
+import fourmiz.engine.Engine;
 
 public class RealRender extends Render {
-	private Map<IntervalAngl, Renderable> mapMoveRender=new HashMap<IntervalAngl, Renderable>();
-	private Map<IntervalAngl, Renderable> mapStaticRender=new HashMap<IntervalAngl, Renderable>();
-	private Renderable currentRender;
-	private Vector2f lastPos;
-	private int diffX, diffY;
-	private static Image images;
+	private Animation animation;
 	
 	
 	public RealRender(Entity owner) {
 		super(owner);
-		this.lastPos=this.getOwner().getPosition().scale(0.1f);
-	}
-	
-	public void setMoveRender(float anglFirst, float anglSecond, Renderable renderable){
-		this.mapMoveRender.put(new IntervalAngl(anglFirst, anglSecond), renderable);
-	}
-	
-	public void setStaticRender(float anglFirst, float anglSecond, Renderable renderable){
-		this.mapStaticRender.put(new IntervalAngl(anglFirst, anglSecond), renderable);
-	}
-	
-	public void addDiffX(int diffX){
-		this.diffX+=diffX;
-	}
-	public void addDiffY(int diffY){
-		this.diffY+=diffY;
 	}
 
 	@Override
-	public void render(GameContainer gc, StateBasedGame sb, Graphics g)throws SlickException {
-			
-		    g.pushTransform();
-		    g.translate(getImage(getOwner().getPosition()).x,getImageResource(getOwner().getPosition()).y);
-		    g.rotate(15, 15, (float) Math.toDegrees(getOwner().getScale()));
-		    part.draw();
-		    g.popTransform();
-
-		    g.drawString("Count: " + cont, 5, 40);
+	public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {
+		animation.getCurrentFrame().setRotation(getOwner().getDirection());
+		
+		Vector2f position=getOwner().getPosition();
+		Engine engine=getOwner().getEngine();
+		
+		gr.drawAnimation(animation, position.x*engine.getxScale(), position.y*engine.getyScale());		
 	}
-	
-	public static Image getImagePosition(int X, int Y) {
-		    return images;
-	}
-	
 
 	@Override
 	public void update(int delta) {
-	
+		//nothing to do
 	}
 
-	@Override
-	public Collection<? extends TouchMarker> getTouchMarker() {
-		// TODO Auto-generated method stub
-		return null;
+	public Animation getAnimation() {
+		return animation;
 	}
 
-	@Override
-	public Collection<? extends TouchHandle> getTouchHandle() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
 	}
 
 }
