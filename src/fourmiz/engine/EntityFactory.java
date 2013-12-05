@@ -31,6 +31,7 @@ import fourmiz.abillity.Life;
 import fourmiz.abillity.PopPrey;
 import fourmiz.abillity.Prey;
 import fourmiz.abillity.Queen;
+import fourmiz.abillity.RealRender;
 import fourmiz.abillity.ShapeMove;
 import fourmiz.collision.Entity;
 
@@ -39,6 +40,7 @@ public class EntityFactory {
 	
 	public static Entity createEntity(EntityName name, Engine engine){
 		Entity entity=new Entity(engine, Engine.getDefaultShape());
+		RealRender render=new RealRender(entity);
 		Level level=null;
 		Life life=null;
 		Healer healer=null;
@@ -66,6 +68,9 @@ public class EntityFactory {
 			life.setCurrentLife(1);
 			life.setUptake(5);
 			entity.addAbillity(life);
+			
+			render.setAnimation(engine.getRessources().getAnimation("Egg"));
+			entity.addAbillity(render);
 			break;
 		case Larva:
 			life=new Life(entity);
@@ -77,11 +82,17 @@ public class EntityFactory {
 			level=new Level(entity);
 			level.setState(LifeState.LARVA);
 			entity.addAbillity(level);
+			
+			render.setAnimation(engine.getRessources().getAnimation("Larva"));
+			entity.addAbillity(render);
 			break;
 		case Nymph:
 			level=new Level(entity);
 			level.setState(LifeState.NYMPH);
 			entity.addAbillity(level);
+
+			render.setAnimation(engine.getRessources().getAnimation("Nymph"));
+			entity.addAbillity(render);
 			break;
 		case FourmizWorker:
 			level=new Level(entity);
@@ -98,6 +109,9 @@ public class EntityFactory {
 			healer.setMaxFoodStock(100000);
 			healer.setSpeed(5);
 			entity.addAbillity(healer);
+
+			render.setAnimation(engine.getRessources().getAnimation("FourmizWorker"));
+			entity.addAbillity(render);
 			break;
 		case FourmizSoldier:
 			level=new Level(entity);
@@ -114,6 +128,9 @@ public class EntityFactory {
 			fs.setAttack(50);
 			fs.setSpeed(1.5f);
 			entity.addAbillity(fs);
+			
+			render.setAnimation(engine.getRessources().getAnimation("FourmizSoldier"));
+			entity.addAbillity(render);
 			break;
 		case FourmizSex:
 			level=new Level(entity);
@@ -125,6 +142,9 @@ public class EntityFactory {
 			life.setCurrentLife(150);
 			life.setUptake(1);
 			entity.addAbillity(life);
+			
+			render.setAnimation(engine.getRessources().getAnimation("FourmizSex"));
+			entity.addAbillity(render);
 			break;
 		case Queen:
 			level=new Level(entity);
@@ -139,6 +159,9 @@ public class EntityFactory {
 			Shape area=new Rectangle(6*Engine.SIZE_CASE, 6*Engine.SIZE_CASE, 8*Engine.SIZE_CASE, 8*Engine.SIZE_CASE);
 			move.setArea(area);
 			entity.addAbillity(move);
+
+			render.setAnimation(engine.getRessources().getAnimation("Queen"));
+			entity.addAbillity(render);
 			break;
 		case Dead:
 			level=new Level(entity);
@@ -156,6 +179,9 @@ public class EntityFactory {
 			Shape area2=new Rectangle(6*Engine.SIZE_CASE, 6*Engine.SIZE_CASE, 10*Engine.SIZE_CASE, 10*Engine.SIZE_CASE);
 			move.setArea(area2);
 			entity.addAbillity(move);
+
+			render.setAnimation(engine.getRessources().getAnimation("Prey"));
+			entity.addAbillity(render);
 			break;
 		case PopPrey:
 			entity=new Entity(engine, new Rectangle(0, 0, 15*Engine.SIZE_CASE, 15*Engine.SIZE_CASE));

@@ -25,22 +25,14 @@
     
     <SpriteSheet id="FourmizWorker" th="20" tw="20">image/FourmizWorker.png</SpriteSheet>
     <Animation id="FourmizWorker" idSpriteSheet="FourmizWorker">
-        <Frame duration="50" x="0" y="2" />
-        <Frame duration="50" x="1" y="2" />
-        <Frame duration="50" x="2" y="2" />
-        <Frame duration="50" x="3" y="2" />
+        <Frame duration="200" x="0" y="2" />
+        <Frame duration="200" x="1" y="2" />
+        <Frame duration="200" x="2" y="2" />
+        <Frame duration="200" x="3" y="2" />
     </Animation>
     
     <SpriteSheet id="FourmizSoldier" th="20" tw="20">image/FourmizSoldier.png</SpriteSheet>
     <Animation id="FourmizSoldier" idSpriteSheet="FourmizSoldier">
-        <Frame duration="50" x="0" y="2" />
-        <Frame duration="50" x="1" y="2" />
-        <Frame duration="50" x="2" y="2" />
-        <Frame duration="50" x="3" y="2" />
-    </Animation>
-    
-    <SpriteSheet id="FourmizSex" th="20" tw="20">image/FourmizSex.png</SpriteSheet>
-    <Animation id="FourmizSex" idSpriteSheet="FourmizSex">
         <Frame duration="50" x="0" y="2" />
         <Frame duration="50" x="1" y="2" />
         <Frame duration="50" x="2" y="2" />
@@ -55,7 +47,7 @@
         <Frame duration="50" x="3" y="2" />
     </Animation>
     
-    <SpriteSheet id="Prey" th="40" tw="40">image/Prey.gif</SpriteSheet>
+    <SpriteSheet id="Prey" th="20" tw="20">image/Prey.png</SpriteSheet>
     <Animation id="Prey" idSpriteSheet="Prey">
     	<Frame duration="50" x="0" y="0" />
         <Frame duration="50" x="1" y="0" />
@@ -63,7 +55,7 @@
         <Frame duration="50" x="3" y="0" />
     </Animation>
     
-    <SpriteSheet id="Food" th="40" tw="40">image/Food.png</SpriteSheet>
+    <SpriteSheet id="Food" th="20" tw="20">image/Food.png</SpriteSheet>
     <Animation id="Food" idSpriteSheet="Food">    
         <Frame duration="50" x="0" y="0" />        
     </Animation>

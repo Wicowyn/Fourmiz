@@ -32,6 +32,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import display.component.LimitedMenu;
 import display.component.Text;
+import fourmiz.engine.Engine;
 
 public class SelectGameState extends BasicGameState {
 	private List<SelectGame> listeners=new ArrayList<SelectGame>();
@@ -55,7 +56,7 @@ public class SelectGameState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException{
 		super.enter(container, game);
 
-		List<String> list=GamingState.getPossibleGame();
+		List<String> list=Engine.getPossibleGame();
 		AngelCodeFont font=new AngelCodeFont("ressources/Latin.fnt", new Image("ressources/Latin.tga"));
 		this.menu.addListener(this.listenMenu);
 		

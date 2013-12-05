@@ -32,10 +32,12 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
+import tools.ResourceManager;
 import fourmiz.collision.CollisionManager;
 import fourmiz.collision.Entity;
 
@@ -50,6 +52,11 @@ public class Engine {
     private List<Entity> entitiesRemove=new ArrayList<Entity>();
     private Logger log=LogManager.getLogger(getClass());
     private boolean loaded=false;
+	private static String renderSuffix="-render.xml";
+	private static String mapSuffix="-map.xml";
+	private static String resourcePath="ressources/";
+	private String currentGame;
+	private ResourceManager ressources=new ResourceManager();
     
     public Engine(){
             
@@ -59,7 +66,11 @@ public class Engine {
     	return new Rectangle(0, 0, SIZE_CASE, SIZE_CASE);
     }
     
-    public void update(int delta){
+    public ResourceManager getRessources() {
+		return ressources;
+	}
+
+	public void update(int delta){
         for(Entity entity : this.entities) entity.update(delta);
         checkEntityBuff();
         this.collisionManager.performCollision();
@@ -118,10 +129,33 @@ public class Engine {
         
         return list;
     }
+	
+	public static List<String> getPossibleGame(){
+		List<String> listMap=new ArrayList<String>();
+		List<String> listRender=new ArrayList<String>();
+		
+		File[] files=(new File(resourcePath)).listFiles();
+		
+		for(File file : files){
+			String name=file.getName();
+			if(name.endsWith(renderSuffix)){
+				listRender.add(name.substring(0, name.indexOf(renderSuffix)));
+			}
+			if(name.endsWith(mapSuffix)){
+				listMap.add(name.substring(0, name.indexOf(mapSuffix)));
+			}
+		}
+		
+		listMap.retainAll(listRender);
+		
+		return listMap;
+	}
     
-    public void loadLevel(String filePath) throws JDOMException, IOException{
+    public void loadLevel(String name) throws JDOMException, IOException, SlickException{
+    	currentGame=name;
+    	ressources.load(resourcePath+currentGame+renderSuffix);
         SAXBuilder sax=new SAXBuilder();
-        Document doc=sax.build(new File(filePath));
+        Document doc=sax.build(new File(resourcePath+currentGame+mapSuffix));
         Element root=doc.getRootElement();
         List<Element> listElem=root.getChildren();
         

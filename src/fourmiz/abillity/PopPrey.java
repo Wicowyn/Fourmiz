@@ -55,6 +55,10 @@ public class PopPrey extends Abillity implements EngineListener{
 		move.setArea(getOwner().getCollisionShape());
 		prey.addAbillity(move);
 		
+		RealRender render=new RealRender(prey);
+		render.setAnimation(getOwner().getEngine().getRessources().getAnimation("Prey"));
+		prey.addAbillity(render);
+		
 		Vector2f position=new Vector2f(
 				getOwner().getCollisionShape().getCenterX(),
 				getOwner().getCollisionShape().getCenterY());

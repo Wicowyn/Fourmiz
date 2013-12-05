@@ -196,7 +196,7 @@ public class ResourceManager {
 
 		Animation anim=new Animation(true);
 		for(AnimationData data : datas){
-			anim.addFrame(sheet.getSubImage(data.x,  data.y), data.duration);
+			anim.addFrame(sheet.getSubImage(data.x,  data.y).copy(), data.duration);
 		}
 
 		this.mapAnimation.put(id, anim);

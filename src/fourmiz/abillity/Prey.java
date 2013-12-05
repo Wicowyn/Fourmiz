@@ -61,6 +61,10 @@ public class Prey extends Abillity {
 			food.setFood(getFood(packetFood));
 			entity.addAbillity(food);
 			
+			RealRender render=new RealRender(entity);
+			render.setAnimation(getOwner().getEngine().getRessources().getAnimation("Food"));
+			entity.addAbillity(render);
+			
 			int dir=(int) (Math.random()*360);
 			int space=((int) (Math.random()*2*Engine.SIZE_CASE))+Engine.SIZE_CASE;
 			

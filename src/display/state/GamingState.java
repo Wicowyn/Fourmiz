@@ -19,13 +19,10 @@
 package display.state;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jdom2.JDOMException;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -35,9 +32,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import tools.ResourceManager;
-import fourmiz.abillity.BasicRender;
-import fourmiz.abillity.RealRender;
 import fourmiz.abillity.Render;
 import fourmiz.collision.Entity;
 import fourmiz.engine.Abillity;
@@ -48,14 +42,9 @@ import fourmiz.engine.EntityListener;
 
 
 public class GamingState extends BasicGameState implements SelectGame, EngineListener, EntityListener {
-    private static Logger log=LogManager.getLogger(GamingState.class);
-	private static String renderSuffix="-render.xml";
-	private static String mapSuffix="-map.xml";
-	private static String resourcePath="ressources/";
 	private String currentGame;
 	private List<Render> renders=new ArrayList<Render>();
 	private Engine engine=new Engine();
-	private ResourceManager ressources=new ResourceManager();
 	private Image wallpaper;
 
 	@Override
@@ -65,36 +54,11 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 			engine.addListener(this);
 	}
 	
-	public static List<String> getPossibleGame(){
-		List<String> listMap=new ArrayList<String>();
-		List<String> listRender=new ArrayList<String>();
-		
-		File[] files=(new File(GamingState.resourcePath)).listFiles();
-		
-		for(File file : files){
-			String name=file.getName();
-			if(name.endsWith(GamingState.renderSuffix)){
-				listRender.add(name.substring(0, name.indexOf(GamingState.renderSuffix)));
-				log.debug("render conf found :"+name);
-			}
-			if(name.endsWith(GamingState.mapSuffix)){
-				listMap.add(name.substring(0, name.indexOf(GamingState.mapSuffix)));
-				log.debug("map conf found :"+name);
-			}
-		}
-		
-		listMap.retainAll(listRender);
-		
-		return listMap;
-	}
-	
 	@Override
 	public void enter(GameContainer container, StateBasedGame game){
 		try {
-			this.ressources.load(GamingState.resourcePath+this.currentGame+GamingState.renderSuffix);
-			
 			this.engine.unLoad();
-			this.engine.loadLevel(GamingState.resourcePath+this.currentGame+GamingState.mapSuffix);
+			this.engine.loadLevel(currentGame);
 		} catch (JDOMException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -102,8 +66,6 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		
-		
 
 	}
 	
@@ -139,17 +101,15 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 
 	@Override
 	public void entityAdded(Entity entity) {
-		RealRender render=new RealRender(entity);
-		render.setAnimation(ressources.getAnimation("FourmizWorker"));
-		
-		entity.addAbillity(render);
-		renders.add(render);
+		for(Abillity abillity : entity.getAllAbillity()){
+			if(abillity instanceof Render) renders.add((Render) abillity); 
+		}
 	}
 
 	@Override
 	public void entityRemoved(Entity entity) {
 		for(Abillity abillity : entity.getAllAbillity())
-			if(abillity instanceof BasicRender) renders.remove((BasicRender) abillity);
+			if(abillity instanceof Render) renders.remove((Render) abillity);
 	}
 
 	@Override

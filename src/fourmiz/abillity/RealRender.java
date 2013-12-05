@@ -21,6 +21,7 @@ package fourmiz.abillity;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -29,7 +30,7 @@ import fourmiz.engine.Engine;
 
 public class RealRender extends Render {
 	private Animation animation;
-	
+	private Image img;
 	
 	public RealRender(Entity owner) {
 		super(owner);
@@ -37,12 +38,24 @@ public class RealRender extends Render {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sb, Graphics gr) {
-		animation.getCurrentFrame().setRotation(getOwner().getDirection());
-		
+		Engine engine=getOwner().getEngine();		
 		Vector2f position=getOwner().getPosition();
-		Engine engine=getOwner().getEngine();
+		position.x=position.x*engine.getxScale();
+		position.y=position.y*engine.getyScale();
 		
-		gr.drawAnimation(animation, position.x*engine.getxScale(), position.y*engine.getyScale());		
+		//if(getOwner().getID()==0)
+		//	log.info("owner rotate: "+getOwner().getDirection()+"/ frame rotate: "+animation.getCurrentFrame().getRotation());
+		
+		if(img!=null){
+			gr.drawImage(img, position.x, position.y);
+		}
+		else if(animation!=null){
+			animation.getCurrentFrame().setRotation(getOwner().getDirection());
+			
+			gr.drawAnimation(animation, position.x, position.y);		
+		} else throw new IllegalStateException();
+		
+		
 	}
 
 	@Override
@@ -56,6 +69,14 @@ public class RealRender extends Render {
 
 	public void setAnimation(Animation animation) {
 		this.animation = animation;
+	}
+
+	public Image getImg() {
+		return img;
+	}
+
+	public void setImg(Image img) {
+		this.img = img;
 	}
 
 }
