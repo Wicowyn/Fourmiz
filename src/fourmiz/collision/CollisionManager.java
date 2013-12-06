@@ -48,10 +48,11 @@ public class CollisionManager implements CollidableListener, EntityListener{
 		}
 		
 		entity.addEntityListener(this);
-		log.debug("After add entity "+entity.getID()+" we have: ");
-		showType();
+		//log.debug("After add entity "+entity.getID()+" we have: ");
+		//showType();
 	}
 	
+	@SuppressWarnings("unused")
 	private void showType(){
 		for(Map.Entry<Integer, Set<TouchHandle>> entry : colliHandle.entrySet()){
 			log.debug("For type :"+entry.getKey()+" have "+entry.getValue().size()+" touchHandle");
@@ -71,8 +72,8 @@ public class CollisionManager implements CollidableListener, EntityListener{
 		}
 		
 		entity.removeEntityListener(this);
-		log.info("After remove entity "+entity.getID()+" we have: ");
-		showType();
+		//log.info("After remove entity "+entity.getID()+" we have: ");
+		//showType();
 	}
 	
 	public void removeEntity(Collection<Entity> collection){
@@ -89,27 +90,45 @@ public class CollisionManager implements CollidableListener, EntityListener{
 			if(setM==null) continue;
 			
 			for(TouchHandle tH : entry.getValue()){
-				for(TouchMarker  tM : setM){
+				int collide;
+				Iterator<TouchMarker> it;
+				
+				for(it=setM.iterator(), collide=0; it.hasNext() 
+						&& (tH.maxCollideByCycle()==TouchHandle.NO_COLLIDE_LIMIT || collide<tH.maxCollideByCycle());){
+					TouchMarker tM=it.next();
 					Shape handleArea=tH.getArea();
 					Shape markerArea=tM.getArea();
 					
 					switch(tH.getCollideType()){
 					case CONTAIN:
-						if(handleArea.contains(markerArea)) toPerform.add(new DataCollide(tH, tM));
+						if(handleArea.contains(markerArea)){
+							toPerform.add(new DataCollide(tH, tM));
+							collide++;
+						}
 						break;
 					case CONTAIN_OR_INTERSECT:
-						if(handleArea.contains(markerArea) || handleArea.intersects(markerArea))
+						if(handleArea.contains(markerArea) || handleArea.intersects(markerArea)){
 							toPerform.add(new DataCollide(tH, tM));
+							collide++;
+						}
 						break;
 					case INTERSECT:
-						if(handleArea.intersects(markerArea)) toPerform.add(new DataCollide(tH, tM));
+						if(handleArea.intersects(markerArea)){
+							toPerform.add(new DataCollide(tH, tM));
+							collide++;
+						}
 						break;
 					case OUT_OR_INTERSECT:
-						if(!handleArea.contains(markerArea)) toPerform.add(new DataCollide(tH, tM));
+						if(!handleArea.contains(markerArea)){
+							toPerform.add(new DataCollide(tH, tM));
+							collide++;
+						}
 						break;
 					case OUT:
-						if(!handleArea.contains(markerArea) && !handleArea.intersects(markerArea))
+						if(!handleArea.contains(markerArea) && !handleArea.intersects(markerArea)){
 							toPerform.add(new DataCollide(tH, tM));
+							collide++;
+						}
 						break;
 					default:
 						break;

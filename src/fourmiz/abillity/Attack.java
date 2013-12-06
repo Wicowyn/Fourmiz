@@ -236,6 +236,11 @@ public class Attack extends Abillity implements EntityListener, EngineListener{
 		}
 
 		@Override
+		public int maxCollideByCycle() {
+			return 1;
+		}
+
+		@Override
 		public void setPriority(int priority) {
 			this.priority=priority;
 		}
@@ -276,6 +281,11 @@ public class Attack extends Abillity implements EntityListener, EngineListener{
 		}
 
 		@Override
+		public int maxCollideByCycle() {
+			return 1;
+		}
+
+		@Override
 		public void setPriority(int priority) {
 			this.priority=priority;
 		}
@@ -313,6 +323,11 @@ public class Attack extends Abillity implements EntityListener, EngineListener{
 		@Override
 		public CollideType getCollideType() {
 			return CollideType.INTERSECT;
+		}
+
+		@Override
+		public int maxCollideByCycle() {
+			return TouchHandle.NO_COLLIDE_LIMIT;
 		}
 
 		@Override

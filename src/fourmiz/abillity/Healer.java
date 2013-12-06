@@ -360,6 +360,11 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		}
 
 		@Override
+		public int maxCollideByCycle() {
+			return 1;
+		}
+
+		@Override
 		public void setPriority(int priority) {
 			this.priority=priority;
 		}
@@ -397,6 +402,11 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		public CollideType getCollideType() {
 			return CollideType.CONTAIN_OR_INTERSECT;
 		}	
+
+		@Override
+		public int maxCollideByCycle() {
+			return 1;
+		}
 
 		@Override
 		public void setPriority(int priority) {
@@ -443,6 +453,11 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		}
 
 		@Override
+		public int maxCollideByCycle() {
+			return 1;
+		}
+
+		@Override
 		public void setPriority(int priority) {
 			this.priority=priority;
 		}
@@ -480,6 +495,11 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		@Override
 		public CollideType getCollideType() {
 			return CollideType.CONTAIN_OR_INTERSECT;
+		}
+
+		@Override
+		public int maxCollideByCycle() {
+			return 1;
 		}
 
 		@Override
@@ -525,6 +545,11 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 		@Override
 		public CollideType getCollideType() {
 			return CollideType.INTERSECT;
+		}
+
+		@Override
+		public int maxCollideByCycle() {
+			return TouchHandle.NO_COLLIDE_LIMIT;
 		}
 
 		@Override

@@ -21,6 +21,7 @@ package fourmiz.collision;
 import org.newdawn.slick.geom.Shape;
 
 public abstract class TouchHandle implements Comparable<TouchHandle> {
+	public static final int NO_COLLIDE_LIMIT=-1;
 	public abstract int getType();
 	public abstract Entity getOwner();
 	public abstract Shape getArea();
@@ -28,6 +29,7 @@ public abstract class TouchHandle implements Comparable<TouchHandle> {
 	public abstract void setPriority(int priority);
 	public abstract int getPriority();
 	public abstract CollideType getCollideType();
+	public abstract int maxCollideByCycle();
 	
 	public abstract void perform(TouchMarker marker);
 	
