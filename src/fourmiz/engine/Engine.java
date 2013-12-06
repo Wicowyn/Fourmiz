@@ -197,6 +197,9 @@ public class Engine {
     	for(Element elem : elems){
             Entity entity=null;
             switch(elem.getName()){
+            case "Anthill":
+            	entity=EntityFactory.createEntity(EntityName.Anthill, this);
+            	break;
             case "Egg":
             	entity=EntityFactory.createEntity(EntityName.Egg, this);
             	break;

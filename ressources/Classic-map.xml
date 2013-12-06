@@ -4,6 +4,7 @@
 	    <Chart xCase="20" yCase="20" xScale="0.3f" yScale="0.3f"/>        
     </Config>
     <Entity>    	
+        <Anthill x="0" y="0" dir="0"/>
 		<Queen x="5" y="5" dir="45"/>
 		<FourmizWorker x="18" y="12" dir="45"/>
 		<FourmizSoldier x="18" y="14" dir="45"/>
