@@ -33,7 +33,10 @@ import fourmiz.engine.Abillity;
 import fourmiz.engine.Engine;
 import fourmiz.engine.EntityListener;
 
-
+/**
+ * Classe Entity
+ * Définition d'une entitée
+ */
 public final class Entity{
 	private static Logger log=LogManager.getLogger(Entity.class);
 	private static int lastID;

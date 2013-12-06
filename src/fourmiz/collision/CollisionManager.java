@@ -35,7 +35,10 @@ import org.newdawn.slick.geom.Shape;
 import fourmiz.engine.Abillity;
 import fourmiz.engine.EntityListener;
 
-
+/**
+ * Classe CollisionManager
+ * Gestion des collisions entre les différentes entitées
+ */
 public class CollisionManager implements CollidableListener, EntityListener{
 	private static Logger log=LogManager.getLogger(CollisionManager.class);
 	private Map<Integer, Set<TouchHandle>> colliHandle=new HashMap<Integer, Set<TouchHandle>>();
