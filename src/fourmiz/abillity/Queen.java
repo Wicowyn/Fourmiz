@@ -31,6 +31,8 @@ import fourmiz.engine.EntityName;
 public class Queen extends Abillity{
 	private int time;
 	private int timeToLay;
+	private int interval=10000;
+	private int intervalOffset=2000;
 	
 	public Queen(Entity owner){
 		super(owner);
@@ -69,8 +71,26 @@ public class Queen extends Abillity{
 		getOwner().getEngine().addEntityToBuff(egg);
 	}
 	
+	public int getInterval() {
+		return interval;
+	}
+
+	public void setInterval(int interval) {
+		if(interval<=0) throw new IllegalArgumentException();
+		this.interval = interval;
+	}
+
+	public int getIntervalOffset() {
+		return intervalOffset;
+	}
+
+	public void setIntervalOffset(int intervalOffset) {
+		if(intervalOffset<=0) throw new IllegalArgumentException();
+		this.intervalOffset = intervalOffset;
+	}
+
 	//g�n�ration du prochain temps de ponte
 	private void generateTimeToLay(){
-		timeToLay=10000+((int) Math.random()*4000)-2000;
+		timeToLay=interval+((int) Math.random()*intervalOffset*2)-intervalOffset;
 	}
 }
