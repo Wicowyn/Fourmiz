@@ -52,6 +52,9 @@ public class SelectGameState extends BasicGameState {
 		this.menu.setMaxShowComponent(6);
 	}
 	
+	/**
+	 * Liste les différents type de jeu (Classic...) en fonction des noms de fichiers .xml placé dans /ressources
+	 */
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException{
 		super.enter(container, game);
@@ -64,8 +67,10 @@ public class SelectGameState extends BasicGameState {
 			Text text=new Text(container,font);
 			text.setText(str);
 			text.setColor(Color.white);
+			if(str.equals("Quit")) text.setColor(Color.black);
 			this.menu.addElement(text);
 		}
+		
 	}
 	
 	@Override

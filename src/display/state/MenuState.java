@@ -35,6 +35,10 @@ import org.newdawn.slick.state.StateBasedGame;
 import display.component.LayoutMenu;
 import display.component.Text;
 
+/**
+ * Menu principal du jeu (1er menu du jeu)
+ * Cette classe permet d'afficher le menu ainsi que l'arrière plan de l'interface (/image/wallpaper.png)
+ */
 public class MenuState extends BasicGameState implements LayoutMenuActionListener{
 	private StateBasedGame baseGame;
 	private Map<AbstractComponent, Integer> mapMenuPage=new HashMap<AbstractComponent, Integer>();
@@ -42,8 +46,9 @@ public class MenuState extends BasicGameState implements LayoutMenuActionListene
 	private Image menu;
 	private LayoutMenu menu2;
 
-	
-	
+	/**
+	 * Initialisation du jeu, affichage du menu principal
+	 */
 	@Override
 	public void init(GameContainer container, StateBasedGame arg1)
 			throws SlickException {
@@ -80,7 +85,7 @@ public class MenuState extends BasicGameState implements LayoutMenuActionListene
 	
 	@Override
 	public void leave(GameContainer container, StateBasedGame game) throws SlickException{
-		super.enter(container, game);
+		super.leave(container, game);
 		this.menu2.removeListener(this);
 	}
 	
@@ -107,13 +112,18 @@ public class MenuState extends BasicGameState implements LayoutMenuActionListene
 		return PageName.Menu;
 	}
 	
+	/**
+	 * Action en fonction de l'élément sélectionné dans le menu principale
+	 */
 	@Override
 	public void fieldSelected(int index) {
 		switch (mapMenuPage.get(menu2.getComponent(index))) {
 		case PageName.SelectGame:
+			//On entre dans le jeu -> menu de selection des niveaux
 			baseGame.enterState(PageName.SelectGame);
 			break;
 		case PageName.Quit:
+			//On quitte l'interface du jeu
 			baseGame.getContainer().exit();
 			break;
 		default:

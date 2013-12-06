@@ -53,7 +53,7 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 			wallpaper = new Image("image/ground.png");
 			engine.addListener(this);
 	}
-	
+
 	@Override
 	public void enter(GameContainer container, StateBasedGame game){
 		try {
@@ -68,7 +68,10 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 		}
 
 	}
-	
+	/**
+	 * Accesseur au jeu en cour
+	 * @param game
+	 */
 	public void setGame(String game){
 		currentGame=game;
 	}
@@ -76,6 +79,7 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
 			throws SlickException {
+		if(this.currentGame.equals("Quit")) System.exit(0);
 		arg2.setBackground(Color.darkGray);
 		wallpaper.draw();
 		for(Render render : renders) render.render(arg0, arg1, arg2);
