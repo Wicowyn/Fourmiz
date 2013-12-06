@@ -1,19 +1,21 @@
 /*//////////////////////////////////////////////////////////////////////
-	This file is part of Bomberton, an Bomberman-like.
-	Copyright (C) 2012-2013  Nicolas Barranger <wicowyn@gmail.com>
-
-    Bomberton is free software: you can redistribute it and/or modify
+	This file is part of Fourmiz, an simulation of ant live.
+	Copyright (C) 2013  Nicolas Barranger <wicowyn@gmail.com>
+						Jean-Baptiste Le Henaff <jb.le.henaff@gmail.com>
+						Antoine Fouque <antoine.fqe@gmail.com>
+						Julien Camenen <jcamenen@gmail.Com>
+    Fourmiz is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Bomberton is distributed in the hope that it will be useful,
+    Fourmiz is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Bomberton.  If not, see <http://www.gnu.org/licenses/>.
+    along with Fourmiz.  If not, see <http://www.gnu.org/licenses/>.
 *///////////////////////////////////////////////////////////////////////
 
 package display.state;
@@ -37,7 +39,7 @@ import display.component.Text;
 
 /**
  * Menu principal du jeu (1er menu du jeu)
- * Cette classe permet d'afficher le menu ainsi que l'arrière plan de l'interface (/image/wallpaper.png)
+ * Cette classe permet d'afficher le menu ainsi que l'arriï¿½re plan de l'interface (/image/wallpaper.png)
  */
 public class MenuState extends BasicGameState implements LayoutMenuActionListener{
 	private StateBasedGame baseGame;
@@ -113,7 +115,7 @@ public class MenuState extends BasicGameState implements LayoutMenuActionListene
 	}
 	
 	/**
-	 * Action en fonction de l'élément sélectionné dans le menu principale
+	 * Action en fonction de l'ï¿½lï¿½ment sï¿½lectionnï¿½ dans le menu principale
 	 */
 	@Override
 	public void fieldSelected(int index) {

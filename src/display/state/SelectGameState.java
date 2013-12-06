@@ -1,19 +1,21 @@
 /*//////////////////////////////////////////////////////////////////////
-	This file is part of Bomberton, an Bomberman-like.
-	Copyright (C) 2012-2013  Nicolas Barranger <wicowyn@gmail.com>
-
-    Bomberton is free software: you can redistribute it and/or modify
+	This file is part of Fourmiz, an simulation of ant live.
+	Copyright (C) 2013  Nicolas Barranger <wicowyn@gmail.com>
+						Jean-Baptiste Le Henaff <jb.le.henaff@gmail.com>
+						Antoine Fouque <antoine.fqe@gmail.com>
+						Julien Camenen <jcamenen@gmail.Com>
+    Fourmiz is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Bomberton is distributed in the hope that it will be useful,
+    Fourmiz is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Bomberton.  If not, see <http://www.gnu.org/licenses/>.
+    along with Fourmiz.  If not, see <http://www.gnu.org/licenses/>.
 *///////////////////////////////////////////////////////////////////////
 
 package display.state;
@@ -53,7 +55,7 @@ public class SelectGameState extends BasicGameState {
 	}
 	
 	/**
-	 * Liste les différents type de jeu (Classic...) en fonction des noms de fichiers .xml placé dans /ressources
+	 * Liste les diffï¿½rents type de jeu (Classic...) en fonction des noms de fichiers .xml placï¿½ dans /ressources
 	 */
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException{

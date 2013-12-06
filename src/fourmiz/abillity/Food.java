@@ -1,3 +1,23 @@
+/*//////////////////////////////////////////////////////////////////////
+	This file is part of Fourmiz, an simulation of ant live.
+	Copyright (C) 2013  Nicolas Barranger <wicowyn@gmail.com>
+						Jean-Baptiste Le Henaff <jb.le.henaff@gmail.com>
+						Antoine Fouque <antoine.fqe@gmail.com>
+						Julien Camenen <jcamenen@gmail.Com>
+    Fourmiz is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Fourmiz is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Fourmiz.  If not, see <http://www.gnu.org/licenses/>.
+*///////////////////////////////////////////////////////////////////////
+
 package fourmiz.abillity;
 
 import org.apache.logging.log4j.LogManager;
@@ -8,10 +28,10 @@ import fourmiz.collision.Entity;
 import fourmiz.engine.Abillity;
 import fourmiz.touch.marker.FoodMarker;
 
-//la nourriture est une entité à part entière
+//la nourriture est une entitï¿½ ï¿½ part entiï¿½re
 public class Food extends Abillity {
 	private static Logger log=LogManager.getLogger(Food.class);
-	//quantité de nourriture exploitable pour l'entité
+	//quantitï¿½ de nourriture exploitable pour l'entitï¿½
 	private int food;
 	private MyFood foodMarker=new MyFood();
 
@@ -40,28 +60,28 @@ public class Food extends Abillity {
 		}
 
 		@Override
-		//prélève une quantité de nourriture du total de l'entité (amount)
+		//prï¿½lï¿½ve une quantitï¿½ de nourriture du total de l'entitï¿½ (amount)
 		public int getFood(int amount) {
-			//quantité de nourriture prélevée
+			//quantitï¿½ de nourriture prï¿½levï¿½e
 			int foodTaked=0;
 			
-			//si la quantité voulue est supérieure au total de l'entité
+			//si la quantitï¿½ voulue est supï¿½rieure au total de l'entitï¿½
 			if(amount>food){
-				//on prélève tout
+				//on prï¿½lï¿½ve tout
 				foodTaked=food;
 				food=0;
 				
 				log.info("has no longer food, go to die");
-				//cette entité nourriture est supprimée du système
+				//cette entitï¿½ nourriture est supprimï¿½e du systï¿½me
 				Food.this.getOwner().getEngine().removeEntityToBuff(Food.this.getOwner());
 			}
-			//sinon on prélève la quantité voulue en déduisant celle ci du total
+			//sinon on prï¿½lï¿½ve la quantitï¿½ voulue en dï¿½duisant celle ci du total
 			else{
 				foodTaked=amount;
 				food-=amount;
 			}
 			
-			//on retourne la quantité de nourriture prélevée
+			//on retourne la quantitï¿½ de nourriture prï¿½levï¿½e
 			return foodTaked;
 		}
 
