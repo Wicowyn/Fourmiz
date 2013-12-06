@@ -20,7 +20,6 @@ package fourmiz.engine;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
@@ -40,7 +39,7 @@ public class EntityFactory {
 	private static Logger log=LogManager.getLogger(EntityFactory.class);
 	
 	/**
-	 * Fonction permettant la création d'une entité
+	 * Fonction permettant la crï¿½ation d'une entitï¿½
 	 * @param name
 	 * @param engine
 	 * @return
@@ -49,7 +48,7 @@ public class EntityFactory {
 		Entity entity=new Entity(engine, Engine.getDefaultShape());
 		Shape anthil=new Rectangle(3*Engine.SIZE_CASE, 3*Engine.SIZE_CASE, 5*Engine.SIZE_CASE, 5*Engine.SIZE_CASE);
 		Shape preyPop=new Rectangle(20*Engine.SIZE_CASE, 12*Engine.SIZE_CASE, 12*Engine.SIZE_CASE, 12*Engine.SIZE_CASE);
-		RealRender render=new RealRender(entity);
+	    RealRender render=new RealRender(entity);
 		Level level=null;
 		Life life=null;
 		Healer healer=null;
