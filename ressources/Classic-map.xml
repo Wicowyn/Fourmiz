@@ -5,10 +5,8 @@
     </Config>
     <Entity>    	
 		<Queen x="5" y="5" dir="45"/>
-		<FourmizWorker x="19" y="12" dir="45"/>
-		<FourmizSoldier x="19" y="14" dir="45"/>
-		<FourmizWorker x="21" y="12" dir="45"/>
-		<FourmizSoldier x="21" y="14" dir="45"/>
+		<FourmizWorker x="18" y="12" dir="45"/>
+		<FourmizSoldier x="18" y="14" dir="45"/>
 		<PopPrey x="25" y="7" dir="45"/>
     </Entity>
 </root>

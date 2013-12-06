@@ -2,58 +2,58 @@
 <root>
     <SpriteSheet id="Egg" th="20" tw="20">image/Egg.png</SpriteSheet>
     <Animation id="Egg" idSpriteSheet="Egg">
-        <Frame duration="10000" x="0" y="0" />
-        <Frame duration="10000" x="1" y="0" />
-        <Frame duration="10000" x="2" y="0" />
-        <Frame duration="10000" x="3" y="0" />
+        <Frame duration="5000" x="0" y="0" />
+        <Frame duration="5000" x="1" y="0" />
+        <Frame duration="5000" x="2" y="0" />
+        <Frame duration="20000" x="3" y="0" />
     </Animation>
     
     <SpriteSheet id="Larva" th="20" tw="20">image/Larva.png</SpriteSheet>
     <Animation id="Larva" idSpriteSheet="Larva">
-        <Frame duration="10000" x="0" y="0" />
-        <Frame duration="10000" x="1" y="0" />
-        <Frame duration="10000" x="2" y="0" />
-        <Frame duration="10000" x="3" y="0" />
+        <Frame duration="5000" x="0" y="0" />
+        <Frame duration="5000" x="1" y="0" />
+        <Frame duration="5000" x="2" y="0" />
+        <Frame duration="20000" x="3" y="0" />
     </Animation>
     
     <SpriteSheet id="Nymph" th="20" tw="20">image/Nymph.png</SpriteSheet>
     <Animation id="Nymph" idSpriteSheet="Nymph">
-        <Frame duration="10000" x="0" y="0" />
-        <Frame duration="10000" x="1" y="0" />
-        <Frame duration="10000" x="2" y="0" />
-        <Frame duration="10000" x="3" y="0" />
+        <Frame duration="5000" x="0" y="0" />
+        <Frame duration="5000" x="1" y="0" />
+        <Frame duration="5000" x="2" y="0" />
+        <Frame duration="20000" x="3" y="0" />
     </Animation>
     
     <SpriteSheet id="FourmizSex" th="20" tw="20">image/FourmizSex.png</SpriteSheet>
     <Animation id="FourmizSex" idSpriteSheet="FourmizSex">
-        <Frame duration="200" x="0" y="2" />
-        <Frame duration="200" x="1" y="2" />
-        <Frame duration="200" x="2" y="2" />
-        <Frame duration="200" x="3" y="2" />
+        <Frame duration="250" x="0" y="2" />
+        <Frame duration="250" x="1" y="2" />
+        <Frame duration="250" x="2" y="2" />
+        <Frame duration="250" x="3" y="2" />
     </Animation>
     
     <SpriteSheet id="FourmizWorker" th="20" tw="20">image/FourmizWorker.png</SpriteSheet>
     <Animation id="FourmizWorker" idSpriteSheet="FourmizWorker">
-        <Frame duration="200" x="0" y="2" />
-        <Frame duration="200" x="1" y="2" />
-        <Frame duration="200" x="2" y="2" />
-        <Frame duration="200" x="3" y="2" />
+        <Frame duration="250" x="0" y="2" />
+        <Frame duration="250" x="1" y="2" />
+        <Frame duration="250" x="2" y="2" />
+        <Frame duration="250" x="3" y="2" />
     </Animation>
     
     <SpriteSheet id="FourmizSoldier" th="20" tw="20">image/FourmizSoldier.png</SpriteSheet>
     <Animation id="FourmizSoldier" idSpriteSheet="FourmizSoldier">
-        <Frame duration="200" x="0" y="2" />
-        <Frame duration="200" x="1" y="2" />
-        <Frame duration="200" x="2" y="2" />
-        <Frame duration="200" x="3" y="2" />
+        <Frame duration="250" x="0" y="2" />
+        <Frame duration="250" x="1" y="2" />
+        <Frame duration="250" x="2" y="2" />
+        <Frame duration="250" x="3" y="2" />
     </Animation>
     
     <SpriteSheet id="Queen" th="20" tw="20">image/Queen.png</SpriteSheet>
     <Animation id="Queen" idSpriteSheet="Queen">
-        <Frame duration="200" x="0" y="2" />
-        <Frame duration="200" x="1" y="2" />
-        <Frame duration="200" x="2" y="2" />
-        <Frame duration="200" x="3" y="2" />
+        <Frame duration="250" x="0" y="2" />
+        <Frame duration="250" x="1" y="2" />
+        <Frame duration="250" x="2" y="2" />
+        <Frame duration="250" x="3" y="2" />
     </Animation>
     
     <SpriteSheet id="Prey" th="20" tw="20">image/Prey.png</SpriteSheet>
@@ -66,8 +66,8 @@
     
     <SpriteSheet id="Food" th="20" tw="20">image/Food.png</SpriteSheet>
     <Animation id="Food" idSpriteSheet="Food">    
-        <Frame duration="3000" x="0" y="0" />
-        <Frame duration="3000" x="2" y="0" />   
+        <Frame duration="2000" x="0" y="0" />
+        <Frame duration="2000" x="2" y="0" />   
     </Animation>
     
     
