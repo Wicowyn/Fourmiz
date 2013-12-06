@@ -39,10 +39,16 @@ import fourmiz.collision.Entity;
 public class EntityFactory {
 	private static Logger log=LogManager.getLogger(EntityFactory.class);
 	
+	/**
+	 * Fonction permettant la création d'une entité
+	 * @param name
+	 * @param engine
+	 * @return
+	 */
 	public static Entity createEntity(EntityName name, Engine engine){
 		Entity entity=new Entity(engine, Engine.getDefaultShape());
-		Shape anthil=new Circle(5*Engine.SIZE_CASE, 5*Engine.SIZE_CASE/2, 3*Engine.SIZE_CASE);
-		Shape preyPop=new Rectangle(10*Engine.SIZE_CASE, 10*Engine.SIZE_CASE, 10*Engine.SIZE_CASE, 10*Engine.SIZE_CASE);
+		Shape anthil=new Rectangle(3*Engine.SIZE_CASE, 3*Engine.SIZE_CASE, 5*Engine.SIZE_CASE, 5*Engine.SIZE_CASE);
+		Shape preyPop=new Rectangle(20*Engine.SIZE_CASE, 12*Engine.SIZE_CASE, 12*Engine.SIZE_CASE, 12*Engine.SIZE_CASE);
 		RealRender render=new RealRender(entity);
 		Level level=null;
 		Life life=null;
@@ -51,6 +57,7 @@ public class EntityFactory {
 		
 		switch(name){
 		case Anthill:
+			entity=new Entity(engine,  anthil);
 			life = new Life(entity);
 			life.setMaxLife(1000);
 			life.setCurrentLife(1000);
@@ -103,7 +110,7 @@ public class EntityFactory {
 			entity.addAbillity(life);
 			
 			healer = new Healer(entity);
-			healer.setMaxFoodStock(100000);
+			healer.setMaxFoodStock(500);
 			healer.setFoodRadius(10*Engine.SIZE_CASE);
 			healer.setHealRadius(10*Engine.SIZE_CASE);
 			healer.addStaticHealArea(anthil);
@@ -114,6 +121,14 @@ public class EntityFactory {
 
 			render.setAnimation(engine.getRessources().getAnimation("FourmizWorker"));
 			entity.addAbillity(render);
+			
+			
+			Attack fsWorker = new Attack(entity);
+			fsWorker.setAttack(50);
+			fsWorker.setSpeed(1.5f);
+			fsWorker.addStaticArea(preyPop);
+			entity.addAbillity(fsWorker);
+			
 			break;
 		case FourmizSoldier:
 			level=new Level(entity);
@@ -126,10 +141,16 @@ public class EntityFactory {
 			life.setUptake(1);
 			entity.addAbillity(life);
 			
-			Attack fs = new Attack(entity);
-			fs.setAttack(50);
-			fs.setSpeed(1.5f);
-			entity.addAbillity(fs);
+			move=new ShapeMove(entity);
+			move.setSpeed(2);
+			move.setArea(new Rectangle(3*Engine.SIZE_CASE, 3*Engine.SIZE_CASE, 6*Engine.SIZE_CASE, 6*Engine.SIZE_CASE));
+			entity.addAbillity(move);
+			
+			Attack fsSoldier = new Attack(entity);
+			fsSoldier.setAttack(50);
+			fsSoldier.setSpeed(1.5f);
+			//fsSoldier.addStaticArea(anthil);
+			entity.addAbillity(fsSoldier);
 			
 			render.setAnimation(engine.getRessources().getAnimation("FourmizSoldier"));
 			entity.addAbillity(render);
@@ -144,6 +165,11 @@ public class EntityFactory {
 			life.setCurrentLife(150);
 			life.setUptake(1);
 			entity.addAbillity(life);
+			
+			move=new ShapeMove(entity);
+			move.setSpeed(2);
+			move.setArea(anthil);
+			entity.addAbillity(move);
 			
 			render.setAnimation(engine.getRessources().getAnimation("FourmizSex"));
 			entity.addAbillity(render);
@@ -185,10 +211,12 @@ public class EntityFactory {
 			entity.addAbillity(render);
 			break;
 		case PopPrey:
+
 			PopPrey popPrey=new PopPrey(entity);
+
 			popPrey.setArea(preyPop);
-			popPrey.setMaxPrey(10);
-			popPrey.setPopDelay(5000);
+			popPrey.setMaxPrey(5);
+			popPrey.setPopDelay(2000);
 			entity.addAbillity(popPrey);
 			break;
 		default:
