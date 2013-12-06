@@ -3,7 +3,7 @@ package fourmiz.abillity;
 import fourmiz.collision.Entity;
 
 public class Egg extends Level{
-	
+
 	public Egg(Entity owner) {
 		super(owner);
 		this.setOwner(owner);

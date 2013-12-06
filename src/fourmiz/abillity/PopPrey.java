@@ -11,6 +11,10 @@ import fourmiz.engine.Abillity;
 import fourmiz.engine.Engine;
 import fourmiz.engine.EngineListener;
 
+/**
+ * Classe PopPrey
+ * Permet la génération des proies dans un certain périmètre
+ */
 public class PopPrey extends Abillity implements EngineListener{
 	private List<Entity> list=new ArrayList<Entity>();
 	private Shape area;
@@ -33,6 +37,10 @@ public class PopPrey extends Abillity implements EngineListener{
 	}
 
 	
+	
+	/**
+	 * Génération des pops des proies toutes les N secondes
+	 */
 	@Override
 	public void update(int delta) {
 		time+=delta;
@@ -42,7 +50,10 @@ public class PopPrey extends Abillity implements EngineListener{
 			time-=popDelay;
 		}
 	}
-	
+
+	/**
+	 * Pop & initialisation de la proie dans la zone de proie
+	 */
 	public Shape getArea() {
 		return area;
 	}

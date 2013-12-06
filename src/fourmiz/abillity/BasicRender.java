@@ -41,7 +41,7 @@ public class BasicRender extends Render {
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sb, Graphics gr){
-		gr.setColor(Color.blue);
+		gr.setColor(Color.white);
 		
 		Engine engine=getOwner().getEngine();
 		gr.draw(getOwner().getCollisionShape().transform(

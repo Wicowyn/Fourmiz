@@ -38,7 +38,7 @@ public class Life extends Abillity{
 		//You are dead, life empty
 		if(life_current<=0){
 			log.info("entity ID: "+getOwner().getID()+" die cause to has no health");
-			getOwner().getEngine().removeEntityToBuff(getOwner());		
+			getOwner().getEngine().removeEntityToBuff(getOwner());	
 		}
 	}
 
