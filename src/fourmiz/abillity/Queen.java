@@ -20,20 +20,33 @@
 
 package fourmiz.abillity;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.geom.Vector2f;
 
 import fourmiz.collision.Entity;
 import fourmiz.engine.Abillity;
 import fourmiz.engine.Engine;
+import fourmiz.engine.EngineListener;
 import fourmiz.engine.EntityFactory;
 import fourmiz.engine.EntityName;
 
-public class Queen extends Abillity{
+public class Queen extends Abillity implements EngineListener{
 	private int time;
 	private int timeToLay;
 	private int interval=10000;
 	private int intervalOffset=2000;
+	private int nbMaxEgg = 50;
+	private ArrayList<Entity> oeufPondu = new ArrayList<Entity>(nbMaxEgg);
 	
+	public int getNbMaxEgg() {
+		return nbMaxEgg;
+	}
+
+	public void setNbMaxEgg(int nbMaxEgg) {
+		this.nbMaxEgg = nbMaxEgg;
+	}
+
 	public Queen(Entity owner){
 		super(owner);
 		
@@ -46,10 +59,9 @@ public class Queen extends Abillity{
 		time+=delta;
 		
 		//si l'age de la reine � d�pass� ou est �gal � la date de ponte suivante 
-		if(time>=timeToLay){
+		if(time>=timeToLay && nbMaxEgg>oeufPondu.size()){
 			time=0;
 			generateTimeToLay();
-			
 			lay();
 		}
 	}
@@ -69,6 +81,7 @@ public class Queen extends Abillity{
 		
 		//on ajoute l'oeuf � la liste des entit�s
 		getOwner().getEngine().addEntityToBuff(egg);
+		oeufPondu.add(egg);
 	}
 	
 	public int getInterval() {
@@ -92,5 +105,27 @@ public class Queen extends Abillity{
 	//g�n�ration du prochain temps de ponte
 	private void generateTimeToLay(){
 		timeToLay=interval+((int) Math.random()*intervalOffset*2)-intervalOffset;
+	}
+
+	@Override
+	public void entityAdded(Entity entity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void entityRemoved(Entity entity) {
+			oeufPondu.remove(entity);
+	}
+	
+	@Override
+	public void setOwner(Entity owner){
+		if(getOwner()!=null){
+			getOwner().getEngine().removeListener(this);
+		}
+		
+		super.setOwner(owner);
+		
+		getOwner().getEngine().addListener(this);
 	}
 }

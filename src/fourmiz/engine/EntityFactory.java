@@ -181,6 +181,9 @@ public class EntityFactory {
 			entity.addAbillity(level);
 			
 			Queen queen=new Queen(entity);
+			queen.setInterval(1000);
+			queen.setIntervalOffset(500);
+			queen.setNbMaxEgg(100);
 			entity.addAbillity(queen);
 			
 			move=new ShapeMove(entity);
@@ -216,8 +219,8 @@ public class EntityFactory {
 			PopPrey popPrey=new PopPrey(entity);
 
 			popPrey.setArea(preyPop);
-			popPrey.setMaxPrey(5);
-			popPrey.setPopDelay(2000);
+			popPrey.setMaxPrey(50);
+			popPrey.setPopDelay(1000);
 			entity.addAbillity(popPrey);
 			break;
 		default:
