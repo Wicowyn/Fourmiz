@@ -36,7 +36,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import fourmiz.abillity.Render;
 import fourmiz.collision.Entity;
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 import fourmiz.engine.Engine;
 import fourmiz.engine.EngineListener;
 import fourmiz.engine.EntityListener;
@@ -52,8 +52,8 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)
 			throws SlickException {
-			wallpaper = new Image("image/ground.png");
-			engine.addListener(this);
+		wallpaper = new Image("image/ground.png");
+		engine.addListener(this);
 	}
 
 	@Override
@@ -70,13 +70,6 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 		}
 
 	}
-	/**
-	 * Accesseur au jeu en cour
-	 * @param game
-	 */
-	public void setGame(String game){
-		currentGame=game;
-	}
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
@@ -90,8 +83,8 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
 			throws SlickException {
-		this.engine.update(arg2);
 		
+		engine.update(arg2);
 	}
 
 	@Override
@@ -101,30 +94,29 @@ public class GamingState extends BasicGameState implements SelectGame, EngineLis
 
 	@Override
 	public void selectGame(String game) {
-		this.currentGame=game;
-		
+		currentGame=game;
 	}
 
 	@Override
 	public void entityAdded(Entity entity) {
-		for(Abillity abillity : entity.getAllAbillity()){
+		for(Ability abillity : entity.getAllAbility()){
 			if(abillity instanceof Render) renders.add((Render) abillity); 
 		}
 	}
 
 	@Override
 	public void entityRemoved(Entity entity) {
-		for(Abillity abillity : entity.getAllAbillity())
+		for(Ability abillity : entity.getAllAbility())
 			if(abillity instanceof Render) renders.remove((Render) abillity);
 	}
 
 	@Override
-	public void abillityAdded(Abillity abillity) {
+	public void abilityAdded(Ability abillity) {
 		if(abillity instanceof Render) renders.add((Render) abillity);
 	}
 
 	@Override
-	public void abillityRemoved(Abillity abillity) {
+	public void abilityRemoved(Ability abillity) {
 		if(abillity instanceof Render) renders.remove((Render) abillity);
 	}
 

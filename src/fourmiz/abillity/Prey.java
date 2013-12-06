@@ -24,11 +24,11 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import fourmiz.collision.Entity;
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 import fourmiz.engine.Engine;
 import fourmiz.touch.marker.PreyMarker;
 
-public class Prey extends Abillity {
+public class Prey extends Ability {
 	private int packetFood=50;
 	private int life;
 	private int food;
@@ -79,11 +79,11 @@ public class Prey extends Abillity {
 			
 			Food food=new Food(entity);
 			food.setFood(getFood(packetFood));
-			entity.addAbillity(food);
+			entity.addAbility(food);
 			
 			RealRender render=new RealRender(entity);
 			render.setAnimation(getOwner().getEngine().getRessources().getAnimation("Food"));
-			entity.addAbillity(render);
+			entity.addAbility(render);
 			
 			int dir=(int) (Math.random()*360);
 			int space=((int) (Math.random()*2*Engine.SIZE_CASE))+Engine.SIZE_CASE;

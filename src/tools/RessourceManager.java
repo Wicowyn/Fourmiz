@@ -40,7 +40,7 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 
 
-public class ResourceManager {
+public class RessourceManager {
 	private Logger log=LogManager.getLogger(getClass());
 	private Map<String, Image> mapImage=new HashMap<String, Image>();
 	private Map<String, Animation> mapAnimation=new HashMap<String, Animation>();
@@ -53,7 +53,7 @@ public class ResourceManager {
 	public static final String RIGHT_ANIMATION="_RIGHT_ANIMATION";
 	public static final String LEFT_ANIMATION="_LEFT_ANIMATION";
 	
-	public ResourceManager(){
+	public RessourceManager(){
 		
 	}
 	

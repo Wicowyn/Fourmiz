@@ -22,8 +22,21 @@ package fourmiz.engine;
 
 import fourmiz.collision.Entity;
 
+/**
+ * Interface definition for callback when {@link Entity} is added or removed
+ *  @author Nicolas
+ *
+ */
 public interface EngineListener {
+	/**
+	 * {@link Entity} has added
+	 * @param entity
+	 */
 	public void entityAdded(Entity entity);
+	/**
+	 * {@link Entity} has removed
+	 * @param entity
+	 */
 	public void entityRemoved(Entity entity);
 	
 }

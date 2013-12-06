@@ -25,10 +25,10 @@ import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.geom.Shape;
 
 import fourmiz.collision.Entity;
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 import fourmiz.touch.marker.LifeMarker;
 
-public class Life extends Abillity{
+public class Life extends Ability{
 	private static Logger log=LogManager.getLogger(Life.class);
 	private static int INTERVAL_TIME=1000;
 	private MyLifeMarker lifeMarker=new MyLifeMarker();

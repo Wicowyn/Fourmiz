@@ -20,6 +20,24 @@
 
 package fourmiz.collision;
 
+/**
+ * Enumeration to specify a type of collide
+ * @author Nicolas
+ */
 public enum CollideType {
-	CONTAIN, CONTAIN_OR_INTERSECT, INTERSECT, OUT_OR_INTERSECT, OUT
+	/**
+	 * First area must strict contain the second
+	 */ CONTAIN,
+	/**
+	 * First area must contain or intersect with the second
+	 */ CONTAIN_OR_INTERSECT,
+	 /**
+	  * First area must strict intersect with the second
+	  */ INTERSECT,
+	 /**
+	  * Second area must is out of first area or intersect
+	  */ OUT_OR_INTERSECT,
+	 /**
+	  * Second area must strict is out of first area
+	  */ OUT
 }

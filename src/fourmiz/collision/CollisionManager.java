@@ -34,22 +34,25 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.geom.Shape;
 
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 import fourmiz.engine.EntityListener;
 
 /**
- * Classe CollisionManager
- * Gestion des collisions entre les diff�rentes entit�es
+ * Class to manage collisions of {@link TouchHandle} with {@link TouchMarker}
+ * @author Nicolas
  */
 public class CollisionManager implements CollidableListener, EntityListener{
 	private static Logger log=LogManager.getLogger(CollisionManager.class);
 	private Map<Integer, Set<TouchHandle>> colliHandle=new HashMap<Integer, Set<TouchHandle>>();
 	private Map<Integer, Set<TouchMarker>> colliMarker=new HashMap<Integer, Set<TouchMarker>>();
 	
-	
+	/**
+	 * Add entity and manage his {@link TouchHandle} and {@link TouchMarker}
+	 * @param entity
+	 */
 	public void addEntity(Entity entity){
-		for(Abillity abillity : entity.getAllAbillity()){
-			abillityAdded(abillity);
+		for(Ability abillity : entity.getAllAbility()){
+			abilityAdded(abillity);
 		}
 		
 		entity.addEntityListener(this);
@@ -67,13 +70,21 @@ public class CollisionManager implements CollidableListener, EntityListener{
 		}
 	}
 	
+	/**
+	 * See {@link #addEntity(Entity)}
+	 * @param collection
+	 */
 	public void addEntity(Collection<Entity> collection){
 		for(Entity entity : collection) addEntity(entity);
 	}
 	
+	/**
+	 * Remove entity from the manager and unload his {@link TouchHandle} and {@link TouchMarker}
+	 * @param entity
+	 */
 	public void removeEntity(Entity entity){
-		for(Abillity abillity : entity.getAllAbillity()){
-			abillityRemoved(abillity);
+		for(Ability abillity : entity.getAllAbility()){
+			abilityRemoved(abillity);
 		}
 		
 		entity.removeEntityListener(this);
@@ -81,16 +92,24 @@ public class CollisionManager implements CollidableListener, EntityListener{
 		//showType();
 	}
 	
+	/**
+	 * See {@link #removeEntity(Entity)}
+	 * @param collection
+	 */
 	public void removeEntity(Collection<Entity> collection){
 		for(Entity entity : collection) removeEntity(entity);
 	}
 	
+	/**
+	 * Take all {@link TouchMarker} and {@link TouchHandle} and try if they collide between them, sorted by type.
+	 * If collide exist {@link TouchHandle#perform(TouchMarker)} is called
+	 */
 	public void performCollision(){
 		List<DataCollide> toPerform=new ArrayList<DataCollide>();
 		
 		for(Iterator<Map.Entry<Integer, Set<TouchHandle>>> itH=this.colliHandle.entrySet().iterator(); itH.hasNext();){
 			Map.Entry<Integer, Set<TouchHandle>> entry=itH.next();
-			Set<TouchMarker> setM=this.colliMarker.get(entry.getKey());
+			Set<TouchMarker> setM=colliMarker.get(entry.getKey());
 			
 			if(setM==null) continue;
 			
@@ -189,6 +208,10 @@ public class CollisionManager implements CollidableListener, EntityListener{
 		}
 	}
 	
+	/**
+	 * Class to facilitate store things to collide
+	 * @author Nicolas
+	 */
 	public class DataCollide implements Comparable<DataCollide>{
 		public TouchHandle handle;
 		public TouchMarker marker;
@@ -211,7 +234,7 @@ public class CollisionManager implements CollidableListener, EntityListener{
 	}
 
 	@Override
-	public void abillityAdded(Abillity abillity) {
+	public void abilityAdded(Ability abillity) {
 		for(TouchHandle handle : abillity.getTouchHandle()) touchHandleAdded(handle);
 		for(TouchMarker marker : abillity.getTouchMarker()) touchMarkerAdded(marker);
 		
@@ -219,7 +242,7 @@ public class CollisionManager implements CollidableListener, EntityListener{
 	}
 
 	@Override
-	public void abillityRemoved(Abillity abillity) {
+	public void abilityRemoved(Ability abillity) {
 		for(TouchHandle handle : abillity.getTouchHandle()) touchHandleRemoved(handle);
 		for(TouchMarker marker : abillity.getTouchMarker()) touchMarkerRemoved(marker);
 		

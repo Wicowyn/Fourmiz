@@ -21,13 +21,13 @@
 package fourmiz.abillity;
 
 import fourmiz.collision.Entity;
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 
-public class Anthill extends Abillity{
+public class Anthill extends Ability{
 
 	public Anthill(Entity owner) {
 		super(owner);
-		this.getOwner().addAbillity(new Queen(getOwner()));
+		this.getOwner().addAbility(new Queen(getOwner()));
 	}
 
 	@Override

@@ -18,8 +18,15 @@
     along with Fourmiz.  If not, see <http://www.gnu.org/licenses/>.
 *///////////////////////////////////////////////////////////////////////
 
-package fourmiz.engine;
+package fourmiz;
 
+import fourmiz.collision.TouchHandle;
+import fourmiz.collision.TouchMarker;
+
+/**
+ * Define type marker used, is not part of Engine. See {@link TouchHandle#getType()} and {@link TouchMarker#getType()}
+ * @author Nicolas
+ */
 public final class CollisionType {
 	public static final int LIFE=0;
 	public static final int TO_DESTROY=1;

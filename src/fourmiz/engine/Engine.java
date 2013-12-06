@@ -21,7 +21,6 @@
 package fourmiz.engine;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,10 +38,14 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
-import tools.ResourceManager;
+import tools.RessourceManager;
 import fourmiz.collision.CollisionManager;
 import fourmiz.collision.Entity;
 
+/**
+ * Class to load level from xml files and handle cadence all entities
+ * @author Nicolas
+ */
 public class Engine {
 	public static int SIZE_CASE=100;
 	private int xCase, yCase;
@@ -58,20 +61,21 @@ public class Engine {
 	private static String mapSuffix="-map.xml";
 	private static String resourcePath="ressources/";
 	private String currentGame;
-	private ResourceManager ressources=new ResourceManager();
-    
-    public Engine(){
-            
-    }
+	private RessourceManager ressources=new RessourceManager();
+	
     
     public static Shape getDefaultShape(){
     	return new Rectangle(0, 0, SIZE_CASE, SIZE_CASE);
     }
     
-    public ResourceManager getRessources() {
+    public RessourceManager getRessources() {
 		return ressources;
 	}
-
+    
+    /**
+	 * Callback method called at each cycle, it call each {@link Entity#update(int)} of entity contained
+	 * @param delta time elapsed from last call
+	 */
 	public void update(int delta){
         for(Entity entity : entities) entity.update(delta);
         checkEntityBuff();
@@ -79,6 +83,10 @@ public class Engine {
         checkEntityBuff();
     }
     
+	/**
+	 * Like we can't add or remove {@link Entity} during update phase we must add temporary this change to different
+	 * list. This method check is temporary {@link Entity} exist and if is the case, it add them to right mode.
+	 */
     public void checkEntityBuff(){
     	entities.addAll(entitiesAdd);
     	collisionManager.addEntity(entitiesAdd);
@@ -93,6 +101,10 @@ public class Engine {
         entitiesRemove.clear();
     }
     
+    /**
+	 * Return copy of {@link ArrayList} of all {@link Entity} contained
+	 * @return the list
+	 */
     public List<Entity> getEntities(){
         return this.entities;
     }
@@ -132,6 +144,10 @@ public class Engine {
         return list;
     }
 	
+    /**
+     * Return list of possible game to load
+     * @return
+     */
 	public static List<String> getPossibleGame(){
 		List<String> listMap=new ArrayList<String>();
 		List<String> listRender=new ArrayList<String>();
@@ -153,6 +169,13 @@ public class Engine {
 		return listMap;
 	}
     
+	/**
+	 * Load a specific game
+	 * @param name
+	 * @throws JDOMException
+	 * @throws IOException
+	 * @throws SlickException
+	 */
     public void loadLevel(String name) throws JDOMException, IOException, SlickException{
     	currentGame=name;
     	ressources.load(resourcePath+currentGame+renderSuffix);
@@ -178,6 +201,10 @@ public class Engine {
         this.loaded=true;
     }
     
+    /**
+     * Parse configuration part of xml
+     * @param configs
+     */
     private void loadConfig(Collection<Element> configs){
     	for(Element elem : configs){
             switch(elem.getName()){
@@ -195,6 +222,11 @@ public class Engine {
         }
     }
     
+    /**
+     * Parse entity part of xml
+     * @param elems
+     * @throws DataConversionException
+     */
     private void loadEntity(Collection<Element> elems) throws DataConversionException{
     	for(Element elem : elems){
             Entity entity=null;
@@ -244,18 +276,6 @@ public class Engine {
             addEntity(entity);                        
         }
     }
-
-    public List<String> getListGame(){
-        File directory=new File("ressources/map");
-        GameFileFilter filter=new GameFileFilter();
-        File[] arrayFile=directory.listFiles(filter);
-        List<String> list=new ArrayList<String>();
-        for(File file : arrayFile){
-                list.add(file.getName().substring(0, file.getName().indexOf(".")));
-        }
-        
-        return list;
-    }
     
     public int getxCase() {
 		return xCase;
@@ -289,6 +309,9 @@ public class Engine {
 		this.yScale = yScale;
 	}
 
+	/**
+	 * Unload the engine of all his entity and other
+	 */
 	public void unLoad(){
         for(Entity entity : this.entities) entity.clear();
         
@@ -318,14 +341,5 @@ public class Engine {
     
     protected void notifyEntityRemoved(Entity entity){
         for(EngineListener listener : this.listeners) listener.entityRemoved(entity);
-    }
-    
-    private static class GameFileFilter implements FilenameFilter{
-
-        @Override
-        public boolean accept(File dir, String name) {
-            return name.endsWith(".xml");
-        }
-            
     }
 }

@@ -24,10 +24,10 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import fourmiz.collision.Entity;
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 import fourmiz.engine.Engine;
 
-public class ShapeMove extends Abillity {
+public class ShapeMove extends Ability {
 	/**
 	 * At each times where {@link ShapeMove#lastUpdate} equal {@link Engine#SIZE_CASE} we update our direction by a beam of {@value ShapeMove#beamMove} percent
 	 */

@@ -21,12 +21,12 @@
 package fourmiz.abillity;
 
 import fourmiz.collision.Entity;
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 import fourmiz.engine.Engine;
 import fourmiz.engine.EntityFactory;
 import fourmiz.engine.EntityName;
 
-public class Level extends Abillity {	
+public class Level extends Ability {	
 	private static final int EGGS_TIME=20*1000;
 	private static final int LARVA_TIME=EGGS_TIME+20*1000;
 	private static final int NYMPH_TIME=LARVA_TIME+20*1000;

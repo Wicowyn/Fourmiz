@@ -21,9 +21,9 @@
 package fourmiz.abillity;
 
 import fourmiz.collision.Entity;
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 
-public class FourmizWorker extends Abillity
+public class FourmizWorker extends Ability
 {
 	public boolean buzy = false;
 	

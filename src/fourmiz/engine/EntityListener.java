@@ -20,8 +20,23 @@
 
 package fourmiz.engine;
 
+
+/**
+ * Interface definition for callback when {@link Ability} is added or removed, and when position is updated
+ * @author Nicolas
+ */
 public interface EntityListener {
-	public void abillityAdded(Abillity abillity);
-	public void abillityRemoved(Abillity abillity);
+	/**
+	 * {@link Ability} has added 
+	 * @param abillity
+	 */
+	public void abilityAdded(Ability abillity);
+	/**
+	 * {@link Ability} has removed
+	 */
+	public void abilityRemoved(Ability abillity);
+	/**
+	 * Position or direction has updated
+	 */
 	public void positionUpdated();
 }

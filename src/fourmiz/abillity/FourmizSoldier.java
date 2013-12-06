@@ -21,9 +21,9 @@
 package fourmiz.abillity;
 
 import fourmiz.collision.Entity;
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 
-public class FourmizSoldier extends Abillity{
+public class FourmizSoldier extends Ability{
 	private Life currentLife = new Life(getOwner());
 
 	public FourmizSoldier(Entity owner) {

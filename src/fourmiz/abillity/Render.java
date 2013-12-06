@@ -25,9 +25,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
 
 import fourmiz.collision.Entity;
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 
-public abstract class Render extends Abillity {
+public abstract class Render extends Ability {
 
 	public Render(Entity owner) {
 		super(owner);

@@ -20,8 +20,8 @@
 
 package fourmiz.touch.marker;
 
+import fourmiz.CollisionType;
 import fourmiz.collision.TouchMarker;
-import fourmiz.engine.CollisionType;
 
 public abstract class FoodMarker extends TouchMarker {
 

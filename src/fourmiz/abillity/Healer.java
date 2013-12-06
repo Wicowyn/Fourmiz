@@ -30,19 +30,19 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
 
+import fourmiz.CollisionType;
 import fourmiz.collision.CollideType;
 import fourmiz.collision.Entity;
 import fourmiz.collision.TouchHandle;
 import fourmiz.collision.TouchMarker;
-import fourmiz.engine.Abillity;
-import fourmiz.engine.CollisionType;
+import fourmiz.engine.Ability;
 import fourmiz.engine.Engine;
 import fourmiz.engine.EngineListener;
 import fourmiz.engine.EntityListener;
 import fourmiz.touch.marker.FoodMarker;
 import fourmiz.touch.marker.LifeMarker;
 
-public class Healer extends Abillity implements EntityListener, EngineListener{
+public class Healer extends Ability implements EntityListener, EngineListener{
 	private static Logger log=LogManager.getLogger(Healer.class);
 	private List<SearchStatic> searchAreaStatic=new ArrayList<SearchStatic>();
 	private List<HealStatic> healAreaStatic=new ArrayList<HealStatic>();
@@ -217,12 +217,12 @@ public class Healer extends Abillity implements EntityListener, EngineListener{
 	}
 
 	@Override
-	public void abillityAdded(Abillity abillity) {
+	public void abilityAdded(Ability abillity) {
 		
 	}
 
 	@Override
-	public void abillityRemoved(Abillity abillity) {
+	public void abilityRemoved(Ability abillity) {
 		
 	}
 

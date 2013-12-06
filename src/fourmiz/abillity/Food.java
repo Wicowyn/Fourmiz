@@ -25,11 +25,11 @@ import org.apache.logging.log4j.Logger;
 import org.newdawn.slick.geom.Shape;
 
 import fourmiz.collision.Entity;
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 import fourmiz.touch.marker.FoodMarker;
 
 //la nourriture est une entit� � part enti�re
-public class Food extends Abillity {
+public class Food extends Ability {
 	private static Logger log=LogManager.getLogger(Food.class);
 	//quantit� de nourriture exploitable pour l'entit�
 	private int food;

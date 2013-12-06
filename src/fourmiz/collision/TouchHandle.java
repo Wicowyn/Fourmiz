@@ -22,17 +22,59 @@ package fourmiz.collision;
 
 import org.newdawn.slick.geom.Shape;
 
+/**
+ * Class to define an area where we went to be alerted via {@link #perform(TouchMarker)} of specific {@link TouchMarker}
+ * @author Nicolas
+ */
 public abstract class TouchHandle implements Comparable<TouchHandle> {
+	/**
+	 * Special value to indicate no limit of alert. See {@link #maxCollideByCycle()}
+	 */
 	public static final int NO_COLLIDE_LIMIT=-1;
+	/**
+	 * Give the marker type wanted
+	 * @return the type
+	 */
 	public abstract int getType();
+	/**
+	 * Give the owner entity which the handler is attached
+	 * @return the owner entity
+	 */
 	public abstract Entity getOwner();
+	/**
+	 * Give the area where we want to be alerted
+	 * @return The area
+	 */
 	public abstract Shape getArea();
 	
+	/**
+	 * Set the priority. {@link TouchHandle} with the upper priority will be execute before other during 
+	 * the resolution phase of conflict collision
+	 * @param priority
+	 */
+	@Deprecated
 	public abstract void setPriority(int priority);
+	/**
+	 * Return the priority. See {@link #setPriority(int)}
+	 * @return
+	 */
+	@Deprecated
 	public abstract int getPriority();
+	/**
+	 * Return the {@link CollideType} that we want to be alerted
+	 * @return the type
+	 */
 	public abstract CollideType getCollideType();
+	/**
+	 * Return the max number of alert by cycle that we want to be alerted
+	 * @return max number of alert by cycle or {@link #NO_COLLIDE_LIMIT}
+	 */
 	public abstract int maxCollideByCycle();
 	
+	/**
+	 * Callback method, is call when handler collide with a marker
+	 * @param marker the {@link TouchMarker} collided
+	 */
 	public abstract void perform(TouchMarker marker);
 	
 	@Override

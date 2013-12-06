@@ -20,10 +20,30 @@
 
 package fourmiz.collision;
 
+/**
+ * Interface definition for callback when {@link TouchHandle} or {@link TouchMarker} is added or removed
+ * @author Nicolas
+ */
 public interface CollidableListener {
+	/**
+	 * {@link TouchHandle} has added
+	 * @param handle
+	 */
 	public void touchHandleAdded(TouchHandle handle);
+	/**
+	 * {@link TouchHandle} has removed
+	 * @param handle
+	 */
 	public void touchHandleRemoved(TouchHandle handle);
 	
+	/**
+	 * {@link TouchMarker} has added
+	 * @param marker
+	 */
 	public void touchMarkerAdded(TouchMarker marker);
+	/**
+	 * {@link TouchMarker} has removed
+	 * @param marker
+	 */
 	public void touchMarkerRemoved(TouchMarker marker);
 }

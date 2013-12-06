@@ -22,8 +22,24 @@ package fourmiz.collision;
 
 import org.newdawn.slick.geom.Shape;
 
+/**
+ * Class to define a marker area
+ * @author Nicolas
+ */
 public abstract class TouchMarker{
+	/**
+	 * Give the marker type
+	 * @return the type
+	 */
 	public abstract int getType();
-	public abstract Entity getOwner();
+	/**
+	 * Give the area which represent the marker
+	 * @return The area
+	 */
 	public abstract Shape getArea();
+	/**
+	 * Give the owner entity which the marker is attached
+	 * @return the owner entity
+	 */
+	public abstract Entity getOwner();
 }

@@ -27,7 +27,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import fourmiz.collision.Entity;
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 import fourmiz.engine.Engine;
 import fourmiz.engine.EngineListener;
 
@@ -35,7 +35,7 @@ import fourmiz.engine.EngineListener;
  * Classe PopPrey
  * Permet la g�n�ration des proies dans un certain p�rim�tre
  */
-public class PopPrey extends Abillity implements EngineListener{
+public class PopPrey extends Ability implements EngineListener{
 	private List<Entity> list=new ArrayList<Entity>();
 	private Shape area;
 	private int maxPrey=5;
@@ -89,16 +89,16 @@ public class PopPrey extends Abillity implements EngineListener{
 		Prey preyA=new Prey(prey);
 		preyA.setLife(160);
 		preyA.setFood(100);
-		prey.addAbillity(preyA);
+		prey.addAbility(preyA);
 		
 		ShapeMove move=new ShapeMove(prey);
 		move.setSpeed(2);
 		move.setArea(getArea());
-		prey.addAbillity(move);
+		prey.addAbility(move);
 		
 		RealRender render=new RealRender(prey);
 		render.setAnimation(getOwner().getEngine().getRessources().getAnimation("Prey"));
-		prey.addAbillity(render);
+		prey.addAbility(render);
 		
 		Vector2f position=new Vector2f(
 				getArea().getCenterX(),

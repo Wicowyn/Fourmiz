@@ -28,40 +28,81 @@ import fourmiz.collision.Entity;
 import fourmiz.collision.TouchHandle;
 import fourmiz.collision.TouchMarker;
 
-public abstract class Abillity {
+/**
+ * It the main class of the engine, it define an ability like move, life or even suicide
+ * @author Nicolas
+ */
+public abstract class Ability {
 	private List<CollidableListener> collidableListeners=new ArrayList<CollidableListener>();
 	private List<TouchHandle> touchHandle=new ArrayList<TouchHandle>(0);
 	private List<TouchMarker> touchMarker=new ArrayList<TouchMarker>(0);
 	protected int ID;
+	private static int lastID;
 	private Entity owner;
 	
+	{
+		this.ID=Ability.lastID++;
+	}
 	
-	public Abillity(Entity owner){
+	/**
+	 * Constructor
+	 * @param owner the {@link Entity} attached to this Ability
+	 */
+	public Ability(Entity owner){
 		setOwner(owner);
 	}
 	
+	/**
+	 * Return entity's ID
+	 * @return ID
+	 */
 	public int getID(){
 		return this.ID;
 	}
 	
+	/**
+	 * Set the owner/creator of this entity
+	 * @param owner
+	 */
 	public void setOwner(Entity entity){
 		this.owner=entity;
 	}
 	
+	/**
+	 * Return the owner/creator of this entity
+	 * @return
+	 */
 	public Entity getOwner() {
 		return owner;
 	}
 
+	/**
+	 * Callback method called at each cycle by {@link Entity#update(int)}
+	 * @param delta time elapsed from last call
+	 */
 	public abstract void update(int delta);
 	
+	/**
+	 * Return current list {@link TouchMarker}
+	 * @return
+	 */
 	public ArrayList<? extends TouchMarker> getTouchMarker(){
 		return new ArrayList<TouchMarker>(touchMarker);
 	}
 	
+	/**
+	 * Return current list {@link TouchHandle}
+	 * @return
+	 */
 	public ArrayList<? extends TouchHandle> getTouchHandle(){
 		return new ArrayList<TouchHandle>(touchHandle);
 	}
 	
+	/**
+	 * Add {@link TouchMarker} to be matched
+	 * @param marker 
+	 * @return true if not already added
+	 */
 	protected boolean addTouchMarker(TouchMarker marker){
 		boolean added=touchMarker.add(marker);
 		
@@ -70,6 +111,11 @@ public abstract class Abillity {
 		return added;
 	}
 	
+	 /**
+	  * Remove {@link TouchMarker} not be found
+	  * @param marker
+	  * @return false if not found
+	  */
 	protected boolean removeTouchMarked(TouchMarker marker){
 		boolean removed=touchMarker.remove(marker);
 		
@@ -78,6 +124,11 @@ public abstract class Abillity {
 		return removed;
 	}
 	
+	/**
+	 * Add {@link TouchHandle} to match {@link TouchMarker}
+	 * @param handle
+	 * @return true if already added
+	 */
 	protected boolean addTouchHandle(TouchHandle handle){
 		boolean added=touchHandle.add(handle);
 		
@@ -86,6 +137,11 @@ public abstract class Abillity {
 		return added;
 	}
 	
+	/**
+	 * Remove {@link TouchHandle} to doesn't match {@link TouchMarker}
+	 * @param handle
+	 * @return false if not found
+	 */
 	protected boolean removeTouchHandle(TouchHandle handle){
 		boolean removed=touchHandle.remove(handle);
 		
@@ -94,10 +150,20 @@ public abstract class Abillity {
 		return removed;
 	}
 	
+	/**
+	 * Add the given {@link CollidableListener}
+	 * @param listener
+	 * @return true if doesn't already added
+	 */
 	public void addCollidableListener(CollidableListener listener){
 		collidableListeners.add(listener);
 	}
 	
+	/**
+	 * Remove the given {@link CollidableListener}
+	 * @param listener
+	 * @return false if doesn't exist
+	 */
 	public boolean removeCollidableListener(CollidableListener listener){
 		return collidableListeners.remove(listener);
 	}
