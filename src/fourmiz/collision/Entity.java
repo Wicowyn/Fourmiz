@@ -129,9 +129,9 @@ public final class Entity{
 	}
 	
 	/**
-	 * Remove {@value Ability} from this entity
+	 * Remove {@link Ability} from this entity
 	 * @param ability ability removed
-	 * @return
+	 * @return false if not found
 	 */
 	public boolean removeAbility(Ability ability){
 		if(this.inUpdate){
@@ -159,7 +159,7 @@ public final class Entity{
 	/**
 	 * Get {@link Ability} by his ID
 	 * @param ID
-	 * @return
+	 * @return the ability or null if not found
 	 */
 	public Ability getAbility(int ID){
 		for(Ability ability : this.abillities){
@@ -249,7 +249,7 @@ public final class Entity{
 	
 	/**
 	 * Return the owner/creator of this entity
-	 * @return
+	 * @return his owner
 	 */
 	public Entity getOwner(){
 		return this.owner;
@@ -303,7 +303,7 @@ public final class Entity{
 	
 	/**
 	 * Return the shape placed in function of position and direction
-	 * @return
+	 * @return the shape
 	 */
 	public Shape getCollisionShape(){
 		if(modifNCS){

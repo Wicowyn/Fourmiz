@@ -44,7 +44,7 @@ public class EntityFactory {
 	 * Fonction permettant la cr�ation d'une entit�
 	 * @param name
 	 * @param engine
-	 * @return
+	 * @return the created entity
 	 */
 	public static Entity createEntity(EntityName name, Engine engine){
 		Entity entity=new Entity(engine, Engine.getDefaultShape());

@@ -166,7 +166,7 @@ public class Healer extends Ability implements EntityListener, EngineListener{
 
 	/**
 	 * Set the food stock
-	 * @param attack in point  by second
+	 * @param foodStock in point  by second
 	 */
 	public void setFood(int foodStock) {
 		this.foodStock=foodStock;

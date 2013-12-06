@@ -29,7 +29,7 @@ import fourmiz.engine.Engine;
 
 public class ShapeMove extends Ability {
 	/**
-	 * At each times where {@link ShapeMove#lastUpdate} equal {@link Engine#SIZE_CASE} we update our direction by a beam of {@value ShapeMove#beamMove} percent
+	 * At each times where {@link ShapeMove#lastUpdate} equal {@link Engine#SIZE_CASE} we update our direction by a beam of {@link ShapeMove#beamMove} percent
 	 */
 	private int beamMove=20;
 	private float speed=1;

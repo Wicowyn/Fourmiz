@@ -56,7 +56,7 @@ public abstract class TouchHandle implements Comparable<TouchHandle> {
 	public abstract void setPriority(int priority);
 	/**
 	 * Return the priority. See {@link #setPriority(int)}
-	 * @return
+	 * @return the current priority
 	 */
 	@Deprecated
 	public abstract int getPriority();

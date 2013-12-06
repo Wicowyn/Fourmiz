@@ -32,7 +32,7 @@ public abstract class FoodMarker extends TouchMarker {
 	
 	/**
 	 * Total of food in
-	 * @return
+	 * @return amount of food
 	 */
 	public abstract int getTotalFood();
 	/**

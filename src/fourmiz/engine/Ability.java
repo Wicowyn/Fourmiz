@@ -62,7 +62,7 @@ public abstract class Ability {
 	
 	/**
 	 * Set the owner/creator of this entity
-	 * @param owner
+	 * @param entity the new owner
 	 */
 	public void setOwner(Entity entity){
 		this.owner=entity;
@@ -70,7 +70,7 @@ public abstract class Ability {
 	
 	/**
 	 * Return the owner/creator of this entity
-	 * @return
+	 * @return the owner
 	 */
 	public Entity getOwner() {
 		return owner;
@@ -84,7 +84,7 @@ public abstract class Ability {
 	
 	/**
 	 * Return current list {@link TouchMarker}
-	 * @return
+	 * @return the list
 	 */
 	public ArrayList<? extends TouchMarker> getTouchMarker(){
 		return new ArrayList<TouchMarker>(touchMarker);
@@ -92,7 +92,7 @@ public abstract class Ability {
 	
 	/**
 	 * Return current list {@link TouchHandle}
-	 * @return
+	 * @return the list
 	 */
 	public ArrayList<? extends TouchHandle> getTouchHandle(){
 		return new ArrayList<TouchHandle>(touchHandle);
@@ -152,16 +152,16 @@ public abstract class Ability {
 	
 	/**
 	 * Add the given {@link CollidableListener}
-	 * @param listener
+	 * @param listener the listener
 	 * @return true if doesn't already added
 	 */
-	public void addCollidableListener(CollidableListener listener){
-		collidableListeners.add(listener);
+	public boolean addCollidableListener(CollidableListener listener){
+		return collidableListeners.add(listener);
 	}
 	
 	/**
 	 * Remove the given {@link CollidableListener}
-	 * @param listener
+	 * @param listener the listener
 	 * @return false if doesn't exist
 	 */
 	public boolean removeCollidableListener(CollidableListener listener){

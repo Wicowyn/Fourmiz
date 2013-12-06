@@ -146,7 +146,7 @@ public class Engine {
 	
     /**
      * Return list of possible game to load
-     * @return
+     * @return the list of game
      */
 	public static List<String> getPossibleGame(){
 		List<String> listMap=new ArrayList<String>();
