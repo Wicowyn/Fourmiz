@@ -25,13 +25,13 @@ import java.util.ArrayList;
 import org.newdawn.slick.geom.Vector2f;
 
 import fourmiz.collision.Entity;
-import fourmiz.engine.Abillity;
+import fourmiz.engine.Ability;
 import fourmiz.engine.Engine;
 import fourmiz.engine.EngineListener;
 import fourmiz.engine.EntityFactory;
 import fourmiz.engine.EntityName;
 
-public class Queen extends Abillity implements EngineListener{
+public class Queen extends Ability implements EngineListener{
 	private int time;
 	private int timeToLay;
 	private int interval=10000;

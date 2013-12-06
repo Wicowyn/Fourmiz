@@ -63,52 +63,52 @@ public class EntityFactory {
 			life.setMaxLife(1000);
 			life.setCurrentLife(1000);
 			life.setUptake(10);
-			entity.addAbillity(life);
+			entity.addAbility(life);
 			
 			level = new Level(entity);
 			level.setState(LifeState.ANTHILL);
-			entity.addAbillity(level);
+			entity.addAbility(level);
 			break;
 		case Egg:
 			level=new Level(entity);
 			level.setState(LifeState.EGGS);
-			entity.addAbillity(level);
+			entity.addAbility(level);
 			
 			render.setAnimation(engine.getRessources().getAnimation("Egg"));
-			entity.addAbillity(render);
+			entity.addAbility(render);
 			break;
 		case Larva:
 			life=new Life(entity);
 			life.setMaxLife(300);
 			life.setCurrentLife(300);
 			life.setUptake(5);
-			entity.addAbillity(life);
+			entity.addAbility(life);
 			
 			level=new Level(entity);
 			level.setState(LifeState.LARVA);
-			entity.addAbillity(level);
+			entity.addAbility(level);
 			
 			render.setAnimation(engine.getRessources().getAnimation("Larva"));
-			entity.addAbillity(render);
+			entity.addAbility(render);
 			break;
 		case Nymph:
 			level=new Level(entity);
 			level.setState(LifeState.NYMPH);
-			entity.addAbillity(level);
+			entity.addAbility(level);
 
 			render.setAnimation(engine.getRessources().getAnimation("Nymph"));
-			entity.addAbillity(render);
+			entity.addAbility(render);
 			break;
 		case FourmizWorker:
 			level=new Level(entity);
 			level.setState(LifeState.FOURMIZ);
-			entity.addAbillity(level);
+			entity.addAbility(level);
 			
 			life=new Life(entity);
 			life.setMaxLife(150);
 			life.setCurrentLife(150);
 			life.setUptake(1);
-			entity.addAbillity(life);
+			entity.addAbility(life);
 			
 			healer = new Healer(entity);
 			healer.setMaxFoodStock(500);
@@ -118,101 +118,101 @@ public class EntityFactory {
 			healer.addStaticHealArea(preyPop);
 			healer.addStaticSearchArea(preyPop);
 			healer.setSpeed(5);
-			entity.addAbillity(healer);
+			entity.addAbility(healer);
 
 			render.setAnimation(engine.getRessources().getAnimation("FourmizWorker"));
-			entity.addAbillity(render);
+			entity.addAbility(render);
 			
 			
 			Attack fsWorker = new Attack(entity);
 			fsWorker.setAttack(50);
 			fsWorker.setSpeed(1.5f);
 			fsWorker.addStaticArea(preyPop);
-			entity.addAbillity(fsWorker);
+			entity.addAbility(fsWorker);
 			
 			break;
 		case FourmizSoldier:
 			level=new Level(entity);
 			level.setState(LifeState.FOURMIZ);
-			entity.addAbillity(level);
+			entity.addAbility(level);
 			
 			life=new Life(entity);
 			life.setMaxLife(150);
 			life.setCurrentLife(150);
 			life.setUptake(1);
-			entity.addAbillity(life);
+			entity.addAbility(life);
 			
 			move=new ShapeMove(entity);
 			move.setSpeed(2);
 			move.setArea(new Rectangle(3*Engine.SIZE_CASE, 3*Engine.SIZE_CASE, 6*Engine.SIZE_CASE, 6*Engine.SIZE_CASE));
-			entity.addAbillity(move);
+			entity.addAbility(move);
 			
 			Attack fsSoldier = new Attack(entity);
 			fsSoldier.setAttack(50);
 			fsSoldier.setSpeed(1.5f);
 			//fsSoldier.addStaticArea(anthil);
-			entity.addAbillity(fsSoldier);
+			entity.addAbility(fsSoldier);
 			
 			render.setAnimation(engine.getRessources().getAnimation("FourmizSoldier"));
-			entity.addAbillity(render);
+			entity.addAbility(render);
 			break;
 		case FourmizSex:
 			level=new Level(entity);
 			level.setState(LifeState.FOURMIZ);
-			entity.addAbillity(level);
+			entity.addAbility(level);
 			
 			life=new Life(entity);
 			life.setMaxLife(150);
 			life.setCurrentLife(150);
 			life.setUptake(1);
-			entity.addAbillity(life);
+			entity.addAbility(life);
 			
 			move=new ShapeMove(entity);
 			move.setSpeed(2);
 			move.setArea(anthil);
-			entity.addAbillity(move);
+			entity.addAbility(move);
 			
 			render.setAnimation(engine.getRessources().getAnimation("FourmizSex"));
-			entity.addAbillity(render);
+			entity.addAbility(render);
 			break;
 		case Queen:
 			level=new Level(entity);
 			level.setState(LifeState.FOURMIZ);
-			entity.addAbillity(level);
+			entity.addAbility(level);
 			
 			Queen queen=new Queen(entity);
 			queen.setInterval(1000);
 			queen.setIntervalOffset(500);
 			queen.setNbMaxEgg(100);
-			entity.addAbillity(queen);
+			entity.addAbility(queen);
 			
 			move=new ShapeMove(entity);
 			move.setSpeed(2);
 			move.setArea(anthil);
-			entity.addAbillity(move);
+			entity.addAbility(move);
 
 			render.setAnimation(engine.getRessources().getAnimation("Queen"));
-			entity.addAbillity(render);
+			entity.addAbility(render);
 			break;
 		case Dead:
 			level=new Level(entity);
 			level.setState(LifeState.DEAD);
-			entity.addAbillity(level);
+			entity.addAbility(level);
 			break;
 		case Prey:
 			Prey prey=new Prey(entity);
 			prey.setLife(160);
 			prey.setFood(356);
-			entity.addAbillity(prey);
+			entity.addAbility(prey);
 			
 			move=new ShapeMove(entity);
 			move.setSpeed(2);
 			Shape area2=new Rectangle(6*Engine.SIZE_CASE, 6*Engine.SIZE_CASE, 10*Engine.SIZE_CASE, 10*Engine.SIZE_CASE);
 			move.setArea(area2);
-			entity.addAbillity(move);
+			entity.addAbility(move);
 
 			render.setAnimation(engine.getRessources().getAnimation("Prey"));
-			entity.addAbillity(render);
+			entity.addAbility(render);
 			break;
 		case PopPrey:
 
@@ -221,7 +221,7 @@ public class EntityFactory {
 			popPrey.setArea(preyPop);
 			popPrey.setMaxPrey(50);
 			popPrey.setPopDelay(1000);
-			entity.addAbillity(popPrey);
+			entity.addAbility(popPrey);
 			break;
 		default:
 			EntityFactory.log.fatal("Value : "+name+" don't handle");
